@@ -1,21 +1,30 @@
 "use client";
-import React, { ChangeEvent } from "react";
-
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch, useAppStore } from "../lib/hooks";
 import { updateInvoiceField } from "../lib/features/invoice/invoiceSlice";
+import { generatePdfAndConvert } from "../lib/features/invoice/action";
+import Inv from "@/components/reports/Invoice";
+import data from "@/components/reports/data/invoice";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 
 const Form = () => {
-  const count = useAppSelector((state) => state.counter);
-  console.log(count);
-
+  const dispatch = useAppDispatch();
+  const [count, _] = useState(
+    useAppSelector((state: RootState) => state.counter)
+  );
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    e.preventDefault();
     const { name, value } = e.target;
-    console.log(name, value);
     dispatch(updateInvoiceField({ name, value }));
   };
-  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(generatePdfAndConvert(Inv, count));
+  },[]);
+
   return (
     <div className="grid grid-cols-12 grid-rows-2 gap-10">
       <form className="space-y-4 col-start-2 col-end-7">

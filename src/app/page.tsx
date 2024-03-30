@@ -10,7 +10,8 @@ export default function Home() {
       <section className="w-3/5 relative">
         <Form />
       </section>
-      <div className="w-2/5 relative">
+
+      <div className="w-2/5 bg-gray-300 relative">
         <Test />
       </div>
     </main>

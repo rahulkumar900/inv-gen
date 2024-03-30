@@ -6,6 +6,9 @@ interface Item {
 }
 
 export interface Invoice {
+  base64String: string | null;
+  loading: boolean;
+  error: string | null;
   id: string;
   invoice_no: string;
   invoice_date: string;
@@ -40,4 +43,5 @@ export interface Invoice {
   trans_date: string;
   due_date: string;
   items: Item[];
+  [key: string]: string | null | boolean | Item[]; // Add an index signature
 }
