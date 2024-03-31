@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useRef } from "react";
 import { useAppSelector, useAppDispatch, useAppStore } from "../lib/hooks";
 import { updateInvoiceField } from "../lib/features/invoice/invoiceSlice";
 import { generatePdfAndConvert } from "../lib/features/invoice/action";
@@ -10,20 +10,18 @@ import { RootState } from "@/lib/store";
 
 const Form = () => {
   const dispatch = useAppDispatch();
-  const [count, _] = useState(
-    useAppSelector((state: RootState) => state.counter)
-  );
+  let count = useAppSelector((state: RootState) => state.counter);
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     e.preventDefault();
     const { name, value } = e.target;
     dispatch(updateInvoiceField({ name, value }));
+    const updatedCount = { ...count, [name]: value };
+    setTimeout(() => {
+      dispatch(generatePdfAndConvert(Inv, updatedCount));
+    }, 5000); // 10 seconds delay
   };
-
-  useEffect(() => {
-    dispatch(generatePdfAndConvert(Inv, count));
-  },[]);
 
   return (
     <div className="grid grid-cols-12 grid-rows-2 gap-10">

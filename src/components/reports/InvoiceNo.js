@@ -62,7 +62,7 @@ const InvoiceNo = ({ invoice }) => (
           <Text style={styles.label}>Order No: </Text>
           <Text style={styles.text}>:</Text>
           <View style={styles.textC}>
-            <Text style={styles.text}>{invoice.order_number}</Text>
+            <Text style={styles.text}>{invoice.order_no}</Text>
           </View>
         </View>
         <View style={styles.invoiceDateContainer}>
