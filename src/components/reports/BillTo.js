@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     fontFamily: "Helvetica-Oblique",
   },
   col2: {
-    marginTop: 36,
+    marginTop: 20,
+    marginBottom: 20,
     flexDirection: "row",
     gap: 24,
   },

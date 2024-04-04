@@ -11,17 +11,51 @@ import { RootState } from "@/lib/store";
 const Form = () => {
   const dispatch = useAppDispatch();
   let count = useAppSelector((state: RootState) => state.counter);
+  // Define a debounce function
+  const debounce = (func, delay: number) => {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
+
+  // Wrap your handleChange function with debounce
+  const debouncedHandleChange = debounce(
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      dispatch(updateInvoiceField({ name, value }));
+      const updatedCount = { ...count, [name]: value };
+      dispatch(generatePdfAndConvert(Inv, updatedCount));
+    },
+    500
+  ); // Change delay according to your preference
+
+  // Your original handleChange function
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     e.preventDefault();
-    const { name, value } = e.target;
-    dispatch(updateInvoiceField({ name, value }));
-    const updatedCount = { ...count, [name]: value };
-    setTimeout(() => {
-      dispatch(generatePdfAndConvert(Inv, updatedCount));
-    }, 5000); // 10 seconds delay
+    debouncedHandleChange(e);
   };
+
+  // const handleChange = (
+  //   e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  // ) => {
+  //   e.preventDefault();
+  //   const { name, value } = e.target;
+  //   dispatch(updateInvoiceField({ name, value }));
+  //   const updatedCount = { ...count, [name]: value };
+  //   setTimeout(() => {
+  //     dispatch(generatePdfAndConvert(Inv, updatedCount));
+  //   }, 5000); // 10 seconds delay
+  // };
+
+  useEffect(() => {
+    dispatch(generatePdfAndConvert(Inv, count));
+  }, []);
 
   return (
     <div className="grid grid-cols-12 grid-rows-2 gap-10">

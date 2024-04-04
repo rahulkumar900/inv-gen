@@ -19,6 +19,7 @@ const BillFrom = ({ invoice }) => (
     <Text>{invoice.address}</Text>
     <Text>{invoice.phone}</Text>
     <Text>{invoice.email}</Text>
+    <Text>{invoice.gst_pan.toUpperCase()}</Text>
   </View>
 );
 

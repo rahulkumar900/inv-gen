@@ -110,10 +110,7 @@ export default function Test() {
         <h1>react-pdf sample page</h1>
       </header> */}
       <div className="Example__container  ">
-        <div
-          className="Example__container__document bg-black"
-          ref={setContainerRef}
-        >
+        <div className="Example__container__document " ref={setContainerRef}>
           <Document
             file={base64String}
             onLoadSuccess={onDocumentLoadSuccess}
