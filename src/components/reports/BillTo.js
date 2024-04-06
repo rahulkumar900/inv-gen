@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   col2: {
     // marginTop: 20,
-    marginBottom: 20,
+    // marginBottom: 20,
     flexDirection: "row",
     // gap: 24,
     border: 1,
