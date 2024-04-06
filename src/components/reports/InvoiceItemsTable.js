@@ -6,7 +6,7 @@ import InvoiceTableBlankSpace from "./InvoiceTableBlankSpace";
 import InvoiceTableFooter from "./InvoiceTableFooter";
 import InvoiceFooter from "./invoiceFooter";
 
-const tableRowsCount = 20;
+const tableRowsCount = 9;
 
 const styles = StyleSheet.create({
   tableContainer: {

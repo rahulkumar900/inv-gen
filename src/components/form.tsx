@@ -12,7 +12,7 @@ const Form = () => {
   const dispatch = useAppDispatch();
   let count = useAppSelector((state: RootState) => state.counter);
   // Define a debounce function
-  const debounce = (func, delay: number) => {
+  const debounce = (func: Function, delay: number) => {
     let timeoutId;
     return (...args) => {
       clearTimeout(timeoutId);

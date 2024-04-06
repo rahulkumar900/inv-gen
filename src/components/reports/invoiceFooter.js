@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 12,
   },
 });
 
@@ -50,7 +50,7 @@ const InvoiceFooter = ({ items }) => {
       </View>
       <View style={styles.words}>
         <Text style={styles.bold}>
-          INR twenty three Lakh sixty seven thousand thirty only
+          INR Twenty three Lakh Sixty Seven Thousand Thirty Only
         </Text>
       </View>
     </View>
