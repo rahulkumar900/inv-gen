@@ -4,19 +4,18 @@ import InvoiceTableHeader from "./InvoiceTableHeader";
 import InvoiceTableRow from "./InvoiceTableRow";
 import InvoiceTableBlankSpace from "./InvoiceTableBlankSpace";
 import InvoiceTableFooter from "./InvoiceTableFooter";
-import InvoiceFooter from "./invoiceFooter";
 
-const tableRowsCount = 9;
+const tableRowsCount = 13;
 
 const styles = StyleSheet.create({
   tableContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
 
-    marginBottom: 20,
-
     borderWidth: 1,
-    borderColor: "#bff0fd",
+    borderBottom: 0,
+    borderTop: 0,
+    borderColor: "black",
   },
 });
 
@@ -26,7 +25,6 @@ const InvoiceItemsTable = ({ invoice }) => (
     <InvoiceTableRow items={invoice.items} />
     <InvoiceTableBlankSpace rowsCount={tableRowsCount - invoice.items.length} />
     <InvoiceTableFooter items={invoice.items} />
-    <InvoiceFooter items={invoice.items} />
   </View>
 );
 

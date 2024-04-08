@@ -1,11 +1,11 @@
 import React from "react";
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
 
-const borderColor = "#90e5fc";
+const borderColor = "black";
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
-    borderBottomColor: "#bff0fd",
+    borderBottomColor: borderColor,
     borderBottomWidth: 1,
     alignItems: "center",
     height: 24,
@@ -41,7 +41,7 @@ const InvoiceTableFooter = ({ items }) => {
           {Number.parseFloat(gstAmount).toFixed(2)}
         </Text>
       </View>
-      <View style={styles.row}>
+      <View style={[styles.row, { borderBottom: 0 }]}>
         <Text style={styles.description}>TOTAL</Text>
         <Text style={styles.total}>
           {Number.parseFloat(withgst).toFixed(2)}

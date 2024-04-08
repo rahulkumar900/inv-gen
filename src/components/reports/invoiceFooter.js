@@ -31,9 +31,10 @@ const styles = StyleSheet.create({
   },
   wordsContainer: {
     width: "100%",
+    padding: 4,
     borderTopWidth: 0,
     borderWidth: 1,
-    borderColor: "#bff0fd",
+    // borderColor: "#bff0fd",
   },
   bold: {
     fontWeight: "bold",

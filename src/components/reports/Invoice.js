@@ -5,6 +5,7 @@ import BillTo from "./BillTo";
 import InvoiceNo from "./InvoiceNo";
 import InvoiceItemsTable from "./InvoiceItemsTable";
 import InvoiceFooter from "./invoiceFooter";
+import BankWithSign from "./bankWithSign";
 import InvoiceThankYouMsg from "./InvoiceThankYouMsg";
 
 const styles = StyleSheet.create({
@@ -36,7 +37,7 @@ const Invoice = (invoice) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Image style={styles.logo} src="logo.png" alt="logo" fixed />
+        {/* <Image style={styles.logo} src="logo.png" alt="logo" fixed /> */}
         <View fixed>
           <InvoiceTitle title="Invoice" />
           <InvoiceNo invoice={invoice} />
@@ -44,7 +45,8 @@ const Invoice = (invoice) => {
         </View>
 
         <InvoiceItemsTable invoice={invoice} />
-
+        <InvoiceFooter items={invoice.items} />
+        <BankWithSign Invoice={Invoice} />
         <InvoiceThankYouMsg />
       </Page>
     </Document>
