@@ -1,14 +1,17 @@
-interface Item {
+export interface Item {
   sno: number;
   desc: string;
   qty: number;
   rate: number;
+  amount: number;
+  [key: string]: number | string | null; // Add an index signature
 }
 
 export interface Invoice {
   base64String: string | null;
   loading: boolean;
   error: string | null;
+  tableRows: number;
   id: string;
   invoice_no: string;
   invoice_date: string;
@@ -43,5 +46,5 @@ export interface Invoice {
   trans_date: string;
   due_date: string;
   items: Item[];
-  [key: string]: string | null | boolean | Item[]; // Add an index signature
+  [key: string]: number | string | null | boolean | Item[]; // Add an index signature
 }

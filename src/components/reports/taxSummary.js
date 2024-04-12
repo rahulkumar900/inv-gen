@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
 const InvoiceItemsTable = ({ invoice }) => (
   <View style={styles.tableContainer}>
     <view style={styles.fourCol}>
-      <View></View>
-      <View></View>
+      <View>HSN/SAC</View>
+      <View>Taxable Value</View>
       <View style={styles.twoCol}>
         <View></View>
         <View></View>

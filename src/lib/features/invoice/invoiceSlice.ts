@@ -1,10 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import invoice from "./data";
-import { Invoice } from "./invoiceType";
-// export interface CounterState {
-//   value: number;
-// }
+import { Invoice, Item } from "./invoiceType";
+import scientificToFloat from "./scientificFloat";
 
 const initialState: Invoice = invoice;
 
@@ -12,27 +9,70 @@ export const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    initializeCount: (state, action: PayloadAction<Invoice>) => {
-      state = action.payload;
-    },
+    initializeCount: (_, action: PayloadAction<Invoice>) => action.payload,
     updateInvoiceField: (
       state,
       action: PayloadAction<{ name: string; value: any }>
     ) => {
       const { name, value } = action.payload;
-      state[name] = value;
+      return {
+        ...state,
+        [name]: value,
+      };
     },
-    generatePdfStart(state) {
-      state.loading = true;
-      state.error = null;
+    addLine: (state) => {
+      let length = state.items.length;
+      if (length > 10) {
+        state.tableRows += 10;
+      }
+      length++;
+      state.items.push({
+        sno: length,
+        desc: " ",
+        qty: 0,
+        rate: 0,
+        amount: 0,
+      });
     },
-    generatePdfSuccess(state, action) {
-      state.loading = false;
-      state.base64String = action.payload;
+    updateItem: (
+      state,
+      action: PayloadAction<{
+        index: number;
+        changedItem: {
+          [x: string]: string | number | null;
+          amount: number;
+          sno: number;
+          desc: string;
+          qty: number;
+          rate: number;
+        };
+      }>
+    ) => {
+      const { index, changedItem } = action.payload;
+
+      state.items[index] = changedItem;
     },
-    generatePdfFailure(state, action) {
-      state.loading = false;
-      state.error = action.payload;
+
+    generatePdfStart: (state) => {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    },
+    generatePdfSuccess: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        loading: false,
+        base64String: action.payload,
+      };
+    },
+    generatePdfFailure: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     },
   },
 });
@@ -40,6 +80,8 @@ export const counterSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   initializeCount,
+  addLine,
+  updateItem,
   updateInvoiceField,
   generatePdfStart,
   generatePdfSuccess,

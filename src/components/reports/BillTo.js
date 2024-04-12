@@ -32,17 +32,17 @@ const BillTo = ({ invoice }) => (
   <View style={styles.col2}>
     <View style={styles.colA}>
       <Text style={styles.billTo}>Bill To:</Text>
-      <Text>{invoice.company}</Text>
-      <Text>{invoice.address}</Text>
-      <Text>{invoice.phone}</Text>
-      <Text>{invoice.email}</Text>
+      <Text>{invoice.b_company}</Text>
+      <Text>{invoice.b_address}</Text>
+      <Text>{invoice.b_phone}</Text>
+      <Text>{invoice.b_email}</Text>
     </View>
     <View style={styles.colB}>
       <Text style={styles.billTo}>Ship To:</Text>
-      <Text>{invoice.company}</Text>
-      <Text>{invoice.address}</Text>
-      <Text>{invoice.phone}</Text>
-      <Text>{invoice.email}</Text>
+      <Text>{invoice.s_company}</Text>
+      <Text>{invoice.s_address}</Text>
+      <Text>{invoice.s_phone}</Text>
+      <Text>{invoice.s_email}</Text>
     </View>
   </View>
 );
