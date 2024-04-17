@@ -9,7 +9,8 @@ import React, { ChangeEvent, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { generatePdfAndConvert } from "../lib/features/invoice/action";
 import debounce from "lodash/debounce";
-
+import { Button } from "./ui/button";
+import { Input } from "./ui/Input";
 const fields = ["Sl. No.", "Description", "Qty.", "Rate", "Amount"];
 
 const InputTable = () => {
@@ -52,7 +53,7 @@ const InputTable = () => {
     <section className="mt-12">
       <div className=" grid  grid-cols-12 grid-rows-2 gap-10">
         <div className="col-start-2 col-end-12">
-          <div className="grid grid-cols-5 w-full relative">
+          <div className="grid grid-cols-[1fr_3fr_1fr_2fr_2fr] w-full relative">
             {fields &&
               fields.length &&
               fields.map((li, i) => (
@@ -63,8 +64,8 @@ const InputTable = () => {
             {items && items.length
               ? items.map((li, i) => {
                   return Object.keys(li).map((key, index) => (
-                    <input
-                      className="border border-gray-500 text-gray-800 p-2 bg-white"
+                    <Input
+                      className="focus-visible:ring-0"
                       type="text"
                       disabled={key === "sno" || key === "amount"}
                       name={key}
@@ -78,12 +79,14 @@ const InputTable = () => {
                 })
               : "loading..."}
           </div>
-          <button
-            className="px-3 py-2 text-right rounded-md bg-slate-700 my-4"
+          <Button
+            // variant="secondary"
+            // variant="destructive"
+            className="my-4"
             onClick={() => dispatch(addLine())}
           >
             Add New Line
-          </button>
+          </Button>
         </div>
       </div>
     </section>

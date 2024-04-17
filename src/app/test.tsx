@@ -1,20 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { useResizeObserver } from "@wojtekmaj/react-hooks";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
-
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
-import Quixote from "./Quote";
-import Inv from "@/components/reports/Invoice";
-import data from "@/components/reports/data/invoice";
-import "./sample.css";
 
 import type { PDFDocumentProxy } from "pdfjs-dist";
-import { pdf } from "@react-pdf/renderer";
 import { useAppSelector } from "@/lib/hooks";
-
+import useResizeObserver from "@/lib/resizehooks";
+import { debounce } from "lodash";
+import { Button } from "@/components/ui/button";
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
   import.meta.url
@@ -25,34 +20,39 @@ const options = {
   standardFontDataUrl: "/standard_fonts/",
 };
 
-const resizeObserverOptions = {};
-
-// const maxWidth = 1200;
-const maxWidth = 800;
-
 type PDFFile = string | File | null;
 
+const resizeObserverOptions = {};
+
+const maxWidth = 500;
 export default function Test() {
   const [file, setFile] = useState<PDFFile>("sample.pdf");
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [base64URL, setBase64URL] = useState("");
+  const [pdfWidth, setPdfWidth] = useState<number | null>(null);
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>();
-  const [base64URL, setBase64URL] = useState("");
+
+  const debouncedOnResize = useCallback(
+    debounce<ResizeObserverCallback>(
+      (entries) => {
+        const [entry] = entries;
+        if (entry) {
+          console.log(entry.contentRect.width);
+          setContainerWidth(entry.contentRect.width);
+        }
+      },
+      300 // Debounce delay in milliseconds
+    ),
+    [setContainerWidth]
+  );
+
+  useResizeObserver(containerRef, resizeObserverOptions, debouncedOnResize);
 
   const { base64String, loading, error } = useAppSelector(
     (state) => state.counter
   );
-
-  const onResize = useCallback<ResizeObserverCallback>((entries) => {
-    const [entry] = entries;
-
-    if (entry) {
-      setContainerWidth(entry.contentRect.width);
-    }
-  }, []);
-
-  useResizeObserver(containerRef, resizeObserverOptions, onResize);
 
   function onFileChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const { files } = event.target;
@@ -105,42 +105,45 @@ export default function Test() {
   // console.log(base64Data);
 
   return (
-    <div className="Example grid place-items-center w-full h-full">
-      {/* <header>
-        <h1>react-pdf sample page</h1>
-      </header> */}
-      <div className="Example__container  ">
-        <div className="Example__container__document " ref={setContainerRef}>
-          <Document
-            file={base64String}
-            onLoadSuccess={onDocumentLoadSuccess}
-            options={options}
-          >
-            <Page
-              pageNumber={pageNumber}
-              // width={
-              //   containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
-              // }
-            />
-          </Document>
-          <div>
-            <p>
-              Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
-            </p>
-            <button
+    <div
+      // className="Example  p-4 grid   place-items-center   bg-gray-500 max-h-screen overflow-auto h-screen fixed top-0 "
+      className=" p-4 -z-2 sticky top-0 flex justify-center items-center h-screen bg-muted-foreground border-l"
+      // className="bg-blue-200 p-4 -z-2 sticky top-[48px] flex justify-center items-center h-[calc(100vh-48px)]"
+      ref={setContainerRef}
+    >
+      <div className="">
+        <Document
+          file={base64String}
+          onLoadSuccess={onDocumentLoadSuccess}
+          options={options}
+        >
+          <Page
+            pageNumber={pageNumber}
+            // width={width ? Math.min(width, maxWidth) : maxWidth}
+            width={
+              containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
+            }
+          />
+        </Document>
+        <div className="text-center">
+          <p>
+            Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
+          </p>
+          <div className="space-x-3">
+            <Button
               type="button"
               disabled={pageNumber <= 1}
               onClick={previousPage}
             >
               Previous
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
               disabled={pageNumber >= numPages}
               onClick={nextPage}
             >
               Next
-            </button>
+            </Button>
           </div>
         </div>
       </div>

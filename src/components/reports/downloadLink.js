@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { Button } from "../ui/button";
 
 const DownloadLink = ({ base64Data, fileName }) => {
   const handleDownload = () => {
@@ -36,8 +37,7 @@ const DownloadLink = ({ base64Data, fileName }) => {
       console.error("Error decoding base64 data:", error);
     }
   };
-
-  return <button onClick={handleDownload}>Download PDF</button>;
+  return <Button onClick={handleDownload}>Download PDF</Button>;
 };
 
 export default DownloadLink;
