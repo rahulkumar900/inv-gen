@@ -9,7 +9,13 @@ const DownloadButton = () => {
     (state) => state.counter // Adjust this selector according to your Redux state structure
   );
 
-  return <DownloadLink base64Data={base64String} fileName="invoice" />;
+  return (
+    <DownloadLink
+      loading={loading}
+      base64Data={base64String}
+      fileName="invoice"
+    />
+  );
 };
 
 export default DownloadButton;

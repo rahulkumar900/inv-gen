@@ -58,8 +58,8 @@ const Form = () => {
 
   return (
     <div className="">
-      <section className="grid grid-cols-12 grid-rows-2 gap-10">
-        <form className="space-y-4 col-start-2 col-end-7">
+      <section className="grid grid-cols-12 grid-rows-2 md:gap-10 px-4">
+        <form className="space-y-4 col-span-12 md:col-start-2  md:col-end-7 ">
           <Label>Bill From</Label>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
@@ -73,7 +73,7 @@ const Form = () => {
               type="text"
               id="company_name"
               defaultValue={count.company}
-              // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-full"
               placeholder="John"
               required
               name="company"
@@ -113,7 +113,7 @@ const Form = () => {
             />
           </div>
         </form>
-        <form className="space-y-4 col-start-2 col-end-7">
+        <form className="space-y-4 col-span-12 md:col-start-2 md:col-end-7">
           <Label>Bill To</Label>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
@@ -166,7 +166,7 @@ const Form = () => {
             />
           </div>
         </form>
-        <form className="space-y-4 col-start-7 col-end-12">
+        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-12">
           <Label>Ship To</Label>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
@@ -219,7 +219,7 @@ const Form = () => {
             />
           </div>
         </form>
-        <form className="space-y-4 col-start-7 col-end-12 row-start-1 row-end-2">
+        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-12 row-start-1 row-end-2">
           <div className="grid grid-cols-[130px_1fr] items-center gap-2">
             <Label
               htmlFor="invoice_no"
@@ -232,7 +232,7 @@ const Form = () => {
               type="text"
               id="invoice_no"
               name="invoice_no"
-              // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-full"
               placeholder="Invoice Number"
               required
             />

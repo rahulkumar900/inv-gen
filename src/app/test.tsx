@@ -10,6 +10,7 @@ import { useAppSelector } from "@/lib/hooks";
 import useResizeObserver from "@/lib/resizehooks";
 import { debounce } from "lodash";
 import { Button } from "@/components/ui/button";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
   import.meta.url
@@ -132,17 +133,21 @@ export default function Test() {
           <div className="space-x-3">
             <Button
               type="button"
+              variant="outline"
               disabled={pageNumber <= 1}
               onClick={previousPage}
+              size="icon"
             >
-              Previous
+              <ChevronLeft className="h-4 w-4" />
             </Button>
             <Button
               type="button"
+              variant="outline"
               disabled={pageNumber >= numPages}
               onClick={nextPage}
+              size="icon"
             >
-              Next
+              <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
         </div>

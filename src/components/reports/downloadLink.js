@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
+import { Download, Loader2, Mail } from "lucide-react";
 import { Button } from "../ui/button";
 
-const DownloadLink = ({ base64Data, fileName }) => {
+const DownloadLink = ({ base64Data, loading, fileName }) => {
   const handleDownload = () => {
     // Remove whitespaces and line breaks from the base64 string
     const splitData = base64Data.split("data:application/pdf;base64,");
@@ -37,7 +38,16 @@ const DownloadLink = ({ base64Data, fileName }) => {
       console.error("Error decoding base64 data:", error);
     }
   };
-  return <Button onClick={handleDownload}>Download PDF</Button>;
+  return (
+    <Button onClick={handleDownload} className="space-x-2" disabled={loading}>
+      {!loading ? (
+        <Download className=" h-4 w-4" />
+      ) : (
+        <Loader2 className=" h-4 w-4" />
+      )}{" "}
+      <span className="hidden md:block">Download</span>
+    </Button>
+  );
 };
 
 export default DownloadLink;

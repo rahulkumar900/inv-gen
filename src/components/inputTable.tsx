@@ -16,9 +16,7 @@ const fields = ["Sl. No.", "Description", "Qty.", "Rate", "Amount"];
 const InputTable = () => {
   const counter = useAppSelector((state) => state.counter);
   const items = counter.items;
-  console.log(items);
   const dispatch = useDispatch();
-
   const debouncedHandleItemsChange = debounce((index, changedItem, counter) => {
     let updatedState = { ...counter, items: [...counter.items] };
     updatedState.items[index] = changedItem;
@@ -50,9 +48,9 @@ const InputTable = () => {
   };
 
   return (
-    <section className="mt-12">
+    <section className="mt-12 px-4">
       <div className=" grid  grid-cols-12 grid-rows-2 gap-10">
-        <div className="col-start-2 col-end-12">
+        <div className="md:col-start-2 md:col-end-12 col-span-12">
           <div className="grid grid-cols-[1fr_3fr_1fr_2fr_2fr] w-full relative">
             {fields &&
               fields.length &&
