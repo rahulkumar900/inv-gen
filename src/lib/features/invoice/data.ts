@@ -15,6 +15,7 @@ const invoice = {
   phone: "+1 (872) 588-3809",
   address: "922 Campus Road, Drytown, Wisconsin, 1986",
   gst_pan: "dyjpk3226a",
+  state: '',
   //
   // bill to
 
@@ -23,6 +24,7 @@ const invoice = {
   b_phone: "+1 (872) 588-3809",
   b_address: "922 Campus Road, Drytown, Wisconsin, 1986",
   b_gst_pan: "dyjpk3226a",
+  b_state:'',
 
   //
   //   ship to
@@ -31,17 +33,25 @@ const invoice = {
   s_phone: "+1 (872) 588-3809",
   s_address: "922 Campus Road, Drytown, Wisconsin, 1986",
   s_gst_pan: "dyjpk3226a",
+  s_state:'',
 
   //
 
   trans_date: "2019-09-12",
   due_date: "2019-10-12",
+
+
+  // 
+  isIgst : true,
   items: [
     {
       sno: 1,
       desc: "ad sunt culpa occaecat qui",
       qty: 0,
       rate: 0,
+      cgst: 0,
+      sgst: 0,
+      igst: 0,
       amount: 0, // Calculation of Amount based on rate and qty
     },
   ],

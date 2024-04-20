@@ -15,8 +15,15 @@ export const counterSlice = createSlice({
       action: PayloadAction<{ name: string; value: any }>
     ) => {
       const { name, value } = action.payload;
+      let isIgst :boolean = state.isIgst;
+      if ((name === "state" &&  state.b_state !== value) || (name === "b_state" &&  state.state !== value)) {
+        isIgst = true;
+      } else {
+        isIgst = false;
+      }
       return {
         ...state,
+        isIgst,
         [name]: value,
       };
     },
@@ -28,9 +35,12 @@ export const counterSlice = createSlice({
       length++;
       state.items.push({
         sno: length,
-        desc: " ",
+        desc: "",
         qty: 0,
         rate: 0,
+        cgst: 0,
+        sgst: 0,
+        igst: 0,
         amount: 0,
       });
     },

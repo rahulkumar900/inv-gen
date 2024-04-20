@@ -3,6 +3,9 @@ export interface Item {
   desc: string;
   qty: number;
   rate: number;
+  cgst: number;
+  sgst: number;
+  igst: number;
   amount: number;
   [key: string]: number | string | null; // Add an index signature
 }
@@ -23,6 +26,7 @@ export interface Invoice {
   email: string;
   phone: string;
   address: string;
+  state: string;
   gst_pan: string;
   //
   // bill to
@@ -31,6 +35,7 @@ export interface Invoice {
   b_email: string;
   b_phone: string;
   b_address: string;
+  b_state:string;
   b_gst_pan: string;
 
   //
@@ -39,9 +44,12 @@ export interface Invoice {
   s_email: string;
   s_phone: string;
   s_address: string;
+  s_state: string;
   s_gst_pan: string;
 
   //
+
+  isIgst: boolean;
 
   trans_date: string;
   due_date: string;

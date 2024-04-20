@@ -8,6 +8,7 @@ import data from "@/components/reports/data/invoice";
 import { Label } from "@/components/ui/Label";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
+import SelectState from "@/components/selectState";
 
 import InputTable from "@/components/inputTable";
 import { useSelector } from "react-redux";
@@ -58,8 +59,8 @@ const Form = () => {
 
   return (
     <div className="">
-      <section className="grid grid-cols-12 grid-rows-2 md:gap-10 px-4">
-        <form className="space-y-4 col-span-12 md:col-start-2  md:col-end-7 ">
+      <section className="grid grid-cols-12 gap-4 md:grid-rows-2 md:gap-10 px-4">
+        <form className="space-y-4 col-span-12 md:col-start-1 lg:col-start-2  md:col-end-7 ">
           <Label>Bill From</Label>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
@@ -96,6 +97,10 @@ const Form = () => {
             />
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="address">State</Label>
+            <SelectState name="state" />
+          </div>
+          <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="gst_pan"
               // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -113,7 +118,7 @@ const Form = () => {
             />
           </div>
         </form>
-        <form className="space-y-4 col-span-12 md:col-start-2 md:col-end-7">
+        <form className="space-y-4 col-span-12 md:col-start-1 lg:col-start-2 md:col-end-7">
           <Label>Bill To</Label>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
@@ -149,6 +154,10 @@ const Form = () => {
             />
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="address">State</Label>
+            <SelectState name="b_state" />
+          </div>
+          <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="b_gst_pan"
               // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -166,7 +175,7 @@ const Form = () => {
             />
           </div>
         </form>
-        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-12">
+        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-12 ">
           <Label>Ship To</Label>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
@@ -185,6 +194,7 @@ const Form = () => {
               name="s_company"
             />
           </div>
+
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="s_address"
@@ -200,6 +210,10 @@ const Form = () => {
               placeholder="John"
               required
             />
+          </div>
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="address">State</Label>
+            <SelectState name="s_name" />
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
@@ -219,11 +233,10 @@ const Form = () => {
             />
           </div>
         </form>
-        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-12 row-start-1 row-end-2">
-          <div className="grid grid-cols-[130px_1fr] items-center gap-2">
+        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-12  row-start-1 row-end-2">
+          <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
             <Label
               htmlFor="invoice_no"
-              // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               #invoice Number
             </Label>
@@ -237,7 +250,7 @@ const Form = () => {
               required
             />
           </div>
-          <div className="grid grid-cols-[130px_1fr] items-center gap-2">
+          <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
             <Label
               htmlFor="invoice_date"
               // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -254,7 +267,7 @@ const Form = () => {
               required
             />
           </div>
-          <div className="grid grid-cols-[130px_1fr] items-center gap-2">
+          <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
             <Label
               htmlFor="order_no"
               // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -271,7 +284,7 @@ const Form = () => {
               required
             />
           </div>
-          <div className="grid grid-cols-[130px_1fr] items-center gap-2">
+          <div className="grid lg:grid-cols-[130px_1fr] items-center gap-2">
             <Label
               htmlFor="destination"
               // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
