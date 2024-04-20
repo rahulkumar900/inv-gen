@@ -96,7 +96,7 @@ const InputTable = () => {
   return (
     <section className="mt-12 px-4">
       <div className=" grid  grid-cols-12 grid-rows-2 ">
-        <div className=" md:col-start-1 lg:col-start-2 md:col-end-12 col-span-12">
+        <div className=" md:col-start-1 lg:col-start-2 lg:col-end-12 md:col-end-13 col-span-12">
           {/* <div className="grid border border-b-0 grid-cols-7 md:grid-cols-[min-content_2fr_1fr_1fr_1fr_1fr_1fr] w-full relative"> */}
           <div className=" border border-b-0  w-full relative">
             <div className={`md:grid hidden border-b ${isIgst ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]" :  "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]" } `}>

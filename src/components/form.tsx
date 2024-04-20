@@ -175,7 +175,7 @@ const Form = () => {
             />
           </div>
         </form>
-        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-12 ">
+        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-13 lg:col-end-12 ">
           <Label>Ship To</Label>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
@@ -211,7 +211,7 @@ const Form = () => {
               required
             />
           </div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
+          <div className="grid  w-full items-center gap-1.5">
             <Label htmlFor="address">State</Label>
             <SelectState name="s_name" />
           </div>
@@ -233,7 +233,7 @@ const Form = () => {
             />
           </div>
         </form>
-        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-12  row-start-1 row-end-2">
+        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-13 lg:col-end-12 row-start-1 row-end-2">
           <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
             <Label
               htmlFor="invoice_no"
