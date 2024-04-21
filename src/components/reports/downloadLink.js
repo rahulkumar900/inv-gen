@@ -39,13 +39,13 @@ const DownloadLink = ({ base64Data, loading, fileName }) => {
     }
   };
   return (
-    <Button onClick={handleDownload} className="space-x-2" disabled={loading}>
-      {!loading ? (
+    <Button onClick={handleDownload} variant={`${!loading ? "default" : "outline"}`} className="space-x-2" disabled={loading}>
+      {!loading  ? (
         <Download className=" h-4 w-4" />
       ) : (
         <Loader2 className=" h-4 w-4" />
       )}{" "}
-      <span className="hidden md:block">Download</span>
+      <span className="hidden md:block" disabled={base64Data}>{loading ?"Loading..." : "Download"}</span>
     </Button>
   );
 };

@@ -8,6 +8,7 @@ import InvoiceFooter from "./invoiceFooter";
 import BankWithSign from "./bankWithSign";
 import InvoiceThankYouMsg from "./InvoiceThankYouMsg";
 
+
 const styles = StyleSheet.create({
   page: {
     fontFamily: "Helvetica",
@@ -38,7 +39,7 @@ const Invoice = (invoice) => {
 
         <InvoiceItemsTable invoice={invoice} />
         <InvoiceFooter items={invoice.items} />
-        <BankWithSign Invoice={Invoice} />
+        <BankWithSign invoice={invoice} />
         <InvoiceThankYouMsg />
       </Page>
     </Document>

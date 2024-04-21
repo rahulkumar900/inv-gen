@@ -13,10 +13,10 @@ export default function Home() {
   return (
     <main className="min-h-screen ">
       <section className="grid  grid-cols-12">
-        <div className="my-8 col-span-full md:col-start-1 md:col-end-8">
+        <div className=" mt-[100px] col-span-full md:col-start-1 md:col-end-8">
           <Form />
         </div>
-        <div className=" hidden md:block col-start-8 col-end-13">
+        <div className=" h-[100vh-64px] hidden md:block col-start-8 col-end-13">
           <Test />
         </div>
       </section>

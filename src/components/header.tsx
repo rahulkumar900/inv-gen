@@ -7,7 +7,7 @@ import { ReceiptText } from "lucide-react";
 
 export default function Header() {
   return (
-    <div className="w-full border-b grid grid-cols-12  ">
+    <div className="w-full border-b grid grid-cols-12 fixed top-0 left-0 z-20  bg-background   ">
       <header className="flex justify-between  items-center py-2 px-4 h-16  col-start-1 col-end-13 ">
         <Link
           href="#"

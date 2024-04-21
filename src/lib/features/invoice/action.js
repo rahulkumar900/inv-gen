@@ -1,16 +1,22 @@
 import { pdf } from "@react-pdf/renderer";
+import { Dispatch } from 'redux';
 import {
   generatePdfStart,
   generatePdfSuccess,
   generatePdfFailure,
 } from "./invoiceSlice";
+import { Invoice } from "./invoiceType";
 
 const convertBlobToBase64 = (blob) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onloadend = () => {
-      resolve(reader.result);
+      if (typeof reader.result === 'string') {
+        resolve(reader.result);
+      } else {
+        reject(new Error("Failed to convert Blob to base64 string"));
+      }
     };
     reader.onerror = (error) => {
       reject(error);
@@ -18,9 +24,10 @@ const convertBlobToBase64 = (blob) => {
   });
 };
 
+
 // Define a generic type for the component
 
-export const generatePdfAndConvert = (Component, props) => (dispatch) => {
+export const generatePdfAndConvert =  (Component, props) => (dispatch) => {
   dispatch(generatePdfStart());
 
   pdf(<Component {...props} />)

@@ -1,10 +1,8 @@
 "use client";
-
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
-
 import type { PDFDocumentProxy } from "pdfjs-dist";
 import { useAppSelector } from "@/lib/hooks";
 import useResizeObserver from "@/lib/resizehooks";
@@ -25,7 +23,8 @@ type PDFFile = string | File | null;
 
 const resizeObserverOptions = {};
 
-const maxWidth = 500;
+const maxWidth = 400;
+const maxHeight = 400 * 1.416040100250627;
 export default function Test() {
   const [file, setFile] = useState<PDFFile>("sample.pdf");
   const [numPages, setNumPages] = useState<number>(0);
@@ -34,6 +33,8 @@ export default function Test() {
   const [pdfWidth, setPdfWidth] = useState<number | null>(null);
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>();
+
+  const memorizedOption = useMemo(() => ({ ...options }), []);
 
   const debouncedOnResize = useCallback(
     debounce<ResizeObserverCallback>(
@@ -81,74 +82,101 @@ export default function Test() {
     setNumPages(nextNumPages);
   }
 
-  const [base64Data, setBase64Data] = useState<string>("");
+  const loadSkelton = () => {
+    return (
+      <div className=" p-8 absolute top-0 left-0    w-full mx-auto h-full">
+        <div className="relative w-full h-full overflow-hidden">
+          <div className="animate-pulse grid grid-cols-12 gap-6">
+            <div className="h-6 bg-slate-200 rounded col-span-6"></div>
+            <div className="h-3  rounded col-span-6"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+            <div className="h-5 bg-slate-200 rounded col-span-12"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+            <div className="h-8 bg-slate-200 rounded col-span-12"></div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
-  //   const generatePdfAndConvert = async () => {
-  //     try {
-  //       // Generate the PDF
-  //       const pdfBlob = await pdf(<Inv invoice={data} />).toBlob();
-
-  //       // Convert the PDF Blob to base64
-  //       const reader = new FileReader();
-  //       reader.readAsDataURL(pdfBlob);
-  //       reader.onloadend = () => {
-  //         const base64String = reader.result as string;
-  //         setFile(base64String);
-  //       };
-  //     } catch (error) {
-  //       console.error("Error generating or converting PDF:", error);
-  //     }
-  //   };
-
-  //   generatePdfAndConvert();
-  // }, []);
-
-  // console.log(base64Data);
+  const width = containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth;
+  const height =
+    (containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth) *
+    1.416040100250627;
 
   return (
     <div
-      // className="Example  p-4 grid   place-items-center   bg-gray-500 max-h-screen overflow-auto h-screen fixed top-0 "
-      className=" p-4 -z-2 sticky top-0 flex justify-center items-center h-screen bg-muted-foreground border-l"
-      // className="bg-blue-200 p-4 -z-2 sticky top-[48px] flex justify-center items-center h-[calc(100vh-48px)]"
+      className="p-4  -z-2  sticky top-0 flex justify-center items-center h-screen bg-muted-foreground border-l"
       ref={setContainerRef}
     >
-      <div className="">
-        <Document
-          file={base64String}
-          onLoadSuccess={onDocumentLoadSuccess}
-          options={options}
-        >
-          <Page
-            pageNumber={pageNumber}
-            // width={width ? Math.min(width, maxWidth) : maxWidth}
-            width={
-              containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
-            }
-          />
-        </Document>
-        <div className="text-center">
-          <p>
-            Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
-          </p>
-          <div className="space-x-3">
-            <Button
-              type="button"
-              variant="outline"
-              disabled={pageNumber <= 1}
-              onClick={previousPage}
-              size="icon"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              disabled={pageNumber >= numPages}
-              onClick={nextPage}
-              size="icon"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
+      <div
+        className={`relative group w-full grid place-items-center bg-white max-w-[400px] aspect-[400/565] `}
+      >
+        {!loading && (
+          <Document
+            file={base64String || file}
+            onLoadSuccess={onDocumentLoadSuccess}
+            loading={loadSkelton}
+            options={options}
+          >
+            <Page
+              pageNumber={1}
+              // width={width ? Math.min(width, maxWidth) : maxWidth}
+              width={
+                containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
+              }
+            />
+
+            {/* {Array.from(new Array(numPages), (el, index) => (
+              <Page
+                key={`page_${index + 1}`}
+                pageNumber={index + 1}
+                width={
+                  containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
+                }
+              />
+            ))} */}
+          </Document>
+        )}
+
+        <div className="text-center z-50 absolute bottom-10 left-0  transition-all duration-300 ease-in-out  justify-center hidden  group-hover:flex w-full">
+          <div className="block relative ">
+            <div className="inline-flex overflow-hidden gap-2 items-center bg-muted border-2 shadow-md shadow-slate-200 ">
+              <Button
+                type="button"
+                variant="outline"
+                disabled={pageNumber <= 1}
+                onClick={previousPage}
+                className="rounded-none border-none"
+                size="icon"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <div className="inline-flex min-w-max ">
+                {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
+              </div>
+              <Button
+                type="button"
+                className="rounded-none border-none"
+                variant="outline"
+                disabled={pageNumber >= numPages}
+                onClick={nextPage}
+                size="icon"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>

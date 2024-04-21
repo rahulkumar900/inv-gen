@@ -163,7 +163,7 @@ const InputTable = () => {
                           Rate
                         </span>
                         <Input
-                          className={`focus-visible:ring-0 text-center border-0 border-b rounded-none `}
+                          className={` appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none `}
                           type="number"
                           name="rate"
                           
@@ -180,7 +180,7 @@ const InputTable = () => {
                           SGST
                         </span>
                         <Input
-                          className={`focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
+                          className={` appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
                           type="text"
                           name="sgst"
                          
@@ -197,7 +197,7 @@ const InputTable = () => {
                           CGST
                         </span>
                         <Input
-                          className={`focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
+                          className={`appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
                           type="text"
                           name="cgst"
                          

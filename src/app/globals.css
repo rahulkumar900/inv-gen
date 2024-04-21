@@ -48,3 +48,12 @@
     --ring: 142.4 71.8% 29.2%;
   }
 }
+
+@layer components {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    @apply appearance-none;
+  }
+
+
+}
