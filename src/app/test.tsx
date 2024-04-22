@@ -23,7 +23,7 @@ type PDFFile = string | File | null;
 
 const resizeObserverOptions = {};
 
-const maxWidth = 400;
+const maxWidth = 450;
 const maxHeight = 400 * 1.416040100250627;
 export default function Test() {
   const [file, setFile] = useState<PDFFile>("sample.pdf");

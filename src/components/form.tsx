@@ -65,7 +65,6 @@ const Form = () => {
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="company_name"
-              // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Company Name
             </Label>
@@ -83,7 +82,6 @@ const Form = () => {
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="address"
-              // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Company Address
             </Label>
@@ -91,7 +89,6 @@ const Form = () => {
               onChange={(e) => handleChange(e)}
               id="address"
               name="address"
-              // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="John"
               required
             />
@@ -103,7 +100,6 @@ const Form = () => {
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="gst_pan"
-              // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               GST or PAN
             </Label>
@@ -111,7 +107,6 @@ const Form = () => {
               onChange={(e) => handleChange(e)}
               type="text"
               id="gst_pan"
-              // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="GST No. or PAN No."
               required
               name="gst_pan"
@@ -160,7 +155,6 @@ const Form = () => {
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="b_gst_pan"
-              // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               GST or PAN
             </Label>
@@ -168,7 +162,6 @@ const Form = () => {
               onChange={(e) => handleChange(e)}
               type="text"
               id="b_gst_pan"
-              // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="GST No. or PAN No."
               required
               name="b_gst_pan"
@@ -180,7 +173,6 @@ const Form = () => {
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="s_company"
-              // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Company Name
             </Label>
@@ -188,7 +180,6 @@ const Form = () => {
               onChange={(e) => handleChange(e)}
               type="text"
               id="s_company"
-              // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="John"
               required
               name="s_company"
@@ -198,7 +189,6 @@ const Form = () => {
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="s_address"
-              // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Company Address
             </Label>
@@ -206,7 +196,6 @@ const Form = () => {
               onChange={(e) => handleChange(e)}
               id="s_address"
               name="s_address"
-              // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="John"
               required
             />
@@ -253,7 +242,6 @@ const Form = () => {
           <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
             <Label
               htmlFor="invoice_date"
-              // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Invoice Date
             </Label>
@@ -262,15 +250,13 @@ const Form = () => {
               type="text"
               id="invoice_date"
               name="invoice_date"
-              // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Invoice Number"
+              placeholder="Invoice Date"
               required
             />
           </div>
           <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
             <Label
               htmlFor="order_no"
-              // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Order Number
             </Label>
@@ -279,15 +265,13 @@ const Form = () => {
               type="text"
               id="order_no"
               name="order_no"
-              // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Invoice Number"
+              placeholder="Order Number"
               required
             />
           </div>
           <div className="grid lg:grid-cols-[130px_1fr] items-center gap-2">
             <Label
               htmlFor="destination"
-              // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Destination
             </Label>
@@ -296,9 +280,7 @@ const Form = () => {
               type="text"
               id="destination"
               name="destination"
-              // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Invoice Number"
-              required
+              placeholder="Destination"
             />
           </div>
         </form>

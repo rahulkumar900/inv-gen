@@ -4,41 +4,40 @@ const invoice = {
   error: "",
   tableRows: 10,
   id: "5df3180a09ea16dc4b95f910",
-  invoice_no: "201906-28",
-  purchase_no: "1",
+  invoice_no: "1",
+  purchase_no: "",
   invoice_date: "",
-  balance: "$2,283.74",
+  balance: "",
   //   company
 
-  company: "MANTRIX",
-  email: "susanafuentes@mantrix.com",
-  phone: "+1 (872) 588-3809",
-  address: "922 Campus Road, Drytown, Wisconsin, 1986",
-  gst_pan: "dyjpk3226a",
+  company: "",
+
+  address: "",
+  gst_pan: "",
   state: '',
   //
   // bill to
 
-  b_company: "MANTRIX",
-  b_email: "susanafuentes@mantrix.com",
-  b_phone: "+1 (872) 588-3809",
-  b_address: "922 Campus Road, Drytown, Wisconsin, 1986",
-  b_gst_pan: "dyjpk3226a",
+  b_company: "",
+  b_email: "",
+  b_phone: "",
+  b_address: "",
+  b_gst_pan: "",
   b_state:'',
 
   //
   //   ship to
-  s_company: "MANTRIX",
-  s_email: "susanafuentes@mantrix.com",
-  s_phone: "+1 (872) 588-3809",
-  s_address: "922 Campus Road, Drytown, Wisconsin, 1986",
-  s_gst_pan: "dyjpk3226a",
+  s_company: "",
+  s_email: "",
+  s_phone: "",
+  s_address: "",
+  s_gst_pan: "",
   s_state:'',
 
   //
 
-  trans_date: "2019-09-12",
-  due_date: "2019-10-12",
+  trans_date: "",
+  due_date: "",
 
 
   // 

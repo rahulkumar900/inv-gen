@@ -17,8 +17,6 @@ const BillFrom = ({ invoice }) => (
     <Text style={styles.billTo}>Bill From:</Text>
     <Text>{invoice.company}</Text>
     <Text>{invoice.address}</Text>
-    <Text>{invoice.phone}</Text>
-    <Text>{invoice.email}</Text>
     <Text>{invoice.gst_pan.toUpperCase()}</Text>
   </View>
 );

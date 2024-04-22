@@ -52,7 +52,7 @@ const InvoiceNo = ({ invoice }) => (
           {/* <Text style={styles.text}>:</Text> */}
           {/* <View style={styles.colB}> */}
           <Text style={[styles.colBB, { borderBottom: 1 }]}>
-            {invoice.trans_date}
+            {invoice.invoice_date}
           </Text>
           {/* </View> */}
         </View>

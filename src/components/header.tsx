@@ -10,10 +10,11 @@ export default function Header() {
     <div className="w-full border-b grid grid-cols-12 fixed top-0 left-0 z-20  bg-background   ">
       <header className="flex justify-between  items-center py-2 px-4 h-16  col-start-1 col-end-13 ">
         <Link
-          href="#"
-          className=" text-muted-foreground hover:text-foreground text-base"
+          href="/"
+          className="gap-2 flex items-center text-muted-foreground hover:text-foreground text-base"
         >
           <ReceiptText className=" w-10 h-10 text-primary" />
+          <span className="text-2xl text-primary font-semibold">Invoice Generator</span>
         </Link>
         <nav className="flex row items-center divide-x-2 ">
           <menu className="hidden md:flex row items-center">

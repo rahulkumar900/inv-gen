@@ -36,6 +36,7 @@ const BillTo = ({ invoice }) => (
       <Text>{invoice.b_address}</Text>
       <Text>{invoice.b_phone}</Text>
       <Text>{invoice.b_email}</Text>
+      <Text>{invoice.b_gst_pan.toUpperCase()}</Text>
     </View>
     <View style={styles.colB}>
       <Text style={styles.billTo}>Ship To:</Text>
@@ -43,6 +44,7 @@ const BillTo = ({ invoice }) => (
       <Text>{invoice.s_address}</Text>
       <Text>{invoice.s_phone}</Text>
       <Text>{invoice.s_email}</Text>
+      <Text>{invoice.s_gst_pan.toUpperCase()}</Text>
     </View>
   </View>
 );
