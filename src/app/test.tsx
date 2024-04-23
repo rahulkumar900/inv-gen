@@ -117,7 +117,7 @@ export default function Test() {
 
   return (
     <div
-      className="p-4  -z-2  sticky top-0 flex justify-center items-center h-screen bg-muted-foreground border-l"
+      className="p-4  -z-2  sticky top-[65px] flex justify-center items-center h-screen bg-muted-foreground border-l"
       ref={setContainerRef}
     >
       <div

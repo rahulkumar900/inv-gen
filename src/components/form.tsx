@@ -58,8 +58,10 @@ const Form = () => {
   }, []);
 
   return (
-    <div className="">
-      <section className="grid grid-cols-12 gap-4 md:grid-rows-2 md:gap-10 px-4">
+    <div className=" border-t
+     py-16 bg-background
+     ">
+      <section className="grid grid-cols-12 gap-4  md:gap-10 p-4">
         <form className="space-y-4 col-span-12 md:col-start-1 lg:col-start-2  md:col-end-7 ">
           <Label>Bill From</Label>
           <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -223,6 +225,7 @@ const Form = () => {
           </div>
         </form>
         <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-13 lg:col-end-12 row-start-1 row-end-2">
+        <Label></Label>
           <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
             <Label
               htmlFor="invoice_no"
