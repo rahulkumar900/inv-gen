@@ -18,11 +18,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" >
-      <body className={inter.className} suppressHydrationWarning={true}>
+    <html lang="en" className="overflow-y-scroll scroll-smooth" >
+      <body className= "" suppressHydrationWarning={true}>
         <StoreProvider>
           <Header />
-          <section className="h-screen">{children}</section>
+          <section className=" h-screen">{children}</section>
         </StoreProvider>
       </body>
     </html>

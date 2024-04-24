@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 export default function Home() {
   return (
     <main className="min-h-screen ">
-      <section className="mt-[65px] min-h-[400px] flex flex-col justify-center">
+      <section className="mt-[65px] min-h-[50vh] flex flex-col justify-center">
         <div className="max-w-2xl mx-auto  flex flex-col gap-4 px-6">
           <h1 className=" leading-none mt-0 color-black text-6xl text-secondary-foreground font-extrabold text-center">
             Free{" "}
@@ -26,14 +26,14 @@ export default function Home() {
             Create an invoice online customized for your brand or business using
             an Adobe Express free invoice template.
           </p>
-          <div className="flex justify-center mt-4">
+          <a href="#editor" className="flex justify-center mt-4">
             <Button size="lg" className="rounded-full h-14 text-base" >Create Now</Button>
-          </div>
+          </a>
         </div>
       </section>
 
       <section className="grid  grid-cols-12">
-        <div className="  col-span-full md:col-start-1 md:col-end-8">
+        <div id="editor" className="  col-span-full md:col-start-1 md:col-end-8">
           <Form />
         </div>
         <div className=" h-[100vh-64px] hidden md:block col-start-8 col-end-13">
