@@ -27,17 +27,51 @@ export default function Home() {
             an Adobe Express free invoice template.
           </p>
           <a href="#editor" className="flex justify-center mt-4">
-            <Button size="lg" className="rounded-full h-14 text-base" >Create Now</Button>
+            <Button size="lg" className="rounded-full h-14 text-base">
+              Create Now
+            </Button>
           </a>
         </div>
       </section>
 
-      <section className="grid  grid-cols-12">
-        <div id="editor" className="  col-span-full md:col-start-1 md:col-end-8">
+      <section className="grid  grid-cols-12 border-b">
+        <div
+          id="editor"
+          className="  col-span-full md:col-start-1 md:col-end-8"
+        >
           <Form />
         </div>
         <div className=" h-[100vh-64px] hidden md:block col-start-8 col-end-13">
           <Test />
+        </div>
+      </section>
+
+      <section className="mt-20">
+        <div className="max-w-5xl mx-auto">
+          <h2 className=" text-foreground mt-10 scroll-m-20 text-center   text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+            Start with free invoice templates from Adobe Express.
+          </h2>
+          <p className=" text-muted-foreground font-semibold tracking-normal text-justify leading-7 [&:not(:first-child)]:mt-6">
+            Make invoices quickly and easily with the Adobe Express online
+            invoice creator. Explore our wide range of invoice templates and
+            choose one that best matches your industry, niche, or aesthetic. Use
+            Adobe Stock icons, graphics, shapes, and more to outline item costs
+            and the goods or services you provide. To leave a lasting impression
+            on buyers and clients, upload your brand logo, colors scheme, and
+            fonts to your invoice. No experience required.
+          </p>
+          <div className="grid  grid-cols-4 gap-5 mt-8">
+              <div className=" border rounded-lg aspect-[1/1]">card1</div>
+              <div className=" border rounded-lg aspect-[1/1]">card1</div>
+              <div className=" border rounded-lg aspect-[1/1]">card1</div>
+              <div className=" border rounded-lg aspect-[1/1]">card1</div>
+              <div className=" border rounded-lg aspect-[1/1]">card1</div>
+              <div className=" border rounded-lg aspect-[1/1]">card1</div>
+              <div className=" border rounded-lg aspect-[1/1]">card1</div>
+              <div className=" border rounded-lg aspect-[1/1]">card1</div>
+            
+            
+          </div>
         </div>
       </section>
     </main>
