@@ -48,7 +48,7 @@ export default function Home() {
 
       <section className="mt-20">
         <div className="max-w-5xl mx-auto">
-          <h2 className=" text-foreground mt-10 scroll-m-20 text-center   text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+          <h2 className=" font-bold text-foreground mt-10 scroll-m-20 text-center   text-4xl  tracking-tight transition-colors first:mt-0">
             Start with free invoice templates from Adobe Express.
           </h2>
           <p className=" text-muted-foreground font-semibold tracking-normal text-justify leading-7 [&:not(:first-child)]:mt-6">
@@ -61,14 +61,17 @@ export default function Home() {
             fonts to your invoice. No experience required.
           </p>
           <div className="grid  grid-cols-4 gap-5 mt-8">
-              <div className=" border rounded-lg aspect-[1/1]">card1</div>
-              <div className=" border rounded-lg aspect-[1/1]">card1</div>
-              <div className=" border rounded-lg aspect-[1/1]">card1</div>
-              <div className=" border rounded-lg aspect-[1/1]">card1</div>
-              <div className=" border rounded-lg aspect-[1/1]">card1</div>
-              <div className=" border rounded-lg aspect-[1/1]">card1</div>
-              <div className=" border rounded-lg aspect-[1/1]">card1</div>
-              <div className=" border rounded-lg aspect-[1/1]">card1</div>
+      
+              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
+              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
+              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
+              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
+              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
+              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
+              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
+              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
+             
+            
             
             
           </div>
