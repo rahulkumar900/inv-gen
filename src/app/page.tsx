@@ -9,13 +9,14 @@ import {
 } from "@/components/ui/resizable";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Faq from "@/components/faq";
 
 export default function Home() {
   return (
     <main className="min-h-screen ">
       <section className="mt-[65px] min-h-[50vh] flex flex-col justify-center">
         <div className="max-w-2xl mx-auto  flex flex-col gap-4 px-6">
-          <h1 className=" leading-none mt-0 color-black text-6xl text-secondary-foreground font-extrabold text-center">
+          <h1 className=" leading-none mt-0 color-black text-7xl text-secondary-foreground font-semibold text-center">
             Free{" "}
             <span className="bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
               invoice
@@ -61,20 +62,69 @@ export default function Home() {
             fonts to your invoice. No experience required.
           </p>
           <div className="grid  grid-cols-4 gap-5 mt-8">
-      
-              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
-              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
-              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
-              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
-              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
-              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
-              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
-              <Image className="border shadow-md hover:scale-110 transition-all  w-full h-auto" src="/template1.jpg" alt="template1" width={200} height={300} />
-             
-            
-            
-            
+            <Image
+              className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
+              src="/template1.jpg"
+              alt="template1"
+              width={200}
+              height={300}
+            />
+            <Image
+              className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
+              src="/template1.jpg"
+              alt="template1"
+              width={200}
+              height={300}
+            />
+            <Image
+              className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
+              src="/template1.jpg"
+              alt="template1"
+              width={200}
+              height={300}
+            />
+            <Image
+              className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
+              src="/template1.jpg"
+              alt="template1"
+              width={200}
+              height={300}
+            />
+            <Image
+              className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
+              src="/template1.jpg"
+              alt="template1"
+              width={200}
+              height={300}
+            />
+            <Image
+              className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
+              src="/template1.jpg"
+              alt="template1"
+              width={200}
+              height={300}
+            />
+            <Image
+              className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
+              src="/template1.jpg"
+              alt="template1"
+              width={200}
+              height={300}
+            />
+            <Image
+              className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
+              src="/template1.jpg"
+              alt="template1"
+              width={200}
+              height={300}
+            />
           </div>
+        </div>
+      </section>
+      <section>
+        <div className="max-w-5xl mx-auto">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">Frequenty asked questions</h2>
+          <Faq />
         </div>
       </section>
     </main>
