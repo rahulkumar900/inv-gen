@@ -42,7 +42,7 @@ export default function Home() {
         >
           <Form />
         </div>
-        <div className=" h-[100vh-64px] hidden md:block col-start-8 col-end-13">
+        <div className=" h-[100vh-64px] hidden md:block col-start-8 col-end-13 bg-previewContainer">
           <Test />
         </div>
       </section>

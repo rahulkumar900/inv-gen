@@ -10,6 +10,9 @@ const config = {
 	],
   prefix: "",
   theme: {
+    // colors: {
+    //     previewContainer : "3C3C3C",
+    // },
     container: {
       center: true,
       padding: "2rem",
@@ -19,6 +22,7 @@ const config = {
     },
     extend: {
       colors: {
+        previewContainer : "hsl(var(--previewContainer))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -23,7 +23,7 @@ type PDFFile = string | File | null;
 
 const resizeObserverOptions = {};
 
-const maxWidth = 450;
+const maxWidth = 600;
 const maxHeight = 400 * 1.416040100250627;
 export default function Test() {
   const [file, setFile] = useState<PDFFile>("sample.pdf");
@@ -117,11 +117,11 @@ export default function Test() {
 
   return (
     <div
-      className="p-4  -z-2  sticky top-[65px] flex justify-center items-center h-screen bg-muted-foreground border-l"
+      className="p-4  -z-2  sticky top-[65px] flex justify-center items-center h-screen  bg-previewContainer  border-l"
       ref={setContainerRef}
     >
       <div
-        className={`relative group w-full grid place-items-center bg-white max-w-[400px] aspect-[400/565] `}
+        className={`relative group w-full grid place-items-center  `}
       >
         {!loading && (
           <Document
