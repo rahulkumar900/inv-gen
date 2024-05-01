@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import DownloadButton from "./downloadButton";
 import { ReceiptText } from "lucide-react";
+import { ModeToggle } from "./themeButton";
 
 export default function Header() {
   return (
@@ -39,6 +40,7 @@ export default function Header() {
             </Link>
           </menu>
           <div className="space-x-2 pl-4">
+            <ModeToggle />
             <DownloadButton />
             <Button className="hidden" variant="outline">
               Login

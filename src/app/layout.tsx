@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import StoreProvider from "./StoreProvider";
 import DownloadButton from "../components/downloadButton";
+import { ThemeProvider } from "./themeProvider";
 import Header from "@/components/header";
 import "./globals.css";
 
@@ -19,10 +20,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="overflow-y-scroll scroll-smooth" >
-      <body className= "" suppressHydrationWarning={true}>
+      <body className="" suppressHydrationWarning={true}>
+        
         <StoreProvider>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
           <Header />
-          <section className=" h-screen">{children}</section>
+            <section className=" h-screen">{children}</section>
+            </ThemeProvider>
         </StoreProvider>
       </body>
     </html>

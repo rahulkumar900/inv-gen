@@ -38,11 +38,11 @@ export default function Home() {
       <section className="grid  grid-cols-12 border-b">
         <div
           id="editor"
-          className="  col-span-full md:col-start-1 md:col-end-8"
+          className="   col-span-full md:col-start-1 md:col-end-7"
         >
           <Form />
         </div>
-        <div className=" h-[100vh-64px] hidden md:block col-start-8 col-end-13 bg-previewContainer">
+        <div className=" h-[100vh-64px] hidden md:block col-start-7 col-end-13 ">
           <Test />
         </div>
       </section>
@@ -121,9 +121,12 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section>
-        <div className="max-w-5xl mx-auto">
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">Frequenty asked questions</h2>
+      <section className="mt-20 ">
+        <div className="max-w-5xl mx-auto py-10">
+          <h2 className=" font-bold text-foreground mt-10 scroll-m-20 text-center   text-4xl  tracking-tight transition-colors first:mt-0">Frequenty asked questions</h2>
+          <div className="mt-10">
+
+          </div>
           <Faq />
         </div>
       </section>

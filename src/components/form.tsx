@@ -75,7 +75,7 @@ const Form = () => {
               type="text"
               id="company_name"
               defaultValue={count.company}
-              className="w-full"
+              className="w-full "
               placeholder="John"
               required
               name="company"
