@@ -4,9 +4,13 @@ import StoreProvider from "./StoreProvider";
 import DownloadButton from "../components/downloadButton";
 import { ThemeProvider } from "./themeProvider";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+export const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="overflow-y-scroll scroll-smooth" >
+    <html lang="en" className=" scroll-smooth" >
       <body className="" suppressHydrationWarning={true}>
         
         <StoreProvider>
@@ -31,8 +35,10 @@ export default function RootLayout({
           >
           <Header />
             <section className=" h-screen">{children}</section>
+        {/* <Footer /> */}
             </ThemeProvider>
         </StoreProvider>
+        
       </body>
     </html>
   );

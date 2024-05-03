@@ -35,14 +35,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="grid  grid-cols-12 border-b">
+      <section className="grid  grid-cols-12 border-b overflow-hidden">
         <div
-          id="editor"
-          className="   col-span-full md:col-start-1 md:col-end-7"
+         
+          className="   col-span-full md:col-start-1 md:col-end-8"
         >
           <Form />
         </div>
-        <div className=" h-[100vh-64px] hidden md:block col-start-7 col-end-13 ">
+        <div className=" h-[100vh-64px] hidden md:block col-start-8 col-end-13 bg-previewContainer ">
           <Test />
         </div>
       </section>
