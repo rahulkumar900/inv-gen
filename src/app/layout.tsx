@@ -8,9 +8,9 @@ import Footer from "@/components/footer";
 import "./globals.css";
 
 export const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-})
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,22 +23,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className=" scroll-smooth" >
+    <html lang="en" className=" scroll-smooth">
       <body className="" suppressHydrationWarning={true}>
-        
         <StoreProvider>
-        <ThemeProvider
+          <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-          <Header />
-            <section className=" h-screen">{children}</section>
-        {/* <Footer /> */}
-            </ThemeProvider>
+            <Header />
+            <main className=" min-h-screen">{children}</main>
+            <Footer />
+          </ThemeProvider>
         </StoreProvider>
-        
       </body>
     </html>
   );

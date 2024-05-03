@@ -40,7 +40,7 @@ export default function Faq() {
           Invoice Vs Receipt
         </AccordionTrigger>
         <AccordionContent className="text-base">
-          an invoice initiates the transaction by requesting payment from the
+          An invoice initiates the transaction by requesting payment from the
           buyer, while a receipt completes the transaction by confirming that
           payment has been received. Both documents are essential for
           record-keeping, accounting, and financial management purposes.
