@@ -34,7 +34,6 @@ export default function Home() {
           </a>
         </div>
       </section>
-
       <section className="grid  grid-cols-12 border-b overflow-hidden">
         <div
          
@@ -46,7 +45,6 @@ export default function Home() {
           <Test />
         </div>
       </section>
-
       <section className="mt-20">
         <div className="max-w-5xl mx-auto">
           <h2 className=" font-bold text-foreground mt-10 scroll-m-20 text-center   text-4xl  tracking-tight transition-colors first:mt-0">
@@ -121,12 +119,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="mt-20 ">
+      <section className="my-20 ">
         <div className="max-w-5xl mx-auto py-10">
-          <h2 className=" font-bold text-foreground mt-10 scroll-m-20 text-center   text-4xl  tracking-tight transition-colors first:mt-0">Frequenty asked questions</h2>
-          <div className="mt-10">
-
-          </div>
+          <h2 className=" font-bold text-foreground  scroll-m-20 text-center my-10  text-4xl  tracking-tight transition-colors first:mt-0">Frequenty asked questions</h2>
           <Faq />
         </div>
       </section>

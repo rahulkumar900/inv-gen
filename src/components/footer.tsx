@@ -10,41 +10,53 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="w-full  py-16 border-t">
-      <div className="max-w-5xl mx-auto space-y-10">
-
-      <div className="flex items-center justify-between ">
-        <div className="Logo flex items-center gap-2">
-          <ReceiptText className=" w-8 h-8 text-primary" />
-          <span className="text-xl">Invoice Generator</span>
+    <footer className="w-full   border-t ">
+      <div className="max-w-5xl mx-auto space-y-8 py-8">
+        <div className="flex items-center justify-between ">
+          <div className="Logo flex items-center gap-2">
+            <ReceiptText className=" w-8 h-8 text-primary" />
+            <span className="text-xl">Invoice Generator</span>
+          </div>
+          <div className="space-x-8  ">
+            <Link className="text-md" href="/#">
+              Privacy policy
+            </Link>
+            <Link className="text-md" href="/#">
+              About
+            </Link>
+            <Link className="text-md" href="/#">
+              Blog
+            </Link>
+            <Link className="text-md" href="/#">
+              Sitemap
+            </Link>
+            <Link className="text-md" href="/#">
+              Contact us
+            </Link>
+          </div>
+          <div className="flex gap-2">
+            <Twitter
+              size={28}
+              className="bg-secondary border border-primary-foreground rounded shadow-md p-1 text- hover:text-primary  "
+            />
+            <Facebook
+              size={28}
+              className="bg-secondary border border-primary-foreground rounded shadow-md p-1 text- hover:text-primary   "
+            />
+            <Instagram
+              size={28}
+              className="bg-secondary border border-primary-foreground rounded shadow-md p-1  text- hover:text-primary  "
+            />
+            <Linkedin
+              size={28}
+              className="bg-secondary border border-primary-foreground rounded shadow-md p-1  text- hover:text-primary  "
+            />
+          </div>
         </div>
-        <div className="space-x-8  ">
-          <Link className="text-md" href="/#">
-            Privacy policy
-          </Link>
-          <Link className="text-md" href="/#">
-            About
-          </Link>
-          <Link className="text-md" href="/#">
-            Blog
-          </Link>
-          <Link className="text-md" href="/#">
-            Sitemap
-          </Link>
-          <Link className="text-md" href="/#">
-            Contact us
-          </Link>
-        </div>
-        <div className="flex gap-2">
-          <Twitter size={20} />
-          <Facebook size={20} />
-          <Instagram size={20} />
-          <Linkedin size={20} />
-        </div>
+        <p className="text-center text-muted-foreground">
+          &#169; {new Date().getFullYear()} Invoice Generator
+        </p>
       </div>
-      <p className="text-center text-muted-foreground">&#169; 2024 Invoice Generator</p>
-      </div>
-
     </footer>
   );
 };
