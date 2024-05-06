@@ -24,13 +24,22 @@ const fields = [
 ];
 
 const InputTable = () => {
-
   const [igst, setIgst] = useState(true);
 
   const counter: Invoice = useAppSelector((state) => state.counter);
 
-  const {items,isIgst} = counter;
-  
+  const { items, isIgst } = counter;
+
+
+
+  const TotalAmount = items
+    .map((item) => item.amount)
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+
+
+
+
   const dispatch = useDispatch();
   const debouncedHandleItemsChange = debounce((index, changedItem, counter) => {
     let updatedState = { ...counter, items: [...counter.items] };
@@ -62,7 +71,7 @@ const InputTable = () => {
     debouncedHandleItemsChange(index, changedItem, counter);
   };
 
-  const isHidden = (li:string ,  igst:boolean  ) => {
+  const isHidden = (li: string, igst: boolean) => {
     li = li.toLowerCase();
     if ((li === "cgst" || li === "sgst") && igst) {
       return "hidden";
@@ -73,9 +82,6 @@ const InputTable = () => {
     return "";
   };
 
-
-  
-
   // console.log(isHidden());
 
   const state: string = "Bihar"; // replace with your state value
@@ -83,15 +89,13 @@ const InputTable = () => {
 
   useEffect(() => {
     if (state === S_state) {
-     
       setIgst(false);
     } else {
-     
       setIgst(true);
     }
   }, [state, S_state]);
 
-  console.log(`isIgst ${isIgst}`)
+  console.log(`isIgst ${isIgst}`);
 
   return (
     <section className="mt-12 px-4">
@@ -99,14 +103,21 @@ const InputTable = () => {
         <div className=" md:col-start-1 lg:col-start-2 lg:col-end-12 md:col-end-13 col-span-12">
           {/* <div className="grid border border-b-0 grid-cols-7 md:grid-cols-[min-content_2fr_1fr_1fr_1fr_1fr_1fr] w-full relative"> */}
           <div className=" border border-b-0  w-full relative">
-            <div className={`md:grid hidden border-b ${isIgst ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]" :  "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]" } `}>
+            <div
+              className={`md:grid hidden border-b ${
+                isIgst
+                  ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
+                  : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
+              } `}
+            >
               {fields &&
                 fields.length &&
                 fields.map((li, i) => (
                   <div
-                    className={`text-muted-foreground text-center  bg-muted p-2     ${li.toLowerCase()} ${
-                      isHidden(li, isIgst) 
-                    }`}
+                    className={`text-muted-foreground text-center  bg-muted p-2     ${li.toLowerCase()} ${isHidden(
+                      li,
+                      isIgst
+                    )}`}
                     key={i}
                   >
                     {li}
@@ -119,14 +130,17 @@ const InputTable = () => {
                   return (
                     <div
                       key={i}
-                      className={`overflow-hidden grid grid-cols-7 ${isIgst ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]" :  "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"}  `}
+                      className={`overflow-hidden grid grid-cols-7 ${
+                        isIgst
+                          ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
+                          : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
+                      }  `}
                     >
                       <Input
                         className={`focus-visible:ring-0 border-0 border-b text-center border-r rounded-none `}
                         type="text"
                         disabled={true}
                         name="sno"
-                       
                         placeholder="Sl.No"
                         value={String(li.sno) || ""}
                         onChange={(e) => handleItemsChange(e, i, counter)}
@@ -137,7 +151,6 @@ const InputTable = () => {
                         className={`focus-visible:ring-0 col-span-6 md:col-span-1 border-0 border-b text-muted-foreground  rounded-none `}
                         type="text"
                         name="desc"
-                       
                         placeholder="Description"
                         defaultValue={String(li.desc)}
                         onChange={(e) => handleItemsChange(e, i, counter)}
@@ -151,7 +164,6 @@ const InputTable = () => {
                           className={`focus-visible:ring-0 border-0 text-center border-b rounded-none `}
                           type="number"
                           name="qty"
-                          
                           placeholder="Qty"
                           value={String(li.qty) || ""}
                           onChange={(e) => handleItemsChange(e, i, counter)}
@@ -166,16 +178,17 @@ const InputTable = () => {
                           className={` appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none `}
                           type="number"
                           name="rate"
-                          
                           placeholder="Rate"
                           value={String(li.rate) || ""}
                           onChange={(e) => handleItemsChange(e, i, counter)}
                           // value={li[key]}
                         />
                       </div>
-                      <div className={`sgst col-span-1 text-center ${
-                            isIgst ? "hidden" : ""
-                          } `}>
+                      <div
+                        className={`sgst col-span-1 text-center ${
+                          isIgst ? "hidden" : ""
+                        } `}
+                      >
                         <span className=" md:hidden  text-muted-foreground text-sm">
                           SGST
                         </span>
@@ -183,16 +196,17 @@ const InputTable = () => {
                           className={` appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
                           type="text"
                           name="sgst"
-                         
                           placeholder="sgst"
                           value={String(li.sgst) || ""}
                           onChange={(e) => handleItemsChange(e, i, counter)}
                           // value={li[key]}
                         />
                       </div>
-                      <div className={`cgst col-span-1 text-center  ${
-                            isIgst ? "hidden" : ""
-                          }`}>
+                      <div
+                        className={`cgst col-span-1 text-center  ${
+                          isIgst ? "hidden" : ""
+                        }`}
+                      >
                         <span className=" md:hidden  text-muted-foreground text-sm">
                           CGST
                         </span>
@@ -200,7 +214,6 @@ const InputTable = () => {
                           className={`appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
                           type="text"
                           name="cgst"
-                         
                           placeholder="cgst"
                           value={String(li.cgst) || ""}
                           onChange={(e) => handleItemsChange(e, i, counter)}
@@ -208,7 +221,11 @@ const InputTable = () => {
                         />
                       </div>
 
-                      <div className={` col-span-1 text-center ${isIgst ? "" : "hidden"}`}>
+                      <div
+                        className={` col-span-1 text-center ${
+                          isIgst ? "" : "hidden"
+                        }`}
+                      >
                         <span className=" md:hidden  text-muted-foreground text-sm">
                           IGST
                         </span>
@@ -216,7 +233,6 @@ const InputTable = () => {
                           className={`focus-visible:ring-0 border-0 text-center border-b rounded-none  `}
                           type="number"
                           name="igst"
-                          
                           placeholder="igst"
                           value={String(li.igst) || ""}
                           onChange={(e) => handleItemsChange(e, i, counter)}
@@ -233,7 +249,6 @@ const InputTable = () => {
                           type="text"
                           disabled={true}
                           name="amount"
-                        
                           placeholder="Amount"
                           value={String(li.amount) || ""}
 
@@ -244,6 +259,21 @@ const InputTable = () => {
                   );
                 })
               : "loading..."}
+
+            <div
+              className={`text-muted-foreground border-b   p-2  overflow-hidden grid grid-cols-7 ${
+                isIgst
+                  ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
+                  : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
+              }`}
+            >
+              <div className={` col-span-5 text-right ${ 
+                isIgst
+                  ? "md:col-span-5"
+                  : "md:col-span-6"
+              }`}>Total</div>
+              <div className="text-center col-span-2 md:col-span-1">{TotalAmount}</div>
+            </div>
           </div>
 
           <Button
