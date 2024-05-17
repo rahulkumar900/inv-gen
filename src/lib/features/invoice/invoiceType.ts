@@ -3,9 +3,9 @@ export interface Item {
   desc: string;
   qty: number;
   rate: number;
-  cgst: number;
-  sgst: number;
-  igst: number;
+  cgst: number|string;
+  sgst: number|string;
+  igst: number|string;
   amount: number;
   [key: string]: number | string | null; // Add an index signature
 }

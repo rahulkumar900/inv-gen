@@ -1,5 +1,4 @@
 "use client";
-
 import { updateItem, addLine } from "@/lib/features/invoice/invoiceSlice";
 import { Invoice, Item } from "@/lib/features/invoice/invoiceType";
 import Inv from "@/components/reports/Invoice";
@@ -11,6 +10,8 @@ import { generatePdfAndConvert } from "../lib/features/invoice/action";
 import debounce from "lodash/debounce";
 import { Button } from "./ui/button";
 import { Input } from "./ui/Input";
+import { calculateGst } from "@/lib/calculategst";
+import { Gst } from "./gst";
 
 const fields = [
   "Sl.No.",
@@ -30,15 +31,24 @@ const InputTable = () => {
 
   const { items, isIgst } = counter;
 
+  const {
+    cgstSummary,
+    sgstSummary,
+    igstSummary,
+    totalCgst,
+    totalSgst,
+    totalIgst,
+  } = calculateGst(items);
 
+  console.log(igstSummary);
 
   const TotalAmount = items
     .map((item) => item.amount)
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
-
-
-
+    const totalWithTax = isIgst
+    ? TotalAmount + totalIgst
+    : TotalAmount + totalCgst + totalSgst;
 
   const dispatch = useDispatch();
   const debouncedHandleItemsChange = debounce((index, changedItem, counter) => {
@@ -130,7 +140,7 @@ const InputTable = () => {
                   return (
                     <div
                       key={i}
-                      className={`overflow-hidden grid grid-cols-7 ${
+                      className={`overflow-hidden  grid grid-cols-7 ${
                         isIgst
                           ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
                           : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
@@ -156,7 +166,7 @@ const InputTable = () => {
                         onChange={(e) => handleItemsChange(e, i, counter)}
                         // value={li[key]}
                       />
-                      <div className="qty text-center">
+                      <div className="qty text-center col-span-1  ">
                         <span className=" md:hidden text-muted-foreground text-sm">
                           Qty
                         </span>
@@ -170,7 +180,7 @@ const InputTable = () => {
                           // value={li[key]}
                         />
                       </div>
-                      <div className="rate col-span-2  md:col-span-1 text-center">
+                      <div className="rate col-span-1  md:col-span-1 text-center">
                         <span className=" md:hidden  text-muted-foreground text-sm">
                           Rate
                         </span>
@@ -260,20 +270,63 @@ const InputTable = () => {
                 })
               : "loading..."}
 
+            {/* Gst Section */}
+
+            {isIgst && (
+              <Gst name="igst" isIgst={isIgst} summary={igstSummary} />
+            )}
+
+            {!isIgst && (
+              <Gst name="cgst" isIgst={isIgst} summary={cgstSummary} />
+            )}
+            {!isIgst && (
+              <Gst name="sgst" isIgst={isIgst} summary={sgstSummary} />
+            )}
+
+            {/* {Object.entries(igstSummary).map(([key, value]) => {
+              return (
+                <div
+                  key={key}
+                  className={`text-muted-foreground border-b   p-2  overflow-hidden grid grid-cols-7 ${
+                    isIgst
+                      ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
+                      : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
+                  }`}
+                >
+                  <div
+                    className={` col-span-5 text-right ${
+                      isIgst ? "md:col-span-5" : "md:col-span-6"
+                    }`}
+                  >
+                    {` IGST ${key} %`}
+                  </div>
+                  <div className="text-center col-span-2 md:col-span-1">
+                    {value}
+                  </div>
+                </div>
+              );
+            })} */}
+            {/* Gst Section End */}
+            {/* Total Amount */}
             <div
-              className={`text-muted-foreground border-b   p-2  overflow-hidden grid grid-cols-7 ${
+              className={`text-muted-foreground border-b   p-2   overflow-hidden grid grid-cols-7 ${
                 isIgst
                   ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
                   : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
               }`}
             >
-              <div className={` col-span-5 text-right ${ 
-                isIgst
-                  ? "md:col-span-5"
-                  : "md:col-span-6"
-              }`}>Total</div>
-              <div className="text-center col-span-2 md:col-span-1">{TotalAmount}</div>
+              <div
+                className={` col-span-5 text-right ${
+                  isIgst ? "md:col-span-5" : "md:col-span-6"
+                }`}
+              >
+                Total amount
+              </div>
+              <div className="text-center col-span-2 md:col-span-1">
+                {totalWithTax}
+              </div>
             </div>
+            {/* Total End */}
           </div>
 
           <Button

@@ -10,6 +10,7 @@ import {
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Faq from "@/components/faq";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -35,14 +36,13 @@ export default function Home() {
         </div>
       </section>
       <section className="grid  grid-cols-12 border-b overflow-hidden">
-        <div
-         
-          className="   col-span-full md:col-start-1 md:col-end-8"
-        >
+        <div className="   col-span-full md:col-start-1 md:col-end-8">
           <Form />
         </div>
         <div className=" h-[100vh-64px] hidden md:block col-start-8 col-end-13 bg-previewContainer ">
-          <Test />
+          <Suspense>
+            <Test />
+          </Suspense>
         </div>
       </section>
       <section className="mt-20">
@@ -121,7 +121,9 @@ export default function Home() {
       </section>
       <section className="my-20 ">
         <div className="max-w-5xl mx-auto py-10">
-          <h2 className=" font-bold text-foreground  scroll-m-20 text-center my-10  text-4xl  tracking-tight transition-colors first:mt-0">Frequenty asked questions</h2>
+          <h2 className=" font-bold text-foreground  scroll-m-20 text-center my-10  text-4xl  tracking-tight transition-colors first:mt-0">
+            Frequenty asked questions
+          </h2>
           <Faq />
         </div>
       </section>

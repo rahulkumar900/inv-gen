@@ -26,7 +26,7 @@ const resizeObserverOptions = {};
 const maxWidth = 600;
 const maxHeight = 400 * 1.416040100250627;
 export default function Test() {
-  const [file, setFile] = useState<PDFFile>("sample.pdf");
+  const [file, setFile] = useState<PDFFile>("/sample.pdf");
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [base64URL, setBase64URL] = useState("");
@@ -137,16 +137,6 @@ export default function Test() {
                 containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
               }
             />
-
-            {/* {Array.from(new Array(numPages), (el, index) => (
-              <Page
-                key={`page_${index + 1}`}
-                pageNumber={index + 1}
-                width={
-                  containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
-                }
-              />
-            ))} */}
           </Document>
         )}
 
