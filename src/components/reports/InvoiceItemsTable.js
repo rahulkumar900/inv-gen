@@ -25,7 +25,7 @@ const InvoiceItemsTable = ({ invoice }) => {
       <InvoiceTableHeader />
       <InvoiceTableRow items={invoice.items} />
       <InvoiceTableBlankSpace rowsCount={rowsCount} />
-      <InvoiceTableFooter items={invoice.items} />
+      <InvoiceTableFooter invoice={invoice} />
     </View>
   );
 };

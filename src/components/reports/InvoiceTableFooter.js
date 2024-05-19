@@ -1,6 +1,8 @@
 import React from "react";
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
-
+import { GstComponent } from "./gst";
+import { useAppSelector } from "@/lib/hooks";
+import { calculateGst } from "@/lib/calculategst";
 const borderColor = "black";
 const styles = StyleSheet.create({
   row: {
@@ -26,25 +28,43 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableFooter = ({ items }) => {
-  const total = items
-    .map((item) => item.qty * item.rate)
-    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-  const withgst = total + total * 0.18;
-  const gstAmount = total * 0.18;
+const InvoiceTableFooter = ({ invoice }) => {
+  console.log(invoice);
+
+  const {
+    cgstSummary,
+    sgstSummary,
+    igstSummary,
+    totalCgst,
+    totalSgst,
+    totalIgst,
+  } = calculateGst(invoice.items);
+
+  const TotalAmount = invoice.items
+  .map((item) => item.amount)
+  .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+const totalWithTax = invoice.isIgst
+  ? TotalAmount + totalIgst
+  : TotalAmount + totalCgst + totalSgst;
+
+
 
   return (
     <View>
-      <View style={styles.row}>
-        <Text style={styles.description}>GST(18%)</Text>
-        <Text style={styles.total}>
-          {Number.parseFloat(gstAmount).toFixed(2)}
-        </Text>
-      </View>
+      {invoice.isIgst ? (
+        <GstComponent name="igst" summary={igstSummary} />
+      ) : (
+        <>
+          <GstComponent name="cgst" summary={cgstSummary} />
+          <GstComponent name="sgst" summary={sgstSummary} />
+        </>
+      )}
+
       <View style={[styles.row, { borderBottom: 0 }]}>
         <Text style={styles.description}>TOTAL</Text>
         <Text style={styles.total}>
-          {Number.parseFloat(withgst).toFixed(2)}
+          {totalWithTax ? totalWithTax.toFixed(2) : 0}
         </Text>
       </View>
     </View>

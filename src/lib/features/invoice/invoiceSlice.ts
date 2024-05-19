@@ -15,8 +15,11 @@ export const counterSlice = createSlice({
       action: PayloadAction<{ name: string; value: any }>
     ) => {
       const { name, value } = action.payload;
-      let isIgst :boolean = state.isIgst;
-      if ((name === "state" &&  state.b_state !== value) || (name === "b_state" &&  state.state !== value)) {
+      let isIgst: boolean = state.isIgst;
+      if (
+        (name === "state" && state.b_state !== value) ||
+        (name === "b_state" && state.state !== value)
+      ) {
         isIgst = true;
       } else {
         isIgst = false;
@@ -43,6 +46,16 @@ export const counterSlice = createSlice({
         igst: 0,
         amount: 0,
       });
+    },
+
+    removeLine: (state, action) => {
+      const updatedItems = state.items.filter(
+        (item) => item.sno !== action.payload
+      );
+      return {
+        ...state,
+        items: updatedItems.map((item, index) => ({ ...item, sno: index + 1 })),
+      };
     },
     updateItem: (
       state,
@@ -91,6 +104,7 @@ export const counterSlice = createSlice({
 export const {
   initializeCount,
   addLine,
+  removeLine,
   updateItem,
   updateInvoiceField,
   generatePdfStart,

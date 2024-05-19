@@ -1,16 +1,14 @@
 import Image from "next/image";
-import Test from "./test";
-import Counter from "@/components/counter";
-import Form from "@/components/form";
-import {
-  ResizablePanelGroup,
-  ResizablePanel,
-  ResizableHandle,
-} from "@/components/ui/resizable";
-import { Card } from "@/components/ui/card";
+
+// import Form from "@/components/form";
+
 import { Button } from "@/components/ui/button";
 import Faq from "@/components/faq";
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
+// Dynamically import Test component with no SSR to avoid mismatch
+const Test = dynamic(() => import("./test"), { ssr: true });
+const Form = dynamic(() => import("@/components/form"), { ssr: false });
 
 export default function Home() {
   return (
@@ -18,10 +16,10 @@ export default function Home() {
       <section className="mt-[65px] min-h-[50vh] flex flex-col justify-center">
         <div className="max-w-2xl mx-auto  flex flex-col gap-4 px-6">
           <h1 className=" leading-none mt-0 color-black text-7xl text-secondary-foreground font-semibold text-center">
-            Free{" "}
+            Free
             <span className="bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
               invoice
-            </span>{" "}
+            </span>
             maker.
           </h1>
           <p className="text-base  text-center font-semibold text-muted-foreground ">
@@ -40,12 +38,12 @@ export default function Home() {
           <Form />
         </div>
         <div className=" h-[100vh-64px] hidden md:block col-start-8 col-end-13 bg-previewContainer ">
-          <Suspense>
+          <Suspense fallback="loading ...">
             <Test />
           </Suspense>
         </div>
       </section>
-      <section className="mt-20">
+      <section className="mt-20 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className=" font-bold text-foreground mt-10 scroll-m-20 text-center   text-4xl  tracking-tight transition-colors first:mt-0">
             Start with free invoice templates from Adobe Express.
@@ -61,14 +59,7 @@ export default function Home() {
           </p>
           <div className="grid  grid-cols-4 gap-5 mt-8">
             <Image
-              className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
-              src="/template1.jpg"
-              alt="template1"
-              width={200}
-              height={300}
-            />
-            <Image
-              className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
+              className="border shadow-md hover:scale-110 transition-all w-full h-auto"
               src="/template1.jpg"
               alt="template1"
               width={200}

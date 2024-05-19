@@ -1,8 +1,7 @@
 "use client";
-import { updateItem, addLine } from "@/lib/features/invoice/invoiceSlice";
+import { updateItem, addLine, removeLine } from "@/lib/features/invoice/invoiceSlice";
 import { Invoice, Item } from "@/lib/features/invoice/invoiceType";
 import Inv from "@/components/reports/Invoice";
-import scientificToFloat from "@/lib/features/invoice/scientificFloat";
 import { useAppSelector } from "@/lib/hooks";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -12,6 +11,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/Input";
 import { calculateGst } from "@/lib/calculategst";
 import { Gst } from "./gst";
+import { Ghost, Trash, X } from "lucide-react";
 
 const fields = [
   "Sl.No.",
@@ -40,13 +40,12 @@ const InputTable = () => {
     totalIgst,
   } = calculateGst(items);
 
-  console.log(igstSummary);
 
   const TotalAmount = items
     .map((item) => item.amount)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
-    const totalWithTax = isIgst
+  const totalWithTax = isIgst
     ? TotalAmount + totalIgst
     : TotalAmount + totalCgst + totalSgst;
 
@@ -111,7 +110,7 @@ const InputTable = () => {
     <section className="mt-12 px-4">
       <div className=" grid  grid-cols-12  ">
         <div className=" md:col-start-1 lg:col-start-2 lg:col-end-12 md:col-end-13 col-span-12">
-          {/* <div className="grid border border-b-0 grid-cols-7 md:grid-cols-[min-content_2fr_1fr_1fr_1fr_1fr_1fr] w-full relative"> */}
+         
           <div className=" border border-b-0  w-full relative">
             <div
               className={`md:grid hidden border-b ${
@@ -140,7 +139,7 @@ const InputTable = () => {
                   return (
                     <div
                       key={i}
-                      className={`overflow-hidden  grid grid-cols-7 ${
+                      className={` relative  grid grid-cols-7 ${
                         isIgst
                           ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
                           : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
@@ -230,7 +229,6 @@ const InputTable = () => {
                           // value={li[key]}
                         />
                       </div>
-
                       <div
                         className={` col-span-1 text-center ${
                           isIgst ? "" : "hidden"
@@ -265,49 +263,23 @@ const InputTable = () => {
                           // value={li[key]}
                         />
                       </div>
+                      <span onClick={(i) => dispatch(removeLine(li.sno))} role="button" className="absolute z-50 -right-4 top-2 text-destructive-foreground font-bold bg-destructive"><X size={15} /></span>
                     </div>
                   );
                 })
-              : "loading..."}
+              : "Add new Row"}
 
             {/* Gst Section */}
 
-            {isIgst && (
+            {isIgst ? (
               <Gst name="igst" isIgst={isIgst} summary={igstSummary} />
+            ) : (
+              <>
+                <Gst name="cgst" isIgst={isIgst} summary={cgstSummary} />
+                <Gst name="sgst" isIgst={isIgst} summary={sgstSummary} />
+              </>
             )}
 
-            {!isIgst && (
-              <Gst name="cgst" isIgst={isIgst} summary={cgstSummary} />
-            )}
-            {!isIgst && (
-              <Gst name="sgst" isIgst={isIgst} summary={sgstSummary} />
-            )}
-
-            {/* {Object.entries(igstSummary).map(([key, value]) => {
-              return (
-                <div
-                  key={key}
-                  className={`text-muted-foreground border-b   p-2  overflow-hidden grid grid-cols-7 ${
-                    isIgst
-                      ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
-                      : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
-                  }`}
-                >
-                  <div
-                    className={` col-span-5 text-right ${
-                      isIgst ? "md:col-span-5" : "md:col-span-6"
-                    }`}
-                  >
-                    {` IGST ${key} %`}
-                  </div>
-                  <div className="text-center col-span-2 md:col-span-1">
-                    {value}
-                  </div>
-                </div>
-              );
-            })} */}
-            {/* Gst Section End */}
-            {/* Total Amount */}
             <div
               className={`text-muted-foreground border-b   p-2   overflow-hidden grid grid-cols-7 ${
                 isIgst
@@ -330,8 +302,6 @@ const InputTable = () => {
           </div>
 
           <Button
-            // variant="secondary"
-            // variant="destructive"
             className="my-4"
             onClick={() => dispatch(addLine())}
           >

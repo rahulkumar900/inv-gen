@@ -23,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className=" scroll-smooth">
-      <body className="" suppressHydrationWarning={true}>
+    <html lang="en">
+      <body >
         <StoreProvider>
           <ThemeProvider
             attribute="class"

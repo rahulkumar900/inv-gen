@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   ReceiptText,
@@ -11,13 +12,13 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="w-full   border-t ">
-      <div className="max-w-5xl mx-auto space-y-8 py-8">
-        <div className="flex items-center justify-between ">
+      <div className="max-w-5xl mx-auto space-y-8 py-8 px-4">
+        <div className="flex flex-col md:flex-row gap-4 items-start  md:items-center  md:justify-between ">
           <div className="Logo flex items-center gap-2">
-            <ReceiptText className=" w-8 h-8 text-primary" />
+            <ReceiptText className="-ml-1 w-8 h-8 text-primary" />
             <span className="text-xl">Invoice Generator</span>
           </div>
-          <div className="space-x-8  ">
+          <div className="flex gap-4 flex-col md:flex-row  ">
             <Link className="text-md" href="/#">
               Privacy policy
             </Link>
