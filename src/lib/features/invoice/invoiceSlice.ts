@@ -63,17 +63,33 @@ export const counterSlice = createSlice({
         index: number;
         changedItem: {
           [x: string]: string | number | null;
-          amount: number;
-          sno: number;
+          amount: number | string;
+          sno: number | string;
           desc: string;
-          qty: number;
-          rate: number;
+          qty: number | string;
+          rate: number | string;
+          cgst: number | string;
+          sgst: number | string;
+          igst: number | string;
         };
       }>
     ) => {
+      // const { index, changedItem } = action.payload;
+
+      // state.items[index] = changedItem;
       const { index, changedItem } = action.payload;
 
-      state.items[index] = changedItem;
+      // Create a copy of the items array
+      const updatedItems = [...state.items];
+
+      // Update the specific item at the given index
+      updatedItems[index] = changedItem;
+
+      // Return the updated state
+      return {
+        ...state,
+        items: updatedItems,
+      };
     },
 
     generatePdfStart: (state) => {

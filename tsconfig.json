@@ -28,6 +28,6 @@
     ".next/types/**/*.ts",
     "src/lib/features/invoice/action..js",
     "src/lib/resizehooks.js"
-  ],
+, "src/components/reports/Invoice.jsx", "src/lib/features/invoice/action.js"  ],
   "exclude": ["node_modules"]
 }

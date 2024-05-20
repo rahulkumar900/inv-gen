@@ -26,16 +26,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export const GstComponent = ({ name, isIgst, summary }) => (
+export const GstComponent = ({ name, summary }) => (
   <View>
     {Object.entries(summary).map(([key, value]) => (
       <View style={styles.row} key={key}>
         <Text style={styles.description}>
           {`${name.toUpperCase()} ${key} %`}
         </Text>
-        <Text style={styles.total}>
-          {Number.parseFloat(value).toFixed(2)}
-        </Text>
+        <Text style={styles.total}>{Number.parseFloat(value).toFixed(2)}</Text>
       </View>
     ))}
   </View>

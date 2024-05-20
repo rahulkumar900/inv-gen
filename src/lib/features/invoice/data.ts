@@ -1,3 +1,5 @@
+import { Phone } from "lucide-react";
+
 const invoice = {
   base64String: "",
   loading: false,
@@ -11,7 +13,8 @@ const invoice = {
   //   company
 
   company: "",
-
+  email: "",
+  phone : "",
   address: "",
   gst_pan: "",
   state: '',

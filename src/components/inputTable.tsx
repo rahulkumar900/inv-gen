@@ -1,5 +1,9 @@
 "use client";
-import { updateItem, addLine, removeLine } from "@/lib/features/invoice/invoiceSlice";
+import {
+  updateItem,
+  addLine,
+  removeLine,
+} from "@/lib/features/invoice/invoiceSlice";
 import { Invoice, Item } from "@/lib/features/invoice/invoiceType";
 import Inv from "@/components/reports/Invoice";
 import { useAppSelector } from "@/lib/hooks";
@@ -40,7 +44,6 @@ const InputTable = () => {
     totalIgst,
   } = calculateGst(items);
 
-
   const TotalAmount = items
     .map((item) => item.amount)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
@@ -48,6 +51,8 @@ const InputTable = () => {
   const totalWithTax = isIgst
     ? TotalAmount + totalIgst
     : TotalAmount + totalCgst + totalSgst;
+
+  // console.log(` Total Amount ${TotalAmount} Igst ${totalIgst} TWT ${totalWithTax}`)
 
   const dispatch = useDispatch();
   const debouncedHandleItemsChange = debounce((index, changedItem, counter) => {
@@ -66,15 +71,21 @@ const InputTable = () => {
     const selectedObj = { ...counter.items[index] };
     let amount = 0;
     if (name === "qty") {
-      amount = selectedObj.rate * (parseFloat(value) || 0);
-    } else {
-      amount = selectedObj.qty * (parseFloat(value) || 0);
+      amount = Number(selectedObj.rate) * (Number(value) || 0);
+    } else if (name === "rate") {
+      amount = Number(selectedObj.qty) * (Number(value) || 0);
+    }else {
+      amount =  Number(selectedObj.qty) *  Number(selectedObj.rate)
     }
+
     const changedItem = {
       ...selectedObj,
       [name]: value,
       amount: amount,
     };
+    console.clear();
+    console.log(changedItem);
+
     dispatch(updateItem({ index, changedItem }));
 
     debouncedHandleItemsChange(index, changedItem, counter);
@@ -104,13 +115,12 @@ const InputTable = () => {
     }
   }, [state, S_state]);
 
-  console.log(`isIgst ${isIgst}`);
+  // console.log(`isIgst ${isIgst}`);
 
   return (
     <section className="mt-12 px-4">
       <div className=" grid  grid-cols-12  ">
         <div className=" md:col-start-1 lg:col-start-2 lg:col-end-12 md:col-end-13 col-span-12">
-         
           <div className=" border border-b-0  w-full relative">
             <div
               className={`md:grid hidden border-b ${
@@ -134,140 +144,148 @@ const InputTable = () => {
                 ))}
             </div>
 
-            {items && items.length
-              ? items.map((li, i) => {
-                  return (
-                    <div
-                      key={i}
-                      className={` relative  grid grid-cols-7 ${
-                        isIgst
-                          ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
-                          : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
-                      }  `}
-                    >
+            {items && items.length ? (
+              items.map((li, i) => {
+                return (
+                  <div
+                    key={i}
+                    className={` relative  grid grid-cols-7 ${
+                      isIgst
+                        ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
+                        : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
+                    }  `}
+                  >
+                    <Input
+                      className={`focus-visible:ring-0 border-0 border-b text-center border-r rounded-none `}
+                      type="text"
+                      disabled={true}
+                      name="sno"
+                      placeholder="Sl.No"
+                      value={String(li.sno) || ""}
+                      onChange={(e) => handleItemsChange(e, i, counter)}
+                      // value={li[key]}
+                    />
+
+                    <Input
+                      className={`focus-visible:ring-0 col-span-6 md:col-span-1 border-0 border-b text-muted-foreground  rounded-none `}
+                      type="text"
+                      name="desc"
+                      placeholder="Description"
+                      defaultValue={String(li.desc)}
+                      onChange={(e) => handleItemsChange(e, i, counter)}
+                      // value={li[key]}
+                    />
+                    <div className="qty text-center col-span-1  ">
+                      <span className=" md:hidden text-muted-foreground text-sm">
+                        Qty
+                      </span>
                       <Input
-                        className={`focus-visible:ring-0 border-0 border-b text-center border-r rounded-none `}
+                        className={`focus-visible:ring-0 border-0 text-center border-b rounded-none `}
+                        type="number"
+                        name="qty"
+                        placeholder="Qty"
+                        value={String(li.qty) || ""}
+                        onChange={(e) => handleItemsChange(e, i, counter)}
+                        // value={li[key]}
+                      />
+                    </div>
+                    <div className="rate col-span-1  md:col-span-1 text-center">
+                      <span className=" md:hidden  text-muted-foreground text-sm">
+                        Rate
+                      </span>
+                      <Input
+                        className={` appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none `}
+                        type="number"
+                        name="rate"
+                        placeholder="Rate"
+                        value={String(li.rate) || ""}
+                        onChange={(e) => handleItemsChange(e, i, counter)}
+                        // value={li[key]}
+                      />
+                    </div>
+                    <div
+                      className={`sgst col-span-1 text-center ${
+                        isIgst ? "hidden" : ""
+                      } `}
+                    >
+                      <span className=" md:hidden  text-muted-foreground text-sm">
+                        SGST
+                      </span>
+                      <Input
+                        className={` appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
+                        type="text"
+                        name="sgst"
+                        placeholder="sgst"
+                        value={String(li.sgst) || ""}
+                        onChange={(e) => handleItemsChange(e, i, counter)}
+                        // value={li[key]}
+                      />
+                    </div>
+                    <div
+                      className={`cgst col-span-1 text-center  ${
+                        isIgst ? "hidden" : ""
+                      }`}
+                    >
+                      <span className=" md:hidden  text-muted-foreground text-sm">
+                        CGST
+                      </span>
+                      <Input
+                        className={`appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
+                        type="text"
+                        name="cgst"
+                        placeholder="cgst"
+                        value={String(li.cgst) || ""}
+                        onChange={(e) => handleItemsChange(e, i, counter)}
+                        // value={li[key]}
+                      />
+                    </div>
+                    <div
+                      className={` col-span-1 text-center ${
+                        isIgst ? "" : "hidden"
+                      }`}
+                    >
+                      <span className=" md:hidden  text-muted-foreground text-sm">
+                        IGST
+                      </span>
+                      <Input
+                        className={`focus-visible:ring-0 border-0 text-center border-b rounded-none  `}
+                        type="number"
+                        name="igst"
+                        placeholder="igst"
+                        value={String(li.igst) || "0"}
+                        onChange={(e) => handleItemsChange(e, i, counter)}
+                        // value={li[key]}
+                      />
+                    </div>
+                    <div className="col-span-2 md:col-span-1  text-center">
+                      <span className=" md:hidden  text-muted-foreground text-sm">
+                        Amount
+                      </span>
+
+                      <Input
+                        className={`focus-visible:ring-0 border-0 border-b rounded-none text-center  `}
                         type="text"
                         disabled={true}
-                        name="sno"
-                        placeholder="Sl.No"
-                        value={String(li.sno) || ""}
-                        onChange={(e) => handleItemsChange(e, i, counter)}
+                        name="amount"
+                        placeholder="Amount"
+                        value={String(li.amount) || ""}
+
                         // value={li[key]}
                       />
-
-                      <Input
-                        className={`focus-visible:ring-0 col-span-6 md:col-span-1 border-0 border-b text-muted-foreground  rounded-none `}
-                        type="text"
-                        name="desc"
-                        placeholder="Description"
-                        defaultValue={String(li.desc)}
-                        onChange={(e) => handleItemsChange(e, i, counter)}
-                        // value={li[key]}
-                      />
-                      <div className="qty text-center col-span-1  ">
-                        <span className=" md:hidden text-muted-foreground text-sm">
-                          Qty
-                        </span>
-                        <Input
-                          className={`focus-visible:ring-0 border-0 text-center border-b rounded-none `}
-                          type="number"
-                          name="qty"
-                          placeholder="Qty"
-                          value={String(li.qty) || ""}
-                          onChange={(e) => handleItemsChange(e, i, counter)}
-                          // value={li[key]}
-                        />
-                      </div>
-                      <div className="rate col-span-1  md:col-span-1 text-center">
-                        <span className=" md:hidden  text-muted-foreground text-sm">
-                          Rate
-                        </span>
-                        <Input
-                          className={` appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none `}
-                          type="number"
-                          name="rate"
-                          placeholder="Rate"
-                          value={String(li.rate) || ""}
-                          onChange={(e) => handleItemsChange(e, i, counter)}
-                          // value={li[key]}
-                        />
-                      </div>
-                      <div
-                        className={`sgst col-span-1 text-center ${
-                          isIgst ? "hidden" : ""
-                        } `}
-                      >
-                        <span className=" md:hidden  text-muted-foreground text-sm">
-                          SGST
-                        </span>
-                        <Input
-                          className={` appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
-                          type="text"
-                          name="sgst"
-                          placeholder="sgst"
-                          value={String(li.sgst) || ""}
-                          onChange={(e) => handleItemsChange(e, i, counter)}
-                          // value={li[key]}
-                        />
-                      </div>
-                      <div
-                        className={`cgst col-span-1 text-center  ${
-                          isIgst ? "hidden" : ""
-                        }`}
-                      >
-                        <span className=" md:hidden  text-muted-foreground text-sm">
-                          CGST
-                        </span>
-                        <Input
-                          className={`appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
-                          type="text"
-                          name="cgst"
-                          placeholder="cgst"
-                          value={String(li.cgst) || ""}
-                          onChange={(e) => handleItemsChange(e, i, counter)}
-                          // value={li[key]}
-                        />
-                      </div>
-                      <div
-                        className={` col-span-1 text-center ${
-                          isIgst ? "" : "hidden"
-                        }`}
-                      >
-                        <span className=" md:hidden  text-muted-foreground text-sm">
-                          IGST
-                        </span>
-                        <Input
-                          className={`focus-visible:ring-0 border-0 text-center border-b rounded-none  `}
-                          type="number"
-                          name="igst"
-                          placeholder="igst"
-                          value={String(li.igst) || ""}
-                          onChange={(e) => handleItemsChange(e, i, counter)}
-                          // value={li[key]}
-                        />
-                      </div>
-                      <div className="col-span-2 md:col-span-1  text-center">
-                        <span className=" md:hidden  text-muted-foreground text-sm">
-                          Amount
-                        </span>
-
-                        <Input
-                          className={`focus-visible:ring-0 border-0 border-b rounded-none text-center  `}
-                          type="text"
-                          disabled={true}
-                          name="amount"
-                          placeholder="Amount"
-                          value={String(li.amount) || ""}
-
-                          // value={li[key]}
-                        />
-                      </div>
-                      <span onClick={(i) => dispatch(removeLine(li.sno))} role="button" className="absolute z-50 -right-4 top-2 text-destructive-foreground font-bold bg-destructive"><X size={15} /></span>
                     </div>
-                  );
-                })
-              : "Add new Row"}
+                    <span
+                      onClick={(i) => dispatch(removeLine(li.sno))}
+                      role="button"
+                      className="absolute z-50 -right-4 top-2 text-destructive-foreground font-bold bg-destructive"
+                    >
+                      <X size={15} />
+                    </span>
+                  </div>
+                );
+              })
+            ) : (
+              <p>Add new Row</p>
+            )}
 
             {/* Gst Section */}
 
@@ -301,10 +319,7 @@ const InputTable = () => {
             {/* Total End */}
           </div>
 
-          <Button
-            className="my-4"
-            onClick={() => dispatch(addLine())}
-          >
+          <Button className="my-4" onClick={() => dispatch(addLine())}>
             Add New Line
           </Button>
         </div>

@@ -1,11 +1,11 @@
 export interface Item {
   sno: number;
   desc: string;
-  qty: number;
-  rate: number;
-  cgst: number|string;
-  sgst: number|string;
-  igst: number|string;
+  qty: number | string;
+  rate: number | string;
+  cgst: number | string;
+  sgst: number | string;
+  igst: number | string;
   amount: number;
   [key: string]: number | string | null; // Add an index signature
 }
@@ -35,7 +35,7 @@ export interface Invoice {
   b_email: string;
   b_phone: string;
   b_address: string;
-  b_state:string;
+  b_state: string;
   b_gst_pan: string;
 
   //
