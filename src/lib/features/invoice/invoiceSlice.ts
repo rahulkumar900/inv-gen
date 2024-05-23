@@ -30,14 +30,35 @@ export const counterSlice = createSlice({
         [name]: value,
       };
     },
+    // addLine: (state) => {
+    //   let length = state.items.length;
+    //   let tableRows = state.tableRows
+    //   if (length >= tableRows) {
+    //     state.tableRows += 20;
+    //   }
+    //   length++;
+    //   state.items.push({
+    //     sno: length,
+    //     desc: "",
+    //     qty: 0,
+    //     rate: 0,
+    //     cgst: 0,
+    //     sgst: 0,
+    //     igst: 0,
+    //     amount: 0,
+    //   });
+    // },
+
     addLine: (state) => {
-      let length = state.items.length;
-      if (length > 10) {
-        state.tableRows += 10;
+      const items = state.items.slice(); // Create a shallow copy of items
+      const tableRows = state.tableRows;
+
+      if (items.length >= tableRows) {
+        state.tableRows += 20;
       }
-      length++;
-      state.items.push({
-        sno: length,
+
+      items.push({
+        sno: items.length + 1,
         desc: "",
         qty: 0,
         rate: 0,
@@ -46,6 +67,12 @@ export const counterSlice = createSlice({
         igst: 0,
         amount: 0,
       });
+
+      return {
+        ...state,
+        items,
+        tableRows: items.length >= tableRows ? tableRows + 20 : tableRows,
+      };
     },
 
     removeLine: (state, action) => {

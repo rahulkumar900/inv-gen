@@ -120,9 +120,7 @@ export default function Test() {
       className="p-4  -z-2  sticky top-[65px] flex justify-center items-center h-screen    border-l"
       ref={setContainerRef}
     >
-      <div
-        className={`relative group w-full grid place-items-center  `}
-      >
+      <div className={`relative group w-full grid place-items-center  `}>
         {!loading && (
           <Document
             file={base64String || file}
@@ -131,7 +129,7 @@ export default function Test() {
             options={options}
           >
             <Page
-              pageNumber={1}
+              pageNumber={pageNumber}
               // width={width ? Math.min(width, maxWidth) : maxWidth}
               width={
                 containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth

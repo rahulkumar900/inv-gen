@@ -8,12 +8,12 @@ import InvoiceFooter from "./invoiceFooter";
 import BankWithSign from "./bankWithSign";
 import InvoiceThankYouMsg from "./InvoiceThankYouMsg";
 
-
 const styles = StyleSheet.create({
   page: {
     fontFamily: "Helvetica",
     fontSize: 11,
     padding: 30,
+    paddingBottom: 0,
 
     lineHeight: 1.5,
     flexDirection: "column",
@@ -38,9 +38,21 @@ const Invoice = (invoice) => {
         </View>
 
         <InvoiceItemsTable invoice={invoice} />
-        <InvoiceFooter items={invoice.items} />
-        <BankWithSign invoice={invoice} />
-        <InvoiceThankYouMsg />
+        {/* <InvoiceFooter items={invoice.items} /> */}
+        <View
+          fixed
+          render={({ pageNumber, totalPages }) =>
+            pageNumber == totalPages ? (
+              <View>
+                <BankWithSign invoice={invoice} />
+                <InvoiceThankYouMsg />
+              </View>
+            ) : (
+              ""
+            )
+          }
+          
+        />
       </Page>
     </Document>
   );

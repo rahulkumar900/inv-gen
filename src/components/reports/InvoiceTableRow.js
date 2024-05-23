@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 
 const InvoiceTableRow = ({ items }) => {
   const rows = items.map((item, i) => (
-    <View style={styles.row} key={item.sno.toString()}>
+    <View break={i == 18} style={styles.row} key={item.sno.toString()}>
       <View style={styles.slno}>
         <Text>{i + 1}</Text>
       </View>

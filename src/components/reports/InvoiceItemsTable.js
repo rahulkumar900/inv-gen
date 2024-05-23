@@ -3,7 +3,7 @@ import { View, StyleSheet } from "@react-pdf/renderer";
 import InvoiceTableHeader from "./InvoiceTableHeader";
 import InvoiceTableRow from "./InvoiceTableRow";
 import InvoiceTableBlankSpace from "./InvoiceTableBlankSpace";
-import InvoiceTableFooter from "./InvoiceTableFooter";
+import GstandTotal from "./gstAndTotal";
 
 const styles = StyleSheet.create({
   tableContainer: {
@@ -23,9 +23,10 @@ const InvoiceItemsTable = ({ invoice }) => {
   return (
     <View style={styles.tableContainer}>
       <InvoiceTableHeader />
-      <InvoiceTableRow items={invoice.items} />
-      <InvoiceTableBlankSpace rowsCount={rowsCount} />
-      <InvoiceTableFooter invoice={invoice} />
+      <InvoiceTableRow items={invoice.items} 
+      />
+      <InvoiceTableBlankSpace rowsCount={rowsCount} itemsLength = {invoice.items.length}   />
+      <GstandTotal invoice={invoice} />
     </View>
   );
 };

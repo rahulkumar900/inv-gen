@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from "@react-pdf/renderer";
 import { GstComponent } from "./gst";
 import { useAppSelector } from "@/lib/hooks";
 import { calculateGst } from "@/lib/calculategst";
+import InvoiceFooter from "./invoiceFooter";
 const borderColor = "black";
 const styles = StyleSheet.create({
   row: {
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableFooter = ({ invoice }) => {
+const gstAndTotal = ({ invoice }) => {
   console.log(invoice);
 
   const {
@@ -41,14 +42,12 @@ const InvoiceTableFooter = ({ invoice }) => {
   } = calculateGst(invoice.items);
 
   const TotalAmount = invoice.items
-  .map((item) => item.amount)
-  .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    .map((item) => item.amount)
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
-const totalWithTax = invoice.isIgst
-  ? TotalAmount + totalIgst
-  : TotalAmount + totalCgst + totalSgst;
-
-
+  const totalWithTax = invoice.isIgst
+    ? TotalAmount + totalIgst
+    : TotalAmount + totalCgst + totalSgst;
 
   return (
     <View>
@@ -67,8 +66,9 @@ const totalWithTax = invoice.isIgst
           {totalWithTax ? totalWithTax.toFixed(2) : 0}
         </Text>
       </View>
+      <InvoiceFooter total={totalWithTax.toFixed(2)} />
     </View>
   );
 };
 
-export default InvoiceTableFooter;
+export default gstAndTotal;

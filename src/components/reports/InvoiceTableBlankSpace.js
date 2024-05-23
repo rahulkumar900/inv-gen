@@ -41,10 +41,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableBlankSpace = ({ rowsCount }) => {
+const InvoiceTableBlankSpace = ({ rowsCount, itemsLength }) => {
   const blankRows = Array(rowsCount).fill(0);
   const rows = blankRows.map((x, i) => (
-    <View style={styles.row} key={`BR${i}`}>
+    <View style={styles.row} key={`BR${i}`} break={i + itemsLength == 22}>
       <Text style={styles.slno}>-</Text>
       <Text style={styles.description}>-</Text>
       <Text style={styles.qty}>-</Text>

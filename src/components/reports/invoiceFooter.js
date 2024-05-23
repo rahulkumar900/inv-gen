@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
+import { ToWords } from "to-words";
 
 const borderColor = "#90e5fc";
 const styles = StyleSheet.create({
@@ -42,7 +43,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceFooter = ({ items }) => {
+const InvoiceFooter = ({ total }) => {
+  const toWords = new ToWords();
+
+  let words = total && toWords.convert(total, { currency: true });
+  // console.log(words);
   return (
     <View style={styles.wordsContainer}>
       <View style={styles.row}>
@@ -50,9 +55,7 @@ const InvoiceFooter = ({ items }) => {
         <Text style={styles.total}>E. & O.E</Text>
       </View>
       <View style={styles.words}>
-        <Text style={styles.bold}>
-          INR Twenty three Lakh Sixty Seven Thousand Thirty Only
-        </Text>
+        <Text style={styles.bold}>{words}</Text>
       </View>
     </View>
   );

@@ -4,7 +4,7 @@ const invoice = {
   base64String: "",
   loading: false,
   error: "",
-  tableRows: 10,
+  tableRows: 12,
   id: "5df3180a09ea16dc4b95f910",
   invoice_no: "1",
   purchase_no: "",
