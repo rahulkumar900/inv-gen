@@ -13,19 +13,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 24,
     fontSize: 12,
-    fontStyle: "bold",
+  
   },
   description: {
     width: "85%",
+    height:"100%",
     textAlign: "right",
     borderRightColor: borderColor,
     borderRightWidth: 1,
+    borderLeftColor: borderColor,
+    borderLeftWidth: 1,
     paddingRight: 8,
   },
   total: {
     width: "15%",
+    height:"100%",
     textAlign: "right",
     paddingRight: 8,
+    borderRightColor: borderColor,
+    borderRightWidth: 1,
+
   },
 });
 

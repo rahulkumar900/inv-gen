@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRightColor: borderColor,
     borderRightWidth: 1,
+    borderLeftColor: borderColor,
+    borderLeftWidth: 1,
   },
   description: {
     width: "50%",
@@ -52,12 +54,18 @@ const styles = StyleSheet.create({
     textAlign: "right",
     justifyContent: "center",
     paddingRight: 8,
+    borderRightColor: borderColor,
+    borderRightWidth: 1,
   },
 });
 
 const InvoiceTableRow = ({ items }) => {
   const rows = items.map((item, i) => (
-    <View break={i == 18} style={styles.row} key={item.sno.toString()}>
+    <View
+      break={(i + 1) % 18 == 0}
+      style={styles.row}
+      key={item.sno.toString()}
+    >
       <View style={styles.slno}>
         <Text>{i + 1}</Text>
       </View>

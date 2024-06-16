@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="w-full   border-t ">
+    <footer className="w-full bg-background  border-t ">
       <div className="max-w-5xl mx-auto space-y-8 py-8 px-4">
         <div className="flex flex-col md:flex-row gap-4 items-start  md:items-center  md:justify-between ">
           <div className="Logo flex items-center gap-2">

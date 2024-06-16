@@ -1,17 +1,10 @@
-// /** @type {import('next').NextConfig} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config) => {
     config.resolve.alias.canvas = false;
+    config.resolve.extensions.push(".js", ".json", ".ts", ".tsx");
     return config;
   },
 };
 
 export default nextConfig;
-
-// module.exports = {
-//   webpack: (config) => {
-//     config.resolve.alias.canvas = false;
-
-//     return config;
-//   },
-// };

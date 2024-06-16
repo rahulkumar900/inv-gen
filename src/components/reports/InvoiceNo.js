@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   billTo: {
     paddingBottom: 3,
-    fontFamily: "Helvetica-Oblique",
+    
   },
   col2: {
     flexDirection: "row",
@@ -67,13 +67,10 @@ const InvoiceNo = ({ invoice }) => (
           </Text>
           {/* </View> */}
         </View>
-        <View style={styles.col2}>
-          <Text style={[styles.colA, { borderRight: 1 }]}>Order No</Text>
-          {/* <Text style={styles.text}>:</Text> */}
-          {/* <View style={styles.colB}> */}
+        {/* <View style={styles.col2}>
+          <Text style={[styles.colA, { borderRight: 1 }]}></Text>
           <Text style={[styles.colBB]}>{invoice.order_number}</Text>
-          {/* </View> */}
-        </View>
+        </View> */}
       </View>
     </View>
   </Fragment>

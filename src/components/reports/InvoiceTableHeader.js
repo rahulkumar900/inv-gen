@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     height: 24,
     borderRightColor: borderColor,
     borderRightWidth: 1,
+    borderLeftColor: borderColor,
+    borderLeftWidth: 1,
+   
   },
   description: {
     width: "50%",
@@ -59,6 +62,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItem: "center",
     height: "100%",
+    borderRightColor: borderColor,
+    borderRightWidth: 1,
   },
 });
 

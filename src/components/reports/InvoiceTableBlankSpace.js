@@ -17,6 +17,8 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
+    borderLeftColor: borderColor,
+    borderLeftWidth: 1,
   },
   description: {
     width: "50%",
@@ -38,13 +40,20 @@ const styles = StyleSheet.create({
   },
   amount: {
     width: "15%",
+    height: "100%",
+    borderRightColor: borderColor,
+    borderRightWidth: 1,
   },
 });
 
 const InvoiceTableBlankSpace = ({ rowsCount, itemsLength }) => {
   const blankRows = Array(rowsCount).fill(0);
   const rows = blankRows.map((x, i) => (
-    <View style={styles.row} key={`BR${i}`} break={i + itemsLength == 22}>
+    <View
+      style={styles.row}
+      key={`BR${i}`}
+      break={(i + Number(itemsLength)) % 18 == 0}
+    >
       <Text style={styles.slno}>-</Text>
       <Text style={styles.description}>-</Text>
       <Text style={styles.qty}>-</Text>

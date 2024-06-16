@@ -21,9 +21,37 @@ const options = {
 
 type PDFFile = string | File | null;
 
+const loadSkelton = () => {
+  return (
+    <div className=" w-[400px] h-565   aspect-[400/565] bg-white mx-auto h-auto">
+      <div className="relative w-full p-8 h-full overflow-hidden">
+        <div className="animate-pulse grid grid-cols-12 gap-6">
+          <div className="h-6 bg-slate-200 rounded col-span-6"></div>
+          <div className="h-3  rounded col-span-6"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-6"></div>
+          <div className="h-5 bg-slate-200 rounded col-span-12"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+          <div className="h-3 bg-slate-200 rounded col-span-12"></div>
+          <div className="h-8 bg-slate-200 rounded col-span-12"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const resizeObserverOptions = {};
 
-const maxWidth = 600;
+const maxWidth = 400;
 const maxHeight = 400 * 1.416040100250627;
 export default function Test() {
   const [file, setFile] = useState<PDFFile>("/sample.pdf");
@@ -34,8 +62,10 @@ export default function Test() {
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>();
 
+
   const memorizedOption = useMemo(() => ({ ...options }), []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedOnResize = useCallback(
     debounce<ResizeObserverCallback>(
       (entries) => {
@@ -82,34 +112,6 @@ export default function Test() {
     setNumPages(nextNumPages);
   }
 
-  const loadSkelton = () => {
-    return (
-      <div className=" p-8 absolute top-0 left-0    w-full mx-auto h-full">
-        <div className="relative w-full h-full overflow-hidden">
-          <div className="animate-pulse grid grid-cols-12 gap-6">
-            <div className="h-6 bg-slate-200 rounded col-span-6"></div>
-            <div className="h-3  rounded col-span-6"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-6"></div>
-            <div className="h-5 bg-slate-200 rounded col-span-12"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
-            <div className="h-3 bg-slate-200 rounded col-span-12"></div>
-            <div className="h-8 bg-slate-200 rounded col-span-12"></div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   const width = containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth;
   const height =
     (containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth) *
@@ -117,26 +119,26 @@ export default function Test() {
 
   return (
     <div
-      className="p-4  -z-2  sticky top-[65px] flex justify-center items-center h-screen    border-l"
+      className="p-4  -z-2    flex justify-center items-center h-screen"
       ref={setContainerRef}
     >
       <div className={`relative group w-full grid place-items-center  `}>
-        {!loading && (
-          <Document
-            file={base64String || file}
-            onLoadSuccess={onDocumentLoadSuccess}
-            loading={loadSkelton}
-            options={options}
-          >
-            <Page
-              pageNumber={pageNumber}
-              // width={width ? Math.min(width, maxWidth) : maxWidth}
-              width={
-                containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
-              }
-            />
-          </Document>
-        )}
+        <Document
+          file={base64String || file}
+          onLoadSuccess={onDocumentLoadSuccess}
+          loading={loadSkelton}
+          options={options}
+          className="kutta"
+          
+        >
+          <Page
+            pageNumber={pageNumber}
+            // width={width ? Math.min(width, maxWidth) : maxWidth}
+            width={
+              containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
+            }
+          />
+        </Document>
 
         <div className="text-center z-50 absolute bottom-10 left-0  transition-all duration-300 ease-in-out  justify-center hidden  group-hover:flex w-full">
           <div className="block relative ">

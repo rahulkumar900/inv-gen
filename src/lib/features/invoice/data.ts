@@ -1,9 +1,10 @@
 import { Phone } from "lucide-react";
 
-const invoice = {
+const invoiceData = {
   base64String: "",
   loading: false,
-  error: "",
+  error: null,
+  initialRows: 12,
   tableRows: 12,
   id: "5df3180a09ea16dc4b95f910",
   invoice_no: "1",
@@ -14,10 +15,10 @@ const invoice = {
 
   company: "",
   email: "",
-  phone : "",
+  phone: "",
   address: "",
   gst_pan: "",
-  state: '',
+  state: "",
   //
   // bill to
 
@@ -26,7 +27,7 @@ const invoice = {
   b_phone: "",
   b_address: "",
   b_gst_pan: "",
-  b_state:'',
+  b_state: "",
 
   //
   //   ship to
@@ -35,16 +36,15 @@ const invoice = {
   s_phone: "",
   s_address: "",
   s_gst_pan: "",
-  s_state:'',
+  s_state: "",
 
   //
 
   trans_date: "",
   due_date: "",
 
-
-  // 
-  isIgst : true,
+  //
+  isIgst: true,
   items: [
     {
       sno: 1,
@@ -59,4 +59,4 @@ const invoice = {
   ],
 };
 
-export default invoice;
+export default invoiceData;

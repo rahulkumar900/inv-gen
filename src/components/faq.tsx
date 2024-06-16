@@ -7,7 +7,7 @@ import {
 
 export default function Faq() {
   return (
-    <Accordion type="single" collapsible className="w-full">
+    <Accordion type="single" collapsible className="w-full ">
       <AccordionItem value="item-1" className="p-4">
         <AccordionTrigger className="text-xl">
           What is invoice in Accounting

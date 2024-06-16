@@ -1,4 +1,4 @@
-"use client";
+
 
 import Link from "next/link";
 import { Button } from "./ui/button";
@@ -15,7 +15,9 @@ export default function Header() {
           className="gap-2 flex items-center text-muted-foreground hover:text-foreground text-base"
         >
           <ReceiptText className=" w-10 h-10 text-primary" />
-          <span className="text-2xl text-primary font-semibold">Invoice Generator</span>
+          <span className="text-2xl text-primary font-semibold">
+            Invoice Generator
+          </span>
         </Link>
         <nav className="flex row items-center divide-x-2 ">
           <menu className="hidden md:flex row items-center">
@@ -39,13 +41,13 @@ export default function Header() {
               FAQ
             </Link>
           </menu>
-          <div className="space-x-2 pl-4">
+          <div className="space-x-2 flex pl-4">
             <ModeToggle />
-            <DownloadButton />
-            <Button className="hidden" variant="outline">
+            
+            <Button className="hidden md:block" variant="outline">
               Login
             </Button>
-            <Button className="hidden">Signup</Button>
+            <Button className="hidden  md:block">Signup</Button>
           </div>
         </nav>
       </header>

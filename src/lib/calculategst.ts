@@ -25,7 +25,7 @@ export function calculateGst(data: InvoiceItem[]) {
     const igstPercentage = parseFloat(entry.igst.toString());
 
     // Calculate CGST summary
-    if (!isNaN(cgstPercentage)) {
+    if (!isNaN(cgstPercentage) && cgstPercentage !== 0) {
       const cgstAmount = (cgstPercentage / 100) * entry.amount;
       if (!cgstSummary[cgstPercentage]) {
         cgstSummary[cgstPercentage] = 0;
@@ -35,7 +35,7 @@ export function calculateGst(data: InvoiceItem[]) {
     }
 
     // Calculate SGST summary
-    if (!isNaN(sgstPercentage)) {
+    if (!isNaN(sgstPercentage) && sgstPercentage !== 0) {
       const sgstAmount = (sgstPercentage / 100) * entry.amount;
       if (!sgstSummary[sgstPercentage]) {
         sgstSummary[sgstPercentage] = 0;
@@ -45,7 +45,7 @@ export function calculateGst(data: InvoiceItem[]) {
     }
 
     // Calculate IGST summary
-    if (!isNaN(igstPercentage)) {
+    if (!isNaN(igstPercentage) && igstPercentage !== 0) {
       const igstAmount = (igstPercentage / 100) * entry.amount;
       if (!igstSummary[igstPercentage]) {
         igstSummary[igstPercentage] = 0;

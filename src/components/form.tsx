@@ -1,23 +1,28 @@
 "use client";
 
 import React, { ChangeEvent, useCallback, useEffect, useRef } from "react";
-import { useAppSelector, useAppDispatch, useAppStore } from "../lib/hooks";
-import { updateInvoiceField } from "../lib/features/invoice/invoiceSlice";
-import { generatePdfAndConvert } from "../lib/features/invoice/action";
+import { useAppDispatch } from "../lib/hooks";
+
+import {
+  updateInvoiceField,
+  generatePdfAndConvert,
+} from "@/lib/features/invoice/action";
+
 import Inv from "@/components/reports/Invoice";
 
-import { Label } from "@/components/ui/Label";
-import { Input } from "@/components/ui/Input";
-import { Textarea } from "@/components/ui/Textarea";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
 import SelectState from "@/components/selectState";
 
 import InputTable from "@/components/inputTable";
 import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
+import { AppDispatch, RootState } from "@/lib/store";
 
 const Form = () => {
-  const dispatch = useAppDispatch();
-  let count = useAppSelector((state: RootState) => state.counter);
+  const dispatch: AppDispatch = useAppDispatch();
+  let count = useSelector((state: RootState) => state.counter);
 
   // Define a debounce function
   const debounce = <T extends any[]>(
@@ -36,11 +41,11 @@ const Form = () => {
 
   // Wrap your handleChange function with debounce
   const debouncedHandleChange = debounce(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
-      dispatch(updateInvoiceField({ name, value }));
-      const updatedCount = { ...count, [name]: value };
-      dispatch(generatePdfAndConvert(Inv, updatedCount));
+      await dispatch(updateInvoiceField({ name, value })).then(() =>
+        dispatch(generatePdfAndConvert())
+      );
     },
     500
   ); // Change delay according to your preference
@@ -54,22 +59,20 @@ const Form = () => {
   };
 
   useEffect(() => {
-    dispatch(generatePdfAndConvert(Inv, count));
-  }, []);
+    dispatch(generatePdfAndConvert());
+  },[dispatch]);
 
   return (
-    <div className=" border-t
-     py-16 bg-background
-     ">
-      <section className="grid grid-cols-12 gap-4  md:gap-10 p-4">
+    <div
+      className="bg-background
+     py-16
+     "
+    >
+      <section className="grid grid-cols-12 gap-4   md:gap-10 p-4">
         <form className="space-y-4 col-span-12 md:col-start-1 lg:col-start-2  md:col-end-7 ">
           <Label>Bill From</Label>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label
-              htmlFor="company_name"
-            >
-              Company Name
-            </Label>
+          {/* <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="company_name">Company Name</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
@@ -80,13 +83,9 @@ const Form = () => {
               required
               name="company"
             />
-          </div>
+          </div> */}
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label
-              htmlFor="address"
-            >
-              Company Address
-            </Label>
+            <Label htmlFor="address">Company Address</Label>
             <Textarea
               onChange={(e) => handleChange(e)}
               id="address"
@@ -99,12 +98,8 @@ const Form = () => {
             <Label htmlFor="address">State</Label>
             <SelectState name="state" />
           </div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label
-              htmlFor="gst_pan"
-            >
-              GST or PAN
-            </Label>
+          {/* <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="gst_pan">GST or PAN</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
@@ -113,11 +108,11 @@ const Form = () => {
               required
               name="gst_pan"
             />
-          </div>
+          </div> */}
         </form>
         <form className="space-y-4 col-span-12 md:col-start-1 lg:col-start-2 md:col-end-7">
           <Label>Bill To</Label>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
+          {/* <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="b_company"
               // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -133,7 +128,7 @@ const Form = () => {
               required
               name="b_company"
             />
-          </div>
+          </div> */}
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="b_address"
@@ -154,12 +149,8 @@ const Form = () => {
             <Label htmlFor="address">State</Label>
             <SelectState name="b_state" />
           </div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label
-              htmlFor="b_gst_pan"
-            >
-              GST or PAN
-            </Label>
+          {/* <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="b_gst_pan">GST or PAN</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
@@ -168,16 +159,12 @@ const Form = () => {
               required
               name="b_gst_pan"
             />
-          </div>
+          </div> */}
         </form>
         <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-13 lg:col-end-12 ">
           <Label>Ship To</Label>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label
-              htmlFor="s_company"
-            >
-              Company Name
-            </Label>
+          {/* <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="s_company">Company Name</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
@@ -186,14 +173,10 @@ const Form = () => {
               required
               name="s_company"
             />
-          </div>
+          </div> */}
 
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label
-              htmlFor="s_address"
-            >
-              Company Address
-            </Label>
+            <Label htmlFor="s_address">Company Address</Label>
             <Textarea
               onChange={(e) => handleChange(e)}
               id="s_address"
@@ -206,7 +189,7 @@ const Form = () => {
             <Label htmlFor="address">State</Label>
             <SelectState name="s_name" />
           </div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
+          {/* <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
               htmlFor="s_gst_pan"
               // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -222,16 +205,12 @@ const Form = () => {
               required
               name="s_gst_pan"
             />
-          </div>
+          </div> */}
         </form>
         <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-13 lg:col-end-12 row-start-1 row-end-2">
-        <Label></Label>
+          <Label></Label>
           <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
-            <Label
-              htmlFor="invoice_no"
-            >
-              #invoice Number
-            </Label>
+            <Label htmlFor="invoice_no">#invoice Number</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
@@ -243,11 +222,7 @@ const Form = () => {
             />
           </div>
           <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
-            <Label
-              htmlFor="invoice_date"
-            >
-              Invoice Date
-            </Label>
+            <Label htmlFor="invoice_date">Invoice Date</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
@@ -258,11 +233,7 @@ const Form = () => {
             />
           </div>
           <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
-            <Label
-              htmlFor="order_no"
-            >
-              Order Number
-            </Label>
+            <Label htmlFor="order_no">Order Number</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
@@ -273,11 +244,7 @@ const Form = () => {
             />
           </div>
           <div className="grid lg:grid-cols-[130px_1fr] items-center gap-2">
-            <Label
-              htmlFor="destination"
-            >
-              Destination
-            </Label>
+            <Label htmlFor="destination">Destination</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"

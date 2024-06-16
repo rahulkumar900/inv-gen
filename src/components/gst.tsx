@@ -7,6 +7,7 @@ interface GstProps {
 }
 
 export const Gst: React.FC<GstProps> = ({ name, isIgst, summary }) => {
+  console.log(summary);
   return (
     <div>
       {Object.entries(summary).map(([key, value]) => {
@@ -26,7 +27,9 @@ export const Gst: React.FC<GstProps> = ({ name, isIgst, summary }) => {
             >
               {` ${name.toLocaleUpperCase()} ${key} %`}
             </div>
-            <div className="text-center col-span-2 md:col-span-1">{value}</div>
+            <div className="text-center col-span-2 md:col-span-1">
+              {value.toFixed(2)}
+            </div>
           </div>
         );
       })}

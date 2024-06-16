@@ -1,20 +1,21 @@
 export interface Item {
   sno: number;
   desc: string;
-  qty: number | string;
-  rate: number | string;
-  cgst: number | string;
-  sgst: number | string;
-  igst: number | string;
+  qty: number;
+  rate: number;
+  cgst: number;
+  sgst: number;
+  igst: number;
   amount: number;
   [key: string]: number | string | null; // Add an index signature
 }
 
 export interface Invoice {
-  base64String: string | null;
+  base64String: string;
   loading: boolean;
   error: string | null;
   tableRows: number;
+  initialRows: number;
   id: string;
   invoice_no: string;
   invoice_date: string;

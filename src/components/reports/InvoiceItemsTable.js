@@ -10,10 +10,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
 
-    borderWidth: 1,
+    // borderWidth: 1,
     borderBottom: 0,
     borderTop: 0,
-    borderColor: "black",
+    // borderColor: "black",
   },
 });
 

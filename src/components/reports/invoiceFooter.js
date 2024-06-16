@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 4,
     borderTopWidth: 0,
+    
     borderWidth: 1,
     // borderColor: "#bff0fd",
   },
@@ -56,6 +57,7 @@ const InvoiceFooter = ({ total }) => {
       </View>
       <View style={styles.words}>
         <Text style={styles.bold}>{words}</Text>
+
       </View>
     </View>
   );

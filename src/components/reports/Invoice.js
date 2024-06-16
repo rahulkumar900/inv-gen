@@ -1,5 +1,12 @@
 import React from "react";
-import { Page, Document, Image, StyleSheet, View } from "@react-pdf/renderer";
+import {
+  Page,
+  Document,
+  Image,
+  StyleSheet,
+  View,
+  Font,
+} from "@react-pdf/renderer";
 import InvoiceTitle from "./InvoiceTitle";
 import BillTo from "./BillTo";
 import InvoiceNo from "./InvoiceNo";
@@ -7,6 +14,13 @@ import InvoiceItemsTable from "./InvoiceItemsTable";
 import InvoiceFooter from "./invoiceFooter";
 import BankWithSign from "./bankWithSign";
 import InvoiceThankYouMsg from "./InvoiceThankYouMsg";
+import { Invoice as invoiceType } from "@/lib/features/invoice/invoiceType";
+import { Inter } from "next/font/google";
+
+// Font.register({
+//   family: "Roboto",
+//   fonts: [{ src: "./fonts/roboto/Roboto-Black.ttf", fontWeight: "bold" }],
+// });
 
 const styles = StyleSheet.create({
   page: {
@@ -24,6 +38,15 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
+
+  fixedBottom: {
+    position: "absolute",
+    fontSize: 12,
+    bottom: 10,
+    left: 0,
+    right: 0,
+    textAlign: "center",
+  },
 });
 
 const Invoice = (invoice) => {
@@ -32,7 +55,7 @@ const Invoice = (invoice) => {
       <Page size="A4" style={styles.page}>
         {/* <Image style={styles.logo} src="logo.png" alt="logo" fixed /> */}
         <View fixed>
-          <InvoiceTitle title="Invoice" />
+          <InvoiceTitle title="TAX Invoice" />
           <InvoiceNo invoice={invoice} />
           <BillTo invoice={invoice} />
         </View>
@@ -45,13 +68,21 @@ const Invoice = (invoice) => {
             pageNumber == totalPages ? (
               <View>
                 <BankWithSign invoice={invoice} />
-                <InvoiceThankYouMsg />
               </View>
             ) : (
               ""
             )
           }
-          
+        />
+        <View
+          style={styles.fixedBottom}
+          fixed
+          render={({ pageNumber, totalPages }) => (
+            <InvoiceThankYouMsg
+              pageNumber={pageNumber}
+              totalPages={totalPages}
+            />
+          )}
         />
       </Page>
     </Document>
