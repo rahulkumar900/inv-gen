@@ -15,13 +15,15 @@ const styles = StyleSheet.create({
   },
   billTo: {
     paddingBottom: 3,
-    
   },
   col2: {
     flexDirection: "row",
   },
   invoiceDateContainer: {
     flexDirection: "row",
+  },
+  bold: {
+    fontFamily: "Helvetica-Bold",
   },
 });
 
@@ -40,7 +42,7 @@ const InvoiceNo = ({ invoice }) => (
           </Text>
           {/* <Text style={styles.text}>:</Text> */}
           {/* <View style={styles.colB}> */}
-          <Text style={[styles.colBB, { borderBottom: 1 }]}>
+          <Text style={[styles.colBB, styles.bold, { borderBottom: 1 }]}>
             {invoice.invoice_no}
           </Text>
           {/* </View> */}
@@ -51,7 +53,7 @@ const InvoiceNo = ({ invoice }) => (
           </Text>
           {/* <Text style={styles.text}>:</Text> */}
           {/* <View style={styles.colB}> */}
-          <Text style={[styles.colBB, { borderBottom: 1 }]}>
+          <Text style={[styles.colBB, styles.bold, { borderBottom: 1 }]}>
             {invoice.invoice_date}
           </Text>
           {/* </View> */}
@@ -62,7 +64,7 @@ const InvoiceNo = ({ invoice }) => (
           </Text>
           {/* <Text style={styles.text}>:</Text> */}
           {/* <View style={styles.colB}> */}
-          <Text style={[styles.colBB, { borderBottom: 1 }]}>
+          <Text style={[styles.colBB, styles.bold, { borderBottom: 1 }]}>
             {invoice.order_no}
           </Text>
           {/* </View> */}

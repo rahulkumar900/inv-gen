@@ -28,18 +28,24 @@ const styles = StyleSheet.create({
     borderTop: "none",
     borderColor: "black",
   },
+  bold: {
+    fontFamily: "Helvetica-Bold",
+  },
 });
 const bankWithSign = ({ invoice }) => {
   return (
     <View style={styles.col2}>
       <View style={styles.colA}>
-        <Text>Bank Name: HDFC BANK</Text>
-        <Text>Account Number: 578210110001042</Text>
-        <Text>IFSC CODE: BKID0005782</Text>
+        <Text style={[styles.bold]}>Bank Name: {invoice.bankname}</Text>
+        <Text style={[styles.bold]}>
+          Account Number: {invoice.accountnumber}
+        </Text>
+        <Text style={[styles.bold]}>IFSC CODE: {invoice.ifsc}</Text>
       </View>
 
       <View style={styles.colB}>
-        <Text style={{ fontWeight: "bold" }}>Authorized Signature</Text>
+        <Text>For {invoice.company}</Text>
+        <Text>Authorized Signature</Text>
       </View>
     </View>
   );

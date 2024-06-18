@@ -13,11 +13,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 24,
     fontSize: 12,
-  
   },
   description: {
     width: "85%",
-    height:"100%",
+    height: "100%",
     textAlign: "right",
     borderRightColor: borderColor,
     borderRightWidth: 1,
@@ -27,12 +26,12 @@ const styles = StyleSheet.create({
   },
   total: {
     width: "15%",
-    height:"100%",
+    height: "100%",
     textAlign: "right",
+    fontFamily: "Helvetica-Bold",
     paddingRight: 8,
     borderRightColor: borderColor,
     borderRightWidth: 1,
-
   },
 });
 

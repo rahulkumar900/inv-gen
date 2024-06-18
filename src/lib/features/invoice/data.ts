@@ -1,4 +1,4 @@
-import { Phone } from "lucide-react";
+
 
 const invoiceData = {
   base64String: "",
@@ -20,6 +20,12 @@ const invoiceData = {
   gst_pan: "",
   state: "",
   //
+
+  // bANK DETAILS
+
+  bankname: "",
+  ifsc : "",
+  accountnumber:"",
   // bill to
 
   b_company: "",

@@ -30,6 +30,12 @@ export interface Invoice {
   state: string;
   gst_pan: string;
   //
+
+  // Bank
+
+  bankname: string;
+  ifsc: string;
+  accountnumber: string;
   // bill to
 
   b_company: string;

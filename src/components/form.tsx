@@ -19,10 +19,11 @@ import SelectState from "@/components/selectState";
 import InputTable from "@/components/inputTable";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
+import Bankdetails from "./bankdetails";
 
 const Form = () => {
   const dispatch: AppDispatch = useAppDispatch();
-  let count = useSelector((state: RootState) => state.counter);
+  // let count = useSelector((state: RootState) => state.counter);
 
   // Define a debounce function
   const debounce = <T extends any[]>(
@@ -256,6 +257,7 @@ const Form = () => {
         </form>
       </section>
       <InputTable />
+      <Bankdetails />
     </div>
   );
 };

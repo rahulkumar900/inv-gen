@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "left",
     height: 24,
+    fontFamily: "Helvetica-Bold",
   },
   wordsContainer: {
     width: "100%",
