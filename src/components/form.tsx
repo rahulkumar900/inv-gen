@@ -8,7 +8,6 @@ import {
   generatePdfAndConvert,
 } from "@/lib/features/invoice/action";
 
-import Inv from "@/components/reports/Invoice";
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";

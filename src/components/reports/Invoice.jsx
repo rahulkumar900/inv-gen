@@ -16,6 +16,9 @@ import BankWithSign from "./bankWithSign";
 import InvoiceThankYouMsg from "./InvoiceThankYouMsg";
 import { Invoice as invoiceType } from "@/lib/features/invoice/invoiceType";
 import { Inter } from "next/font/google";
+import { useTheme } from "@/pdfComponent/themeContext";
+import { useAppSelector } from "@/lib/hooks";
+import { useSelector } from "react-redux";
 
 // Font.register({
 //   family: "Roboto",
@@ -49,10 +52,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const Invoice = (invoice) => {
+const Invoice = ({ invoice }) => {
+  const dst = useTheme();
+
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={[styles.page]}>
         {/* <Image style={styles.logo} src="logo.png" alt="logo" fixed /> */}
         <View fixed>
           <InvoiceTitle title="TAX Invoice" />
@@ -90,3 +95,13 @@ const Invoice = (invoice) => {
 };
 
 export default Invoice;
+
+// <ThemeProvider>
+{
+  /* <StoreProvider> */
+}
+// <Component />
+{
+  /* </StoreProvider> */
+}
+// <ThemeProvider />

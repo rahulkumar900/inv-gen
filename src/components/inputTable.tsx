@@ -18,6 +18,7 @@ import { calculateGst } from "@/lib/calculategst";
 import { Gst } from "./gst";
 import { Ghost, Trash, X } from "lucide-react";
 import { AppDispatch, RootState } from "@/lib/store";
+import { formatCurrency } from "@/utils";
 
 const fields = [
   "Sl.No.",
@@ -54,23 +55,41 @@ const InputTable = () => {
     .map((item) => item.amount)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
-  const totalWithTax = isIgst
-    ? TotalAmount + totalIgst
-    : TotalAmount + totalCgst + totalSgst;
+  const totalWithTax = formatCurrency(
+    isIgst ? TotalAmount + totalIgst : TotalAmount + totalCgst + totalSgst
+  );
 
   // console.log(` Total Amount ${TotalAmount} Igst ${totalIgst} TWT ${totalWithTax}`)
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleItemsChange = async (
+  // const handleItemsChange = async (
+  //   e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  //   index: number
+  // ) => {
+  //   const { name, value }: { name: string; value: number | string } = e.target;
+
+  //   await dispatch(updateItemAsync({ index, name, value })).then(() =>
+  //     dispatch(generatePdfAndConvert())
+  //   );
+  // };
+
+  const debouncedHandleItemsChange = debounce(
+    async (index: number, name: string, value: string) => {
+      await dispatch(updateItemAsync({ index, name, value })).then(() =>
+        dispatch(generatePdfAndConvert())
+      );
+    },
+    1000 // Adjust the debounce delay as needed
+  );
+
+  // Use the debounced function in your component
+  const handleItemsChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     index: number
   ) => {
-    const { name, value }: { name: string; value: number | string } = e.target;
-
-    await dispatch(updateItemAsync({ index, name, value })).then(() =>
-      dispatch(generatePdfAndConvert())
-    );
+    const { name, value }: { name: string; value: string } = e.target;
+    debouncedHandleItemsChange(index, name, value);
   };
 
   const debouncedRemoveLine = debounce((sno) => {
@@ -121,6 +140,8 @@ const InputTable = () => {
     // Dispatching the removeLine action with the sno as payload
     dispatch(removeLine(sno));
   };
+
+  formatCurrency;
 
   // console.log(isHidden());
 
@@ -181,7 +202,7 @@ const InputTable = () => {
                       disabled={true}
                       name="sno"
                       placeholder="Sl.No"
-                      value={String(li.sno) || ""}
+                      defaultValue={String(li.sno) || ""}
                       onChange={(e) => handleItemsChange(e, i)}
                       // value={li[key]}
                     />
@@ -204,9 +225,8 @@ const InputTable = () => {
                         type="number"
                         name="qty"
                         placeholder="Qty"
-                        value={String(li.qty) || ""}
+                        defaultValue={formatCurrency(li.qty) || ""}
                         onChange={(e) => handleItemsChange(e, i)}
-                        // value={li[key]}
                       />
                     </div>
                     <div className="rate col-span-1  md:col-span-1 text-center">
@@ -218,7 +238,7 @@ const InputTable = () => {
                         type="number"
                         name="rate"
                         placeholder="Rate"
-                        value={String(li.rate) || ""}
+                        defaultValue={formatCurrency(li.rate) || ""}
                         onChange={(e) => handleItemsChange(e, i)}
                         // value={li[key]}
                       />
@@ -236,7 +256,7 @@ const InputTable = () => {
                         type="text"
                         name="sgst"
                         placeholder="sgst"
-                        value={String(li.sgst) || ""}
+                        defaultValue={String(li.sgst) || ""}
                         onChange={(e) => handleItemsChange(e, i)}
                         // value={li[key]}
                       />
@@ -254,7 +274,7 @@ const InputTable = () => {
                         type="text"
                         name="cgst"
                         placeholder="cgst"
-                        value={String(li.cgst) || ""}
+                        defaultValue={String(li.cgst) || ""}
                         onChange={(e) => handleItemsChange(e, i)}
                         // value={li[key]}
                       />
@@ -272,7 +292,7 @@ const InputTable = () => {
                         type="number"
                         name="igst"
                         placeholder="igst"
-                        value={String(li.igst) || "0"}
+                        defaultValue={String(li.igst) || "0"}
                         onChange={(e) => handleItemsChange(e, i)}
                         // value={li[key]}
                       />
@@ -288,7 +308,7 @@ const InputTable = () => {
                         disabled={true}
                         name="amount"
                         placeholder="Amount"
-                        value={String(li.amount) || ""}
+                        defaultValue={formatCurrency(li.amount) || ""}
 
                         // value={li[key]}
                       />

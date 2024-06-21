@@ -28,20 +28,22 @@ const styles = StyleSheet.create({
   words: {
     width: "100%",
     textAlign: "left",
-    height: 24,
+    minHeight: 24,
     fontFamily: "Helvetica-Bold",
+    flexGrow: 1,
   },
   wordsContainer: {
     width: "100%",
     padding: 4,
     borderTopWidth: 0,
-    
+
     borderWidth: 1,
     // borderColor: "#bff0fd",
   },
   bold: {
     fontWeight: "bold",
     fontSize: 12,
+    flexGrow: 1,
   },
 });
 
@@ -58,7 +60,6 @@ const InvoiceFooter = ({ total }) => {
       </View>
       <View style={styles.words}>
         <Text style={styles.bold}>{words}</Text>
-
       </View>
     </View>
   );

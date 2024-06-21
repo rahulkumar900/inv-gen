@@ -135,29 +135,46 @@ export const counterSlice = createSlice({
           }
 
           const selectedObj = { ...state.items[index] };
-          let amount = 0;
+          const qty = Number(selectedObj.qty);
+          const rate = Number(selectedObj.rate);
+          const numericValue = Number(value) || 0;
+
+          let amount = qty * rate; // Default calculation
+
+          // if (name === "qty") {
+          //   amount = Number(selectedObj.rate) * (Number(value) || 0);
+          // } else if (name === "rate") {
+          //   amount = Number(selectedObj.qty) * (Number(value) || 0);
+          // } else {
+          //   amount = Number(selectedObj.qty) * Number(selectedObj.rate);
+          // }
 
           if (name === "qty") {
-            amount = Number(selectedObj.rate) * (Number(value) || 0);
+            amount = rate * numericValue;
           } else if (name === "rate") {
-            amount = Number(selectedObj.qty) * (Number(value) || 0);
-          } else {
-            amount = Number(selectedObj.qty) * Number(selectedObj.rate);
+            amount = qty * numericValue;
           }
 
-          const changedItem: Item = {
-            ...selectedObj,
-            [name]: value,
-            amount: amount,
-          };
-          state.items[index] = changedItem;
+          state.items[index] = { ...selectedObj, [name]: value, amount };
           state.loading = false;
           state.error = null;
+
+          // const changedItem: Item = {
+          //   ...selectedObj,
+          //   [name]: value,
+          //   amount: amount,
+          // };
+          // state.items[index] = changedItem;
+          // state.loading = false;
+          // state.error = null;
         }
       )
       .addCase(updateItemAsync.rejected, (state: Invoice, action) => {
         state.loading = false;
-        state.error = action.error && action.error.message ? action.error.message : "Failed to generate PDF";
+        state.error =
+          action.error && action.error.message
+            ? action.error.message
+            : "Failed to generate PDF";
       })
       .addCase(generatePdfAndConvert.pending, (state) => {
         state.loading = true;
@@ -167,9 +184,12 @@ export const counterSlice = createSlice({
         state.loading = false;
         state.base64String = action.payload;
       })
-      .addCase(generatePdfAndConvert.rejected, (state:Invoice, action) => {
+      .addCase(generatePdfAndConvert.rejected, (state: Invoice, action) => {
         state.loading = false;
-        state.error = action.error && action.error.message ? action.error.message : "Failed to generate PDF";
+        state.error =
+          action.error && action.error.message
+            ? action.error.message
+            : "Failed to generate PDF";
       })
 
       .addCase(addLine, (state, action) => {

@@ -2,7 +2,8 @@ import { pdf } from "@react-pdf/renderer";
 import InvoiceComponent from "@/components/reports/Invoice";
 import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import { RootState } from "@/lib/store";
-
+import { createAction } from "@reduxjs/toolkit";
+import PdfComponent from "@/pdfComponent/pdfComponent";
 
 // export const convertBlobToBase64 = (blob) => {
 //   return new Promise((resolve, reject) => {
@@ -61,8 +62,10 @@ export const generatePdfAndConvert = createAsyncThunk(
   async (_, { getState }) => {
     const currentState = (getState() as RootState).counter;
     try {
+      console.log(PdfComponent);
       const pdfBlob = await pdf(
-        <InvoiceComponent {...currentState} />
+        // <InvoiceComponent {...currentState} />
+        <PdfComponent {...currentState} />
       ).toBlob();
       const base64String = await convertBlobToBase64(pdfBlob);
       return base64String;
@@ -80,8 +83,6 @@ export const generatePdfAndConvert = createAsyncThunk(
  *@param name type
  *@return type
  *------------------------------------------------------------------------**/
-
-import { createAction } from "@reduxjs/toolkit";
 
 export const addLine = createAction("counter/addLine", (payload) => {
   return {
@@ -155,15 +156,29 @@ interface UpdateItemPayload {
   name: string;
   value: string;
 }
-
-export const updateItemAsync = createAsyncThunk(
+interface UpdateItemFieldResponse {
+  index: number;
+  name: string;
+  value: string;
+}
+export const updateItemAsync = createAsyncThunk<
+  UpdateItemPayload,
+  UpdateItemFieldResponse,
+  {
+    state: RootState; // ThunkAPI fields type
+    rejectValue: string; // Type of the rejected value
+  }
+>(
   "counter/updateItem",
-  async ({ index, name, value }: UpdateItemPayload, { rejectWithValue }) => {
+  async (
+    { index, name, value }: UpdateItemPayload,
+    { getState, rejectWithValue }
+  ) => {
     try {
       await delay(100);
       return { index, name, value };
     } catch (error: any) {
-      return rejectWithValue(error.message || "Failed to update item");
+      return rejectWithValue((error as Error).message || "Update item failed");
     }
   }
 );

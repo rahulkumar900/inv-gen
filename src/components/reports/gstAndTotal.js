@@ -4,6 +4,7 @@ import { GstComponent } from "./gst";
 import { useAppSelector } from "@/lib/hooks";
 import { calculateGst } from "@/lib/calculategst";
 import InvoiceFooter from "./invoiceFooter";
+import { formatCurrency } from "@/utils";
 const borderColor = "black";
 const styles = StyleSheet.create({
   row: {
@@ -69,7 +70,7 @@ const gstAndTotal = ({ invoice }) => {
       <View style={[styles.row, { borderBottom: 0 }]}>
         <Text style={styles.description}>TOTAL</Text>
         <Text style={styles.total}>
-          {totalWithTax ? totalWithTax.toFixed(2) : 0}
+          {formatCurrency(totalWithTax ? totalWithTax.toFixed(2) : 0.0)}
         </Text>
       </View>
       <InvoiceFooter total={totalWithTax.toFixed(2)} />
