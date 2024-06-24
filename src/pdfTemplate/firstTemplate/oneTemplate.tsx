@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Document, Text, View, Page, StyleSheet } from "@react-pdf/renderer";
 import { useTheme } from "@/pdfComponent/themeContext";
 import { Description } from "@radix-ui/react-dialog";
 import { FileX } from "lucide-react";
+import { Invoice, Item } from "@/lib/features/invoice/invoiceType";
+import { splitFirstLine } from "@/utils";
 
 const invoices = [
   { description: "Ipad Mini", price: 10, qty: 2, amount: 20 },
@@ -107,13 +109,13 @@ function Note() {
 }
 
 function Row({
-  description,
-  price,
+  desc,
+  rate,
   qty,
   amount,
 }: {
-  description: string;
-  price: number;
+  desc: string;
+  rate: number;
   qty: number;
   amount: number;
 }) {
@@ -133,10 +135,10 @@ function Row({
       }}
     >
       <View style={{ width: "40%", padding: 14 }}>
-        <Text>{description}</Text>
+        <Text>{desc}</Text>
       </View>
       <View style={{ width: "20%", padding: 14 }}>
-        <Text>{price}</Text>
+        <Text>{rate}</Text>
       </View>
       <View style={{ width: "20%", padding: 14 }}>
         <Text style={{ textAlign: "center" }}>{qty}</Text>
@@ -147,18 +149,67 @@ function Row({
     </View>
   );
 }
+function EmptyRow() {
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        fontStyle: "bold",
+        // marginTop: "24",
 
-function Table() {
+        // backgroundColor: "#464097",
+        // color: "white",
+        fontSize: 12,
+        padding: 5,
+        borderBottom: 1,
+      }}
+    >
+      <View style={{ width: "40%", padding: 14 }}>
+        <Text>-</Text>
+      </View>
+      <View style={{ width: "20%", padding: 14 }}>
+        <Text>-</Text>
+      </View>
+      <View style={{ width: "20%", padding: 14 }}>
+        <Text style={{ textAlign: "center" }}>-</Text>
+      </View>
+      <View style={{ width: "20%", padding: 14 }}>
+        <Text style={{ textAlign: "center" }}>-</Text>
+      </View>
+    </View>
+  );
+}
+
+function Table({ items,tableSize }: { items: Item[],tableSize: number }) {
+  const itemsLenght = items.length;
+  const ematyRows = tableSize - itemsLenght;
+
+  console.log(items);
+
   return (
     <>
-      {invoices.map((invoice, i) => (
-        <Row key={i} {...invoice} />
-      ))}
+      {items &&
+        items.length &&
+        items.map((item, i) => <Row key={i} {...item} />)}
+    </>
+  );
+}
+function EmptyTable(rowsCount: number, itemsLength: number) {
+  return (
+    <>
+      {rowsCount &&
+        Array(rowsCount)
+          .fill(0)
+          .map((_, i) => <EmptyRow key={i} />)}
     </>
   );
 }
 
-export default function One() {
+export default function One({ invoice }: { invoice: Invoice }) {
+  const tableSize = 6;
+  const { firstLine, restOfText } = splitFirstLine(invoice.address);
+  console.log(invoice);
   return (
     <Document>
       <Page
@@ -182,7 +233,7 @@ export default function One() {
                 fontSize: 16,
               }}
             >
-              NALANDA ENGICON PVT LTD
+              {firstLine}
             </Text>
           </View>
           <View style={{ width: "50%", paddingLeft: 60 }}>
@@ -216,7 +267,7 @@ export default function One() {
               Office Address
             </Text>
             <Text style={{ fontSize: 12, maxWidth: "70%", lineHeight: 1.7 }}>
-              4th Floor N.P Tower Kankarbagh Patna, 80020 bla bla
+              {restOfText}
             </Text>
           </View>
 
@@ -264,7 +315,8 @@ export default function One() {
           </View>
         </View>
 
-        <Table />
+        <Table {...invoice} tableSize={tableSize} />
+        <EmptyTable rowsCount={}  />
         <view
           style={{
             flexDirection: "row",
