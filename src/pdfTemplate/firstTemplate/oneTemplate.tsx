@@ -181,7 +181,7 @@ function EmptyRow() {
   );
 }
 
-function Table({ items,tableSize }: { items: Item[],tableSize: number }) {
+function Table({ items, tableSize }: { items: Item[]; tableSize: number }) {
   const itemsLenght = items.length;
   const ematyRows = tableSize - itemsLenght;
 
@@ -195,7 +195,13 @@ function Table({ items,tableSize }: { items: Item[],tableSize: number }) {
     </>
   );
 }
-function EmptyTable(rowsCount: number, itemsLength: number) {
+function EmptyTable({
+  rowsCount,
+  itemsLength,
+}: {
+  rowsCount: number;
+  itemsLength: number;
+}) {
   return (
     <>
       {rowsCount &&
@@ -207,7 +213,14 @@ function EmptyTable(rowsCount: number, itemsLength: number) {
 }
 
 export default function One({ invoice }: { invoice: Invoice }) {
-  const tableSize = 6;
+  const [tableSize, setTableSize] = useState(6);
+  const itemLength = invoice.items.length;
+
+  if (itemLength > tableSize) {
+    setTableSize(tableSize + 11);
+  }
+
+  const numEmptyRows = tableSize - itemLength;
   const { firstLine, restOfText } = splitFirstLine(invoice.address);
   console.log(invoice);
   return (
@@ -222,68 +235,72 @@ export default function One({ invoice }: { invoice: Invoice }) {
           height: "100%",
         }}
       >
-        <View style={{ display: "flex", flexDirection: "row" }}>
-          <View style={{ width: "50%" }}>
-            <View style={{ width: 60, height: 60, border: 1 }}>q</View>
-            <Text
-              style={{
-                fontFamily: "Helvetica-Bold",
-                color: "#464097",
-                marginTop: 8,
-                fontSize: 16,
-              }}
-            >
-              {firstLine}
-            </Text>
-          </View>
-          <View style={{ width: "50%", paddingLeft: 60 }}>
-            <Text
-              style={{
-                fontSize: 24,
-                maxWidth: "80%",
-                color: "#464097",
-                fontFamily: "Helvetica-Bold",
-                marginBottom: 4,
-                letterSpacing: 4,
-              }}
-            >
-              INVOICE
-            </Text>
-            <Text style={{ fontSize: 14, fontFamily: "Helvetica-Bold" }}>
-              December 06, 2024
-            </Text>
-          </View>
-        </View>
-
-        <View style={{ display: "flex", flexDirection: "row", marginTop: 24 }}>
-          <View style={{ width: "50%" }}>
-            <Text
-              style={{
-                fontSize: 12,
-                marginBottom: 7,
-                fontFamily: "Helvetica-Bold",
-              }}
-            >
-              Office Address
-            </Text>
-            <Text style={{ fontSize: 12, maxWidth: "70%", lineHeight: 1.7 }}>
-              {restOfText}
-            </Text>
+        <View fixed={true}>
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <View style={{ width: "50%" }}>
+              <View style={{ width: 60, height: 60, border: 1 }}>q</View>
+              <Text
+                style={{
+                  fontFamily: "Helvetica-Bold",
+                  color: "#464097",
+                  marginTop: 8,
+                  fontSize: 16,
+                }}
+              >
+                {firstLine}
+              </Text>
+            </View>
+            <View style={{ width: "50%", paddingLeft: 60 }}>
+              <Text
+                style={{
+                  fontSize: 24,
+                  maxWidth: "80%",
+                  color: "#464097",
+                  fontFamily: "Helvetica-Bold",
+                  marginBottom: 4,
+                  letterSpacing: 4,
+                }}
+              >
+                INVOICE
+              </Text>
+              <Text style={{ fontSize: 14, fontFamily: "Helvetica-Bold" }}>
+                December 06, 2024
+              </Text>
+            </View>
           </View>
 
-          <View style={{ width: "50%", paddingLeft: 60, lineHeight: 1.7 }}>
-            <Text
-              style={{
-                fontSize: 12,
-                marginBottom: 7,
-                fontFamily: "Helvetica-Bold",
-              }}
-            >
-              To:
-            </Text>
-            <Text style={{ fontSize: 12, maxWidth: "70%" }}>
-              4th Floor N.P Tower Kankarbagh Patna 80020
-            </Text>
+          <View
+            style={{ display: "flex", flexDirection: "row", marginTop: 24 }}
+          >
+            <View style={{ width: "50%" }}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  marginBottom: 7,
+                  fontFamily: "Helvetica-Bold",
+                }}
+              >
+                Office Address
+              </Text>
+              <Text style={{ fontSize: 12, maxWidth: "70%", lineHeight: 1.7 }}>
+                {restOfText}
+              </Text>
+            </View>
+
+            <View style={{ width: "50%", paddingLeft: 60, lineHeight: 1.7 }}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  marginBottom: 7,
+                  fontFamily: "Helvetica-Bold",
+                }}
+              >
+                To:
+              </Text>
+              <Text style={{ fontSize: 12, maxWidth: "70%" }}>
+                4th Floor N.P Tower Kankarbagh Patna 80020
+              </Text>
+            </View>
           </View>
         </View>
 
@@ -316,7 +333,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
         </View>
 
         <Table {...invoice} tableSize={tableSize} />
-        <EmptyTable rowsCount={}  />
+        <EmptyTable rowsCount={numEmptyRows} itemsLength={itemLength} />
         <view
           style={{
             flexDirection: "row",
