@@ -53,8 +53,6 @@ const styles = StyleSheet.create({
 });
 
 const Invoice = ({ invoice }) => {
-  const dst = useTheme();
-
   return (
     <Document>
       <Page size="A4" style={[styles.page]}>

@@ -182,3 +182,29 @@ export const updateItemAsync = createAsyncThunk<
     }
   }
 );
+
+interface UpdateTemplatePayload {
+  template: string;
+}
+interface UpdateTemplateFieldResponse {
+  template: string;
+}
+
+export const toggleTemplateAsync = createAsyncThunk<
+  UpdateTemplatePayload,
+  UpdateTemplateFieldResponse,
+  {
+    state: RootState; // ThunkAPI fields type
+    rejectValue: string; // Type of the rejected value
+  }
+>(
+  "counter/toggleTemplateAsync",
+  async ({ template }, { getState, rejectWithValue }) => {
+    try {
+      await delay(100);
+      return { template };
+    } catch (error: any) {
+      return rejectWithValue((error as Error).message || "Update item failed");
+    }
+  }
+);

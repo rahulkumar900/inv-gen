@@ -6,6 +6,7 @@ import {
   addLine,
   generatePdfAndConvert,
   removeLine,
+  toggleTemplateAsync,
   updateInvoiceField,
   updateItemAsync,
 } from "./action";
@@ -17,62 +18,6 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     initializeCount: (_, action) => action.payload,
-
-    // addLine: (state,_) => {
-    //   const items = state.items.slice();
-    //   const { tableRows, initialRows } = state;
-
-    //   items.push({
-    //     sno: items.length + 1,
-    //     desc: "",
-    //     qty: 0,
-    //     rate: 0,
-    //     cgst: 0,
-    //     sgst: 0,
-    //     igst: 0,
-    //     amount: 0,
-    //   });
-
-    //   let newTableRows;
-    //   const itemLength = items.length;
-
-    //   if (itemLength <= initialRows) {
-    //     newTableRows = initialRows;
-    //   } else {
-    //     const threshold = initialRows + 20 * Math.ceil((itemLength - initialRows) / 20);
-    //     newTableRows = itemLength > tableRows ? threshold : tableRows;
-    //   }
-
-    //   return {
-    //     ...state,
-    //     items,
-    //     tableRows: newTableRows,
-    //   };
-    // },
-
-    // removeLine: (state, action) => {
-    //   const updatedItems = state.items.filter(
-    //     (item) => item.sno !== action.payload
-    //   );
-    //   let tableRows;
-    //   const itemLength = updatedItems.length;
-    //   const { initialRows } = state;
-
-    //   // Calculate the new tableRows value based on the updated item length
-    //   if (itemLength <= initialRows) {
-    //     tableRows = initialRows;
-    //   } else {
-    //     tableRows =
-    //       initialRows + 20 * Math.ceil((itemLength - initialRows) / 20);
-    //   }
-
-    //   return {
-    //     ...state,
-    //     tableRows,
-    //     items: updatedItems.map((item, index) => ({ ...item, sno: index + 1 })),
-    //   };
-    // },
-
     generatePdfStart: (state: Invoice) => {
       return {
         ...state,
@@ -80,7 +25,6 @@ export const counterSlice = createSlice({
         error: null,
       };
     },
-
     generatePdfSuccess: (state, action) => {
       return {
         ...state,
@@ -191,7 +135,6 @@ export const counterSlice = createSlice({
             ? action.error.message
             : "Failed to generate PDF";
       })
-
       .addCase(addLine, (state, action) => {
         state.items = action.payload.items;
         state.tableRows = action.payload.tableRows;
@@ -216,14 +159,26 @@ export const counterSlice = createSlice({
           sno: index + 1,
         }));
         state.tableRows = tableRows;
-      });
+      })
+      .addCase(toggleTemplateAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(toggleTemplateAsync.fulfilled, (state: Invoice, action) => {
+        state.template = action.payload.template;
+      })
+      .addCase(toggleTemplateAsync.rejected, (state: Invoice, action) => {
+        state.loading = false;
+        state.error =
+          action.error && action.error.message
+            ? action.error.message
+            : "Failed to generate PDF";
+      })
   },
 });
 
 export const {
   initializeCount,
-  // addLine,
-  // removeLine,
   generatePdfSuccess,
   generatePdfFailure,
 } = counterSlice.actions;

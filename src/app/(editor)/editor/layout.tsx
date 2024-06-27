@@ -13,10 +13,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+
 import DownloadButton from "@/components/downloadButton";
+import { Button } from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import TemplateList from "@/components/templateList";
+
+
 
 function Header() {
   return (
@@ -29,6 +32,7 @@ function Header() {
           <SheetContent side="left">
             <SheetHeader>
               <SheetTitle>Edit profile</SheetTitle>
+               <TemplateList />
               <SheetDescription>
                 Make changes to your profile here. Click save when you're done.
               </SheetDescription>

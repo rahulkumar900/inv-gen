@@ -1,8 +1,6 @@
+"use client";
 import React, { useState } from "react";
 import { Document, Text, View, Page, StyleSheet } from "@react-pdf/renderer";
-import { useTheme } from "@/pdfComponent/themeContext";
-import { Description } from "@radix-ui/react-dialog";
-import { FileX } from "lucide-react";
 import { Invoice, Item } from "@/lib/features/invoice/invoiceType";
 import { splitFirstLine } from "@/utils";
 
@@ -134,16 +132,16 @@ function Row({
         borderBottom: 1,
       }}
     >
-      <View style={{ width: "40%", padding: 14 }}>
+      <View style={{ width: "40%", padding: 10 }}>
         <Text>{desc}</Text>
       </View>
-      <View style={{ width: "20%", padding: 14 }}>
+      <View style={{ width: "20%", padding: 10 }}>
         <Text>{rate}</Text>
       </View>
-      <View style={{ width: "20%", padding: 14 }}>
+      <View style={{ width: "20%", padding: 10 }}>
         <Text style={{ textAlign: "center" }}>{qty}</Text>
       </View>
-      <View style={{ width: "20%", padding: 14 }}>
+      <View style={{ width: "20%", padding: 10 }}>
         <Text style={{ textAlign: "center" }}>{amount}</Text>
       </View>
     </View>
@@ -165,16 +163,16 @@ function EmptyRow() {
         borderBottom: 1,
       }}
     >
-      <View style={{ width: "40%", padding: 14 }}>
+      <View style={{ width: "40%", padding: 10 }}>
         <Text>-</Text>
       </View>
-      <View style={{ width: "20%", padding: 14 }}>
+      <View style={{ width: "20%", padding: 10 }}>
         <Text>-</Text>
       </View>
-      <View style={{ width: "20%", padding: 14 }}>
+      <View style={{ width: "20%", padding: 10 }}>
         <Text style={{ textAlign: "center" }}>-</Text>
       </View>
-      <View style={{ width: "20%", padding: 14 }}>
+      <View style={{ width: "20%", padding: 10 }}>
         <Text style={{ textAlign: "center" }}>-</Text>
       </View>
     </View>
@@ -228,7 +226,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
       <Page
         style={{
           paddingTop: 35,
-          paddingBottom: 35,
+          paddingBottom: 28,
           paddingHorizontal: 35,
           fontFamily: "Helvetica",
           width: "100%",
@@ -258,21 +256,25 @@ export default function One({ invoice }: { invoice: Invoice }) {
                   color: "#464097",
                   fontFamily: "Helvetica-Bold",
                   marginBottom: 4,
+
                   letterSpacing: 4,
                 }}
               >
                 INVOICE
               </Text>
-              <Text style={{ fontSize: 14, fontFamily: "Helvetica-Bold" }}>
+              <Text style={{ fontSize: 14,marginBottom: 4, fontFamily: "Helvetica-Bold" }}>
                 December 06, 2024
               </Text>
+              <Text style={{ fontSize: 14, fontFamily: "Helvetica-Bold" }}>INV NO : 154</Text>
             </View>
           </View>
 
           <View
-            style={{ display: "flex", flexDirection: "row", marginTop: 24 }}
+            style={{ display: "flex", flexDirection: "row", marginTop: 12 }}
           >
-            <View style={{ width: "50%" }}>
+            <View
+              style={{ width: "50%", maxHeight: 100, textOverflow: "ellipsis" }}
+            >
               <Text
                 style={{
                   fontSize: 12,
@@ -287,7 +289,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
               </Text>
             </View>
 
-            <View style={{ width: "50%", paddingLeft: 60, lineHeight: 1.7 }}>
+            <View style={{ width: "50%",maxHeight: 100, textOverflow: "ellipsis", paddingLeft: 60, lineHeight: 1.7 }}>
               <Text
                 style={{
                   fontSize: 12,
@@ -298,7 +300,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
                 To:
               </Text>
               <Text style={{ fontSize: 12, maxWidth: "70%" }}>
-                4th Floor N.P Tower Kankarbagh Patna 80020
+                {invoice.s_address}
               </Text>
             </View>
           </View>
@@ -310,7 +312,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
             alignItems: "center",
             fontFamily: "Helvetica-Bold",
             fontStyle: "bold",
-            marginTop: "24",
+            marginTop: "12",
 
             backgroundColor: "#464097",
             color: "white",
@@ -366,20 +368,18 @@ export default function One({ invoice }: { invoice: Invoice }) {
           style={{
             flexDirection: "row",
             padding: 14,
-            height: "130",
+            height: "120",
           }}
         >
           <View
             style={{
               width: "60%",
               display: "flex",
-
               flexDirection: "column",
-              height: "100%",
               alignItems: "flex-start",
               justifyContent: "flex-start",
               color: "#464097",
-              flex: 1,
+          
             }}
           >
             <Text style={{ fontSize: 18, fontFamily: "Helvetica-Bold" }}>

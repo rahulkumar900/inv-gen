@@ -49,6 +49,8 @@ const invoiceData = {
   trans_date: "",
   due_date: "",
 
+  template : "zero",
+
   //
   isIgst: true,
   items: [

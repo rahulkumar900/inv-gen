@@ -60,6 +60,7 @@ export interface Invoice {
 
   trans_date: string;
   due_date: string;
+  template: string;
   items: Item[];
   [key: string]: number | string | null | boolean | Item[]; // Add an index signature
 }
