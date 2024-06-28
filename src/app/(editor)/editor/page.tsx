@@ -1,6 +1,6 @@
 "use client";
 import Test from "@/app/test";
-import Form from "@/components/form";
+import FormNew from "@/components/formnew";
 import { generatePdfAndConvert } from "@/lib/features/invoice/action";
 import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -19,7 +19,7 @@ export default function Editor() {
           hidden: editorMode,
         })}
       >
-        <Form />
+        <FormNew />
       </div>
       <div className="hiden md:block w-2/5 bg-previewContainer ">
         <Suspense fallback="loading ...">

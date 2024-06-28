@@ -14,12 +14,12 @@ import { Textarea } from "@/components/ui/textarea";
 
 import SelectState from "@/components/selectState";
 
-import InputTable from "@/components/inputTable";
+import InputTable from "@/components/inputTableNew";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import Bankdetails from "./bankdetails";
 
-const Form = () => {
+const FormNew = () => {
   const dispatch: AppDispatch = useAppDispatch();
   // let count = useSelector((state: RootState) => state.counter);
 
@@ -63,12 +63,11 @@ const Form = () => {
 
   return (
     <div
-      className="bg-background
-     py-16
+      className=" bg-background mt-24 max-w-4xl mx-auto p-10  shadow-xl rounded-2xl border
      "
     >
-      <section className="grid grid-cols-12 gap-4   md:gap-10 p-4">
-        <form className="space-y-4 col-span-12 md:col-start-1 lg:col-start-2  md:col-end-7 ">
+      <section className="grid grid-cols-12 gap-4  md:gap-10 p-4">
+        <form className="space-y-4 col-span-12 md:col-start-1   md:col-end-7 ">
           <Label>Bill From</Label>
 
           <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -86,7 +85,7 @@ const Form = () => {
             <SelectState name="state" />
           </div>
         </form>
-        <form className="space-y-4 col-span-12 md:col-start-1 lg:col-start-2 md:col-end-7">
+        <form className="space-y-4 col-span-12 md:col-start-1  md:col-end-7">
           <Label>Bill To</Label>
 
           <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -110,7 +109,7 @@ const Form = () => {
             <SelectState name="b_state" />
           </div>
         </form>
-        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-13 lg:col-end-12 ">
+        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-13  ">
           <Label>Ship To</Label>
 
           <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -128,58 +127,59 @@ const Form = () => {
             <SelectState name="s_name" />
           </div>
         </form>
-        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-13 lg:col-end-12 row-start-1 row-end-2">
-          <Label></Label>
-          <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
-            <Label htmlFor="invoice_no">#invoice Number</Label>
+        <form className=" grid grid-cols-subgrid items-center col-span-12 row-start-1 ">
+        
+          <div className="col-span-3">
+            <Label className="text-muted-foreground" htmlFor="invoice_no">#invoice Number</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
               id="invoice_no"
               name="invoice_no"
-              className="w-full"
-              placeholder="Invoice Number"
+              className="w-full "
+              // placeholder="Invoice Number"
               required
             />
           </div>
-          <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
-            <Label htmlFor="invoice_date">Invoice Date</Label>
+          <div className="col-span-3">
+            <Label className="text-muted-foreground" htmlFor="invoice_date">Invoice Date</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
               id="invoice_date"
               name="invoice_date"
-              placeholder="Invoice Date"
+              // placeholder="Invoice Date"
               required
             />
           </div>
-          <div className="grid  lg:grid-cols-[130px_1fr] items-center gap-2">
-            <Label htmlFor="order_no">Order Number</Label>
+          <div className="col-span-3">
+            <Label className="text-muted-foreground" htmlFor="order_no">Order Number</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
               id="order_no"
               name="order_no"
-              placeholder="Order Number"
+              // placeholder="Order Number"
               required
             />
           </div>
-          <div className="grid lg:grid-cols-[130px_1fr] items-center gap-2">
-            <Label htmlFor="destination">Destination</Label>
+          <div className="col-span-3">
+            <Label className="text-muted-foreground" htmlFor="destination">Destination</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
               id="destination"
               name="destination"
-              placeholder="Destination"
+              // placeholder="Destination"
             />
           </div>
         </form>
+
+        <InputTable />
+        <Bankdetails />
       </section>
-      <InputTable />
-      <Bankdetails />
     </div>
   );
 };
 
-export default Form;
+export default FormNew;

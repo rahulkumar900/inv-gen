@@ -50,47 +50,42 @@ export default function Bankdetails() {
   };
   return (
     <>
-      <div className="mt-6 px-4">
-        <div className="grid grid-cols-12">
-          <div className=" md:col-start-1 lg:col-start-2 lg:col-end-6 md:col-end-6 col-span-12">
-            <Accordion
-              type="single"
-              collapsible
-              className="w-full px-4 bg-secondary"
-            >
-              <AccordionItem value="item-1">
-                <AccordionTrigger>Add Bank details</AccordionTrigger>
-                <AccordionContent className=" ">
-                  <div className="space-y-2">
-                    <Input
-                      onChange={handleChange}
-                      name="bankname"
-                      className="focus-visible:ring-0"
-                      placeholder="Bank Name"
-                      type="text"
-                    />
-                    <Input
-                      onChange={handleChange}
-                      name="ifsc"
-                      className="focus-visible:ring-0"
-                      placeholder="IFSC Code"
-                      type="text"
-                    />
-                    <Input
-                      onChange={handleChange}
-                      name="accountnumber"
-                      className="focus-visible:ring-0"
-                      placeholder="Account Number"
-                      type="text"
-                    />
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </div>
+      <div className=" md:col-start-1   md:col-end-6 col-span-12">
+        <Accordion
+          type="single"
+          collapsible
+          className="w-full px-4 bg-secondary"
+        >
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Add Bank details</AccordionTrigger>
+            <AccordionContent className=" ">
+              <div className="space-y-2">
+                <Input
+                  onChange={handleChange}
+                  name="bankname"
+                  className="focus-visible:ring-0"
+                  placeholder="Bank Name"
+                  type="text"
+                />
+                <Input
+                  onChange={handleChange}
+                  name="ifsc"
+                  className="focus-visible:ring-0"
+                  placeholder="IFSC Code"
+                  type="text"
+                />
+                <Input
+                  onChange={handleChange}
+                  name="accountnumber"
+                  className="focus-visible:ring-0"
+                  placeholder="Account Number"
+                  type="text"
+                />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
-      ;
     </>
   );
 }
