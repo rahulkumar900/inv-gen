@@ -21,7 +21,7 @@ import { AppDispatch, RootState } from "@/lib/store";
 import { formatCurrency } from "@/utils";
 
 const fields = [
-  "Sl.No.",
+  "Sl.no.",
   "Description",
   "Qty.",
   "Rate",
@@ -132,23 +132,22 @@ const InputTableNew = () => {
 
   return (
     <>
-      <div className=" md:col-start-1   md:col-end-13 col-span-12">
-        <div className=" border border-b-0  w-full relative">
+      <div className=" md:col-start-1  md:-mx-8  md:px-8  md:col-end-13 col-span-12">
+        <div className=" w-full relative py-4 border-t ">
           <div
-            className={`md:grid hidden border-b ${
+            className={`md:grid hidden text-md   ${
               isIgst
-                ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
-                : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
+                ? "md:grid-cols-[50px_2fr_1fr_1fr_1fr_1fr]"
+                : "md:grid-cols-[50px_2fr_1fr_1fr_1fr_1fr_1fr]"
             } `}
           >
             {fields &&
               fields.length &&
               fields.map((li, i) => (
                 <div
-                  className={`text-muted-foreground text-center  bg-muted p-2     ${li.toLowerCase()} ${isHidden(
-                    li,
-                    isIgst
-                  )}`}
+                  className={` text-left ${
+                    i === 0 ? "hidden md:block" : ""
+                  }      ${li.toLowerCase()} ${isHidden(li, isIgst)}`}
                   key={i}
                 >
                   {li}
@@ -161,38 +160,40 @@ const InputTableNew = () => {
               return (
                 <div
                   key={i}
-                  className={` relative  grid grid-cols-7 ${
-                    isIgst
-                      ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
-                      : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
-                  }  `}
+                  className={` relative gap-2 gap-y-4 border-b py-4 row grid grid-cols-7 
+                    ${
+                      isIgst
+                        ? "md:grid-cols-[50px_2fr_1fr_1fr_1fr_1fr]"
+                        : "md:grid-cols-[50px_2fr_1fr_1fr_1fr_1fr_1fr]"
+                    }`}
                 >
-                  <Input
-                    className={`focus-visible:ring-0 border-0 border-b text-center border-r rounded-none `}
-                    type="text"
-                    disabled={true}
-                    name="sno"
-                    placeholder="Sl.No"
+                  <div
+                    className=" bg-background md:place-items-center  hidden md:grid col-span-6 md:col-span-1 rounded-lg border border-muted-foreground   text-muted-foreground"
                     defaultValue={String(li.sno) || ""}
-                    onChange={(e) => handleItemsChange(e, i)}
-                    // value={li[key]}
-                  />
-
-                  <Input
-                    className={`focus-visible:ring-0 col-span-6 md:col-span-1 border-0 border-b text-muted-foreground  rounded-none `}
-                    type="text"
-                    name="desc"
-                    placeholder="Description"
-                    defaultValue={String(li.desc)}
-                    onChange={(e) => handleItemsChange(e, i)}
-                    // value={li[key]}
-                  />
-                  <div className="qty text-center col-span-1  ">
+                  >
+                    {li.sno}
+                  </div>
+                  <div className="col-span-3 md:col-span-1 ">
                     <span className=" md:hidden text-muted-foreground text-sm">
-                      Qty
+                      Description
+                    </span>
+
+                    <Input
+                      className={`focus-visible:ring-0 col-span-6 md:col-span-1 rounded-lg border border-muted-foreground   text-muted-foreground`}
+                      type="text"
+                      name="desc"
+                      placeholder="Description"
+                      defaultValue={String(li.desc)}
+                      onChange={(e) => handleItemsChange(e, i)}
+                      // value={li[key]}
+                    />
+                  </div>
+                  <div className="qty text-left md:text-left col-span-2 md:col-span-1 ">
+                    <span className=" md:hidden text-muted-foreground text-sm">
+                      Quantity
                     </span>
                     <Input
-                      className={`focus-visible:ring-0 border-0 text-center border-b rounded-none `}
+                      className={`focus-visible:ring-0 col-span-6 md:col-span-1 border-muted-foreground rounded-lg border text-muted-foreground`}
                       type="number"
                       name="qty"
                       placeholder="Qty"
@@ -200,12 +201,12 @@ const InputTableNew = () => {
                       onChange={(e) => handleItemsChange(e, i)}
                     />
                   </div>
-                  <div className="rate col-span-1  md:col-span-1 text-center">
-                    <span className=" md:hidden  text-muted-foreground text-sm">
+                  <div className="rate col-span-2  md:col-span-1 text-left">
+                    <span className=" md:hidden text-left text-muted-foreground text-sm">
                       Rate
                     </span>
                     <Input
-                      className={` appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none `}
+                      className={`appearance-none border-muted-foreground focus-visible:ring-0 col-span-6 md:col-span-1 rounded-lg border   text-muted-foreground`}
                       type="number"
                       name="rate"
                       placeholder="Rate"
@@ -215,15 +216,15 @@ const InputTableNew = () => {
                     />
                   </div>
                   <div
-                    className={`sgst col-span-1 text-center ${
+                    className={`sgst col-span-2 md:col-span-1 text-left ${
                       isIgst ? "hidden" : ""
                     } `}
                   >
-                    <span className=" md:hidden  text-muted-foreground text-sm">
+                    <span className="text-left md:hidden text-muted-foreground text-sm">
                       SGST
                     </span>
                     <Input
-                      className={` appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
+                      className={` appearance-none border-muted-foreground focus-visible:ring-0 col-span-6 md:col-span-1 rounded-lg border text-muted-foreground`}
                       type="text"
                       name="sgst"
                       placeholder="sgst"
@@ -233,15 +234,15 @@ const InputTableNew = () => {
                     />
                   </div>
                   <div
-                    className={`cgst col-span-1 text-center  ${
+                    className={`cgst col-span-2 md:col-span-1 text-left  ${
                       isIgst ? "hidden" : ""
                     }`}
                   >
-                    <span className=" md:hidden  text-muted-foreground text-sm">
+                    <span className="text-left md:hidden text-muted-foreground text-sm">
                       CGST
                     </span>
                     <Input
-                      className={`appearance-none focus-visible:ring-0 text-center border-0 border-b rounded-none  `}
+                      className={` appearance-none border-muted-foreground focus-visible:ring-0 col-span-6 md:col-span-1 rounded-lg border text-muted-foreground`}
                       type="text"
                       name="cgst"
                       placeholder="cgst"
@@ -251,15 +252,15 @@ const InputTableNew = () => {
                     />
                   </div>
                   <div
-                    className={` col-span-1 text-center ${
+                    className={` col-span-2 md:col-span-1 text-left ${
                       isIgst ? "" : "hidden"
                     }`}
                   >
-                    <span className=" md:hidden  text-muted-foreground text-sm">
+                    <span className="text-left md:hidden text-muted-foreground text-sm">
                       IGST
                     </span>
                     <Input
-                      className={`focus-visible:ring-0 border-0 text-center border-b rounded-none  `}
+                      className={`border-muted-foreground appearance-none focus-visible:ring-0 col-span-6 md:col-span-1 rounded-lg border text-muted-foreground`}
                       type="number"
                       name="igst"
                       placeholder="igst"
@@ -268,18 +269,18 @@ const InputTableNew = () => {
                       // value={li[key]}
                     />
                   </div>
-                  <div className="col-span-2 md:col-span-1  text-center">
-                    <span className=" md:hidden  text-muted-foreground text-sm">
+                  <div className="col-span-2 md:col-span-1  text-left">
+                    <span className=" text-left  md:hidden text-muted-foreground text-sm">
                       Amount
                     </span>
 
                     <Input
-                      className={`focus-visible:ring-0 border-0 border-b rounded-none text-center  `}
+                      className={`bg-background appearance-none border-muted-foreground focus-visible:ring-0 col-span-6 md:col-span-1 rounded-lg border text-muted-foreground`}
                       type="text"
                       disabled={true}
                       name="amount"
                       placeholder="Amount"
-                      defaultValue={formatCurrency(li.amount) || ""}
+                      value={formatCurrency(li.amount || 0) }
 
                       // value={li[key]}
                     />
@@ -287,15 +288,15 @@ const InputTableNew = () => {
                   <span
                     onClick={() => handleRemoveLine(li.sno)}
                     role="button"
-                    className="absolute z-50 -right-4 top-2 text-destructive-foreground font-bold bg-destructive"
+                    className="absolute z-50 p-1 -right-8 top-5 rounded-full text-destructive-foreground font-bold bg-destructive"
                   >
-                    <X size={15} />
+                    <X size={22} />
                   </span>
                 </div>
               );
             })
           ) : (
-            <p>Add new Row</p>
+            <div className="col-span-full p-4 border-b">No Rows 😥 </div>
           )}
 
           {/* Gst Section */}
@@ -310,7 +311,7 @@ const InputTableNew = () => {
           )}
 
           <div
-            className={`text-muted-foreground border-b   p-2   overflow-hidden grid grid-cols-7 ${
+            className={`text-muted-foreground border-b   p-2   overflow-hidden grid gap-2 grid-cols-7 ${
               isIgst
                 ? "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr]"
                 : "md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr]"
@@ -323,7 +324,7 @@ const InputTableNew = () => {
             >
               Total amount
             </div>
-            <div className="text-center col-span-2 md:col-span-1">
+            <div className="text-left col-span-2 md:col-span-1">
               {totalWithTax}
             </div>
           </div>

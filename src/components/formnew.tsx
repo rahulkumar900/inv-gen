@@ -63,40 +63,44 @@ const FormNew = () => {
 
   return (
     <div
-      className=" bg-background mt-24 max-w-4xl mx-auto p-10  shadow-xl rounded-2xl border
+      className=" bg-card mt-24 max-w-4xl mx-auto p-1 lg:p-4 xl:p-8  shadow-xl rounded-2xl border
      "
     >
       <section className="grid grid-cols-12 gap-4  md:gap-10 p-4">
         <form className="space-y-4 col-span-12 md:col-start-1   md:col-end-7 ">
-          <Label>Bill From</Label>
-
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="address">Company Address</Label>
+          <div className="grid w-full max-w-sm items-center space-y-2">
+            <Label className="text-muted-foreground" htmlFor="address">
+              Your company details
+            </Label>
             <Textarea
               onChange={(e) => handleChange(e)}
+              className="active:ring-0 border border-muted-foreground"
               id="address"
               name="address"
               placeholder="John"
               required
             />
           </div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="address">State</Label>
+          <div className="grid w-full max-w-sm items-center space-y-2">
+            <Label className="text-muted-foreground" htmlFor="address">
+              State
+            </Label>
             <SelectState name="state" />
           </div>
         </form>
-        <form className="space-y-4 col-span-12 md:col-start-1  md:col-end-7">
-          <Label>Bill To</Label>
-
+        <form className="space-y-4 col-span-12 md:col-start-7  md:col-end-13">
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
+              className="text-muted-foreground"
               htmlFor="b_address"
+
               // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Company Address
+              Bill To
             </Label>
             <Textarea
               onChange={(e) => handleChange(e)}
+              className="border border-muted-foreground"
               id="b_address"
               name="b_address"
               // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -105,16 +109,19 @@ const FormNew = () => {
             />
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="address">State</Label>
+            <Label className="text-muted-foreground" htmlFor="address">
+              State
+            </Label>
             <SelectState name="b_state" />
           </div>
         </form>
-        <form className="space-y-4 col-span-12 md:col-start-7 md:col-end-13  ">
+        <form className=" hidden space-y-4 col-span-12 md:col-start-7 md:col-end-13  ">
           <Label>Ship To</Label>
 
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="s_address">Company Address</Label>
             <Textarea
+              className="border border-muted-foreground"
               onChange={(e) => handleChange(e)}
               id="s_address"
               name="s_address"
@@ -127,55 +134,65 @@ const FormNew = () => {
             <SelectState name="s_name" />
           </div>
         </form>
-        <form className=" grid grid-cols-subgrid items-center col-span-12 row-start-1 ">
-        
-          <div className="col-span-3">
-            <Label className="text-muted-foreground" htmlFor="invoice_no">#invoice Number</Label>
+        <form className=" grid grid-cols-subgrid items-center space-y-2 col-span-12 row-start-1 ">
+          <div className="col-span-full md:col-span-3 space-y-1">
+            <Label className="text-muted-foreground" htmlFor="invoice_no">
+              Invoice number
+            </Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
               id="invoice_no"
               name="invoice_no"
-              className="w-full "
+              className="focus-visible:ring-0 focus-visible:border-2 tranition-all w-full border border-muted-foreground"
               // placeholder="Invoice Number"
               required
             />
           </div>
-          <div className="col-span-3">
-            <Label className="text-muted-foreground" htmlFor="invoice_date">Invoice Date</Label>
+          <div className="col-span-full md:col-span-3 space-y-1">
+            <Label className="text-muted-foreground" htmlFor="invoice_date">
+              Invoice date
+            </Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
               id="invoice_date"
               name="invoice_date"
-              // placeholder="Invoice Date"
+              className="border border-muted-foreground"
               required
             />
           </div>
-          <div className="col-span-3">
-            <Label className="text-muted-foreground" htmlFor="order_no">Order Number</Label>
+          <div className="col-span-full md:col-span-3 space-y-1">
+            <Label className="text-muted-foreground" htmlFor="order_no">
+              Order number
+            </Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
               id="order_no"
               name="order_no"
+              className="border border-muted-foreground"
               // placeholder="Order Number"
               required
             />
           </div>
-          <div className="col-span-3">
-            <Label className="text-muted-foreground" htmlFor="destination">Destination</Label>
+          <div className="col-span-full md:col-span-3 space-y-1">
+            <Label className="text-muted-foreground" htmlFor="destination">
+              Destination
+            </Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
               id="destination"
               name="destination"
+              className="border border-muted-foreground"
               // placeholder="Destination"
             />
           </div>
         </form>
-
-        <InputTable />
+       
+          <InputTable />
+       
         <Bankdetails />
       </section>
     </div>

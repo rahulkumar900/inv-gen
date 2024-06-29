@@ -14,14 +14,14 @@ export default function Editor() {
   return (
     <>
       <div
-        className={clsx("md:w-3/5 w-full bg-secondary md:overflow-y-scroll", {
+        className={clsx("md:w-3/5 w-full bg-background md:overflow-y-scroll", {
           block: !editorMode,
           hidden: editorMode,
         })}
       >
         <FormNew />
       </div>
-      <div className="hiden md:block w-2/5 bg-previewContainer ">
+      <div className="hidden lg:block w-2/5 bg-previewContainer ">
         <Suspense fallback="loading ...">
           <Test />
         </Suspense>
