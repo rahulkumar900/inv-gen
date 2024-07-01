@@ -21,7 +21,6 @@ import { AppDispatch, RootState } from "@/lib/store";
 import { formatCurrency } from "@/utils";
 
 const fields = [
-  "Sl.no.",
   "Description",
   "Qty.",
   "Rate",
@@ -29,6 +28,7 @@ const fields = [
   "SGST",
   "IGST",
   "Amount",
+  "",
 ];
 
 const InputTableNew = () => {
@@ -137,8 +137,8 @@ const InputTableNew = () => {
           <div
             className={`md:grid hidden text-md   ${
               isIgst
-                ? "md:grid-cols-[50px_2fr_1fr_1fr_1fr_1fr]"
-                : "md:grid-cols-[50px_2fr_1fr_1fr_1fr_1fr_1fr]"
+                ? "md:grid-cols-[2fr_1fr_1fr_1fr_1fr_50px]"
+                : "md:grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr_50px]"
             } `}
           >
             {fields &&
@@ -160,19 +160,21 @@ const InputTableNew = () => {
               return (
                 <div
                   key={i}
-                  className={` relative gap-2 gap-y-4 border-b py-4 row grid grid-cols-7 
+                  className={` relative gap-2 gap-y-4 border-b py-4 row grid items-center grid-cols-7 
                     ${
                       isIgst
-                        ? "md:grid-cols-[50px_2fr_1fr_1fr_1fr_1fr]"
-                        : "md:grid-cols-[50px_2fr_1fr_1fr_1fr_1fr_1fr]"
+                      ? "md:grid-cols-[2fr_1fr_1fr_1fr_1fr_50px]"
+                      : "md:grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr_50px]"
                     }`}
                 >
-                  <div
-                    className=" bg-background md:place-items-center  hidden md:grid col-span-6 md:col-span-1 rounded-lg border border-muted-foreground   text-muted-foreground"
+                  {/* <div
+                    className=" bg-background md:place-items-center  hidden md:grid col-span-6 md:col-span-1  border border-muted-foreground   text-muted-foreground"
                     defaultValue={String(li.sno) || ""}
                   >
-                    {li.sno}
-                  </div>
+                    
+                  </div> */}
+
+                  
                   <div className="col-span-3 md:col-span-1 ">
                     <span className=" md:hidden text-muted-foreground text-sm">
                       Description
@@ -285,14 +287,12 @@ const InputTableNew = () => {
                       // value={li[key]}
                     />
                   </div>
-                  <span
-                    onClick={() => handleRemoveLine(li.sno)}
-                    role="button"
-                    className="absolute z-50 p-1 -right-8 top-5 rounded-full text-destructive-foreground font-bold bg-destructive"
-                  >
-                    <X size={22} />
-                  </span>
-                </div>
+                  <div onClick={() => handleRemoveLine(li.sno)}
+                    role="button" className="w-11 justify-self-center mt-4 md:mt-0 h-11 grid place-items-center rounded-full bg-destructive text-destructive-foreground border">
+                  <X size={24} />
+                    </div>
+                  </div>
+                
               );
             })
           ) : (
