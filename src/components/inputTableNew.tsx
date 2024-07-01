@@ -288,7 +288,7 @@ const InputTableNew = () => {
                     />
                   </div>
                   <div onClick={() => handleRemoveLine(li.sno)}
-                    role="button" className="w-11 justify-self-center mt-4 md:mt-0 h-11 grid place-items-center rounded-full bg-destructive text-destructive-foreground border">
+                    role="button" className="w-10 justify-self-center mt-4 md:mt-0 h-10 grid place-items-center rounded-full text-muted-foreground shadow-lg hover:bg-destructive hover:text-destructive-foreground border">
                   <X size={24} />
                     </div>
                   </div>
