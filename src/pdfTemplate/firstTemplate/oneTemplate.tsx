@@ -3,6 +3,11 @@ import React, { useState } from "react";
 import { Document, Text, View, Page, StyleSheet } from "@react-pdf/renderer";
 import { Invoice, Item } from "@/lib/features/invoice/invoiceType";
 import { splitFirstLine } from "@/utils";
+import Table from "./table";
+import EmptyTable from "./emptyTable";
+import Note from "./note";
+import Tax from "./tax";
+import { calculateGst } from "@/lib/calculategst";
 
 const invoices = [
   { description: "Ipad Mini", price: 10, qty: 2, amount: 20 },
@@ -12,203 +17,6 @@ const invoices = [
   { description: "Ipad Mini", price: 10, qty: 2, amount: 20 },
   // { description: "Ipad Mini", price: 10, qty: 2, amount: 20 },
 ];
-
-function Tax() {
-  return (
-    <>
-      <View
-        style={{
-          flexDirection: "row",
-          fontStyle: "bold",
-          fontSize: 12,
-          paddingHorizontal: 4,
-          paddingTop: 28,
-        }}
-      >
-        <View style={{ width: "50%" }}>
-          <Text style={{ textAlign: "left", fontStyle: "uppercase" }}>
-            SUBTOTAL :
-          </Text>
-        </View>
-        <View style={{ width: "50%" }}>
-          <Text style={{ textAlign: "center" }}>5225</Text>
-        </View>
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          fontStyle: "bold",
-          paddingVertical: 7,
-          paddingHorizontal: 4,
-          marginVertical: 7,
-          fontSize: 12,
-
-          // paddingTop: 4,
-        }}
-      >
-        <View style={{ width: "50%" }}>
-          <Text style={{ textAlign: "left", fontStyle: "uppercase" }}>
-            TAX :
-          </Text>
-        </View>
-        <View style={{ width: "50%" }}>
-          <Text style={{ textAlign: "center" }}>25</Text>
-        </View>
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          fontStyle: "bold",
-          // flex: 1,
-          color: "white",
-
-          fontSize: 12,
-          backgroundColor: "#464097",
-          paddingVertical: 7,
-          marginVertical: 7,
-          paddingHorizontal: 4,
-          // paddingTop: 7,
-        }}
-      >
-        <View style={{ width: "50%" }}>
-          <Text style={{ textAlign: "left", fontStyle: "uppercase" }}>
-            TOTAL DUE :
-          </Text>
-        </View>
-        <View style={{ width: "50%" }}>
-          <Text style={{ textAlign: "center" }}>25585</Text>
-        </View>
-      </View>
-    </>
-  );
-}
-
-function Note() {
-  return (
-    <View style={{ paddingHorizontal: 14, paddingVertical: 28 }}>
-      <Text>Note : </Text>
-      <Text
-        style={{
-          fontFamily: "Helvetica",
-          fontSize: 11,
-          marginTop: 4,
-          lineHeight: 1.2,
-          textOverflow: "ellipsis",
-        }}
-      >
-        Payment should be within 15 days of delivery,React-pdf is shipped with a
-        Font module that enables to load fonts from different sources, handle
-        how words are wrapped and defined an emoji source to embed these glyphs
-        on your document.
-      </Text>
-    </View>
-  );
-}
-
-function Row({
-  desc,
-  rate,
-  qty,
-  amount,
-}: {
-  desc: string;
-  rate: number;
-  qty: number;
-  amount: number;
-}) {
-  return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        fontStyle: "bold",
-        // marginTop: "24",
-
-        // backgroundColor: "#464097",
-        // color: "white",
-        fontSize: 12,
-        padding: 5,
-        borderBottom: 1,
-      }}
-    >
-      <View style={{ width: "40%", padding: 10 }}>
-        <Text>{desc}</Text>
-      </View>
-      <View style={{ width: "20%", padding: 10 }}>
-        <Text>{rate}</Text>
-      </View>
-      <View style={{ width: "20%", padding: 10 }}>
-        <Text style={{ textAlign: "center" }}>{qty}</Text>
-      </View>
-      <View style={{ width: "20%", padding: 10 }}>
-        <Text style={{ textAlign: "center" }}>{amount}</Text>
-      </View>
-    </View>
-  );
-}
-function EmptyRow() {
-  return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        fontStyle: "bold",
-        // marginTop: "24",
-
-        // backgroundColor: "#464097",
-        // color: "white",
-        fontSize: 12,
-        padding: 5,
-        borderBottom: 1,
-      }}
-    >
-      <View style={{ width: "40%", padding: 10 }}>
-        <Text>-</Text>
-      </View>
-      <View style={{ width: "20%", padding: 10 }}>
-        <Text>-</Text>
-      </View>
-      <View style={{ width: "20%", padding: 10 }}>
-        <Text style={{ textAlign: "center" }}>-</Text>
-      </View>
-      <View style={{ width: "20%", padding: 10 }}>
-        <Text style={{ textAlign: "center" }}>-</Text>
-      </View>
-    </View>
-  );
-}
-
-function Table({ items, tableSize }: { items: Item[]; tableSize: number }) {
-  const itemsLenght = items.length;
-  const ematyRows = tableSize - itemsLenght;
-
-  console.log(items);
-
-  return (
-    <>
-      {items &&
-        items.length &&
-        items.map((item, i) => <Row key={i} {...item} />)}
-    </>
-  );
-}
-function EmptyTable({
-  rowsCount,
-  itemsLength,
-}: {
-  rowsCount: number;
-  itemsLength: number;
-}) {
-  return (
-    <>
-      {rowsCount &&
-        Array(rowsCount)
-          .fill(0)
-          .map((_, i) => <EmptyRow key={i} />)}
-    </>
-  );
-}
 
 export default function One({ invoice }: { invoice: Invoice }) {
   const [tableSize, setTableSize] = useState(6);
@@ -221,6 +29,28 @@ export default function One({ invoice }: { invoice: Invoice }) {
   const numEmptyRows = tableSize - itemLength;
   const { firstLine, restOfText } = splitFirstLine(invoice.address);
   console.log(invoice);
+
+  const {
+    cgstSummary,
+    sgstSummary,
+    igstSummary,
+    totalCgst,
+    totalSgst,
+    totalIgst,
+  } = calculateGst(invoice.items);
+
+
+  const TotalAmount = invoice.items
+    .map((item) => item.amount)
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+  console.log(typeof TotalAmount);
+  
+  const totalWithTax = invoice.isIgst
+    ? TotalAmount + totalIgst
+    : TotalAmount + totalCgst + totalSgst;
+
+
   return (
     <Document>
       <Page
@@ -336,7 +166,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
 
         <Table {...invoice} tableSize={tableSize} />
         <EmptyTable rowsCount={numEmptyRows} itemsLength={itemLength} />
-        <view
+        <View
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -359,10 +189,10 @@ export default function One({ invoice }: { invoice: Invoice }) {
           >
             <Note />
           </View>
-          <view style={{ width: "40%", height: "100%" }}>
-            <Tax />
-          </view>
-        </view>
+          <View style={{ width: "40%", height: "100%" }}>
+            <Tax total={TotalAmount}  />
+          </View>
+        </View>
 
         <View
           style={{

@@ -11,19 +11,10 @@ import InvoiceTitle from "./InvoiceTitle";
 import BillTo from "./BillTo";
 import InvoiceNo from "./InvoiceNo";
 import InvoiceItemsTable from "./InvoiceItemsTable";
-import InvoiceFooter from "./invoiceFooter";
+
 import BankWithSign from "./bankWithSign";
 import InvoiceThankYouMsg from "./InvoiceThankYouMsg";
-import { Invoice as invoiceType } from "@/lib/features/invoice/invoiceType";
-import { Inter } from "next/font/google";
-import { useTheme } from "@/pdfComponent/themeContext";
-import { useAppSelector } from "@/lib/hooks";
-import { useSelector } from "react-redux";
 
-// Font.register({
-//   family: "Roboto",
-//   fonts: [{ src: "./fonts/roboto/Roboto-Black.ttf", fontWeight: "bold" }],
-// });
 
 const styles = StyleSheet.create({
   page: {
@@ -94,12 +85,4 @@ const Invoice = ({ invoice }) => {
 
 export default Invoice;
 
-// <ThemeProvider>
-{
-  /* <StoreProvider> */
-}
-// <Component />
-{
-  /* </StoreProvider> */
-}
-// <ThemeProvider />
+
