@@ -18,6 +18,7 @@ import InputTable from "@/components/inputTableNew";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import Bankdetails from "./bankdetails";
+import { Upload } from "lucide-react";
 
 const FormNew = () => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -56,6 +57,16 @@ const FormNew = () => {
     e.preventDefault();
     debouncedHandleChange(e);
   };
+
+  const fileRef = useRef()
+
+  const clickInput = () => {
+    fileRef.current.click();
+  }
+
+
+
+
 
   useEffect(() => {
     dispatch(generatePdfAndConvert());
@@ -134,7 +145,7 @@ const FormNew = () => {
             <SelectState name="s_name" />
           </div>
         </form>
-        <form className=" grid grid-cols-subgrid items-center space-y-2 col-span-12 row-start-1 ">
+        <form className=" grid grid-cols-subgrid items-flex-start space-y-2 col-span-12 row-start-1 ">
           <div className="col-span-full md:col-span-3 space-y-1">
             <Label className="text-muted-foreground" htmlFor="invoice_no">
               Invoice number
@@ -176,7 +187,7 @@ const FormNew = () => {
               required
             />
           </div>
-          <div className="col-span-full md:col-span-3 space-y-1">
+          {/* <div className="col-span-full md:col-span-3 space-y-1">
             <Label className="text-muted-foreground" htmlFor="destination">
               Destination
             </Label>
@@ -188,11 +199,22 @@ const FormNew = () => {
               className="border border-muted-foreground"
               // placeholder="Destination"
             />
+          </div> */}
+          <div onClick={clickInput} className="col-span-full cursor-pointer md:col-span-3 space-y-1 l">
+            <Label className="text-muted-foreground">Logo</Label>
+            <div className="flex gap-2 items-center p-2 rounded-md border-muted-foreground border">
+              <Upload />
+              <div className="flex flex-col justify-center">
+                <div className= "border-b text-md inline-block  border-muted-foreground">Upload Image</div>
+                <div className="text-xs text-muted-foreground"> JPG, JPEG, PNG</div>
+              </div>
+            </div>
+            <Input className="hidden" ref={fileRef} type="file" name="logo" />
           </div>
         </form>
-       
-          <InputTable />
-       
+
+        <InputTable />
+
         <Bankdetails />
       </section>
     </div>

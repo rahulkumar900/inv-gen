@@ -30,25 +30,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
   const { firstLine, restOfText } = splitFirstLine(invoice.address);
   console.log(invoice);
 
-  const {
-    cgstSummary,
-    sgstSummary,
-    igstSummary,
-    totalCgst,
-    totalSgst,
-    totalIgst,
-  } = calculateGst(invoice.items);
-
-
-  const TotalAmount = invoice.items
-    .map((item) => item.amount)
-    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-
-  console.log(typeof TotalAmount);
-  
-  const totalWithTax = invoice.isIgst
-    ? TotalAmount + totalIgst
-    : TotalAmount + totalCgst + totalSgst;
+ 
 
 
   return (
@@ -190,7 +172,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
             <Note />
           </View>
           <View style={{ width: "40%", height: "100%" }}>
-            <Tax total={TotalAmount}  />
+            <Tax invoice={invoice}  />
           </View>
         </View>
 

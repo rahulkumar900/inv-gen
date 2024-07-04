@@ -1,3 +1,4 @@
+import { formatCurrency } from "@/utils";
 import { Document, Text, View, Page, StyleSheet } from "@react-pdf/renderer";
 
 export default function Row({
@@ -11,6 +12,9 @@ export default function Row({
     qty: number;
     amount: number;
   }) {
+
+ 
+
     return (
       <View
         style={{
@@ -36,7 +40,7 @@ export default function Row({
           <Text style={{ textAlign: "center" }}>{qty}</Text>
         </View>
         <View style={{ width: "20%", padding: 10 }}>
-          <Text style={{ textAlign: "center" }}>{amount}</Text>
+          <Text style={{ textAlign: "center" }}>{formatCurrency(amount)}</Text>
         </View>
       </View>
     );
