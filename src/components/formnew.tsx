@@ -42,10 +42,26 @@ const FormNew = () => {
   // Wrap your handleChange function with debounce
   const debouncedHandleChange = debounce(
     async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { name, value } = e.target;
-      await dispatch(updateInvoiceField({ name, value })).then(() =>
-        dispatch(generatePdfAndConvert())
-      );
+      console.log(e.target);
+      const { name, value, type, files } = e.target as HTMLInputElement &
+        HTMLTextAreaElement;
+
+      if (type == "file" && files && files.length > 0) {
+        const file = files[0];
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const fileContent = reader.result as string;
+          await dispatch(updateInvoiceField({ name, value: fileContent })).then(
+            () => dispatch(generatePdfAndConvert())
+          );
+        };
+        reader.readAsDataURL(file);
+        alert("file handling");
+      } else {
+        await dispatch(updateInvoiceField({ name, value })).then(() =>
+          dispatch(generatePdfAndConvert())
+        );
+      }
     },
     500
   ); // Change delay according to your preference
@@ -58,15 +74,13 @@ const FormNew = () => {
     debouncedHandleChange(e);
   };
 
-  const fileRef = useRef()
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const clickInput = () => {
-    fileRef.current.click();
-  }
-
-
-
-
+    if (fileRef.current) {
+      fileRef.current.click();
+    }
+  };
 
   useEffect(() => {
     dispatch(generatePdfAndConvert());
@@ -155,6 +169,7 @@ const FormNew = () => {
               type="text"
               id="invoice_no"
               name="invoice_no"
+             
               className="focus-visible:ring-0 focus-visible:border-2 tranition-all w-full border border-muted-foreground"
               // placeholder="Invoice Number"
               required
@@ -200,16 +215,31 @@ const FormNew = () => {
               // placeholder="Destination"
             />
           </div> */}
-          <div onClick={clickInput} className="col-span-full cursor-pointer md:col-span-3 space-y-1 l">
+          <div
+            onClick={clickInput}
+            className="col-span-full cursor-pointer md:col-span-3 space-y-1 l"
+          >
             <Label className="text-muted-foreground">Logo</Label>
             <div className="flex gap-2 items-center p-2 rounded-md border-muted-foreground border">
               <Upload />
               <div className="flex flex-col justify-center">
-                <div className= "border-b text-md inline-block  border-muted-foreground">Upload Image</div>
-                <div className="text-xs text-muted-foreground"> JPG, JPEG, PNG</div>
+                <div className="border-b text-md inline-block  border-muted-foreground">
+                  Upload Image
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {" "}
+                  JPG, JPEG, PNG
+                </div>
               </div>
             </div>
-            <Input className="hidden" ref={fileRef} type="file" name="logo" />
+            <Input
+              onChange={(e) => handleChange(e)}
+              className="hidden"
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              name="logo"
+            />
           </div>
         </form>
 

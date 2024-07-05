@@ -2,6 +2,7 @@
 
 const invoiceData = {
   base64String: "",
+  logo: "",
   loading: false,
   error: null,
   initialRows: 12,

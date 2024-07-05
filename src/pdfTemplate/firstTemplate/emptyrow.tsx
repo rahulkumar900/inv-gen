@@ -16,16 +16,16 @@ export default function EmptyRow() {
         }}
       >
         <View style={{ width: "40%", padding: 10 }}>
-          <Text>-</Text>
+          <Text></Text>
         </View>
         <View style={{ width: "20%", padding: 10 }}>
-          <Text>-</Text>
+          <Text></Text>
         </View>
         <View style={{ width: "20%", padding: 10 }}>
-          <Text style={{ textAlign: "center" }}>-</Text>
+          <Text style={{ textAlign: "center" }}></Text>
         </View>
         <View style={{ width: "20%", padding: 10 }}>
-          <Text style={{ textAlign: "center" }}>-</Text>
+          <Text style={{ textAlign: "center" }}></Text>
         </View>
       </View>
     );

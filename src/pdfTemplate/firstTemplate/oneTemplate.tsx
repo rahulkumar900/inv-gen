@@ -1,6 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { Document, Text, View, Page, StyleSheet } from "@react-pdf/renderer";
+import {
+  Document,
+  Text,
+  Image,
+  View,
+  Page,
+  StyleSheet,
+} from "@react-pdf/renderer";
 import { Invoice, Item } from "@/lib/features/invoice/invoiceType";
 import { splitFirstLine } from "@/utils";
 import Table from "./table";
@@ -30,9 +37,6 @@ export default function One({ invoice }: { invoice: Invoice }) {
   const { firstLine, restOfText } = splitFirstLine(invoice.address);
   console.log(invoice);
 
- 
-
-
   return (
     <Document>
       <Page
@@ -48,7 +52,9 @@ export default function One({ invoice }: { invoice: Invoice }) {
         <View fixed={true}>
           <View style={{ display: "flex", flexDirection: "row" }}>
             <View style={{ width: "50%" }}>
-              <View style={{ width: 60, height: 60, border: 1 }}>q</View>
+              <View style={{ width: 60, height: 60 }}>
+                {invoice.logo && <Image src={invoice.logo} />}
+              </View>
               <Text
                 style={{
                   fontFamily: "Helvetica-Bold",
@@ -74,10 +80,19 @@ export default function One({ invoice }: { invoice: Invoice }) {
               >
                 INVOICE
               </Text>
-              <Text style={{ fontSize: 14,marginBottom: 4, fontFamily: "Helvetica-Bold" }}>
-                December 06, 2024
+
+              <Text style={{ fontSize: 14, fontFamily: "Helvetica-Bold" }}>
+                INV NO : {invoice.invoice_no}
               </Text>
-              <Text style={{ fontSize: 14, fontFamily: "Helvetica-Bold" }}>INV NO : 154</Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  marginBottom: 4,
+                  fontFamily: "Helvetica-Bold",
+                }}
+              >
+               Date :  {invoice.invoice_date || "December 06, 2024"}
+              </Text>
             </View>
           </View>
 
@@ -101,7 +116,15 @@ export default function One({ invoice }: { invoice: Invoice }) {
               </Text>
             </View>
 
-            <View style={{ width: "50%",maxHeight: 100, textOverflow: "ellipsis", paddingLeft: 60, lineHeight: 1.7 }}>
+            <View
+              style={{
+                width: "50%",
+                maxHeight: 100,
+                textOverflow: "ellipsis",
+                paddingLeft: 60,
+                lineHeight: 1.7,
+              }}
+            >
               <Text
                 style={{
                   fontSize: 12,
@@ -172,7 +195,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
             <Note />
           </View>
           <View style={{ width: "40%", height: "100%" }}>
-            <Tax invoice={invoice}  />
+            <Tax invoice={invoice} />
           </View>
         </View>
 
@@ -191,7 +214,6 @@ export default function One({ invoice }: { invoice: Invoice }) {
               alignItems: "flex-start",
               justifyContent: "flex-start",
               color: "#464097",
-          
             }}
           >
             <Text style={{ fontSize: 18, fontFamily: "Helvetica-Bold" }}>

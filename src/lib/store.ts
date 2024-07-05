@@ -1,13 +1,33 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./features/invoice/invoiceSlice";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 import listenerMiddleware from "./features/invoice/middleware/pdfmiddleware";
 
+
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, counterReducer);
+
+
+
 export const makeStore = () => {
   return configureStore({
-    reducer: { counter: counterReducer },
+    reducer: { counter: persistedReducer },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().prepend(listenerMiddleware.middleware),
+      getDefaultMiddleware({
+        serializableCheck: {
+          // Ignore these action types
+          ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
+          // Optionally, ignore paths in the state
+          ignoredPaths: ["register", "rehydrate"],
+        },
+      }).prepend(listenerMiddleware.middleware),
   });
 };
 
