@@ -19,10 +19,14 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import Bankdetails from "./bankdetails";
 import { Upload } from "lucide-react";
+import Image from "next/image";
+import { X } from 'lucide-react';
 
 const FormNew = () => {
   const dispatch: AppDispatch = useAppDispatch();
-  // let count = useSelector((state: RootState) => state.counter);
+  const invoice = useSelector(
+    (state: RootState) => state.counter
+  );
 
   // Define a debounce function
   const debounce = <T extends any[]>(
@@ -103,6 +107,7 @@ const FormNew = () => {
               id="address"
               name="address"
               placeholder="John"
+              defaultValue={invoice.address}
               required
             />
           </div>
@@ -128,6 +133,7 @@ const FormNew = () => {
               className="border border-muted-foreground"
               id="b_address"
               name="b_address"
+              defaultValue={invoice.b_address}
               // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="John"
               required
@@ -151,6 +157,7 @@ const FormNew = () => {
               id="s_address"
               name="s_address"
               placeholder="John"
+              defaultValue={invoice.s_address}
               required
             />
           </div>
@@ -169,7 +176,7 @@ const FormNew = () => {
               type="text"
               id="invoice_no"
               name="invoice_no"
-             
+             defaultValue={invoice.invoice_no}
               className="focus-visible:ring-0 focus-visible:border-2 tranition-all w-full border border-muted-foreground"
               // placeholder="Invoice Number"
               required
@@ -184,6 +191,7 @@ const FormNew = () => {
               type="text"
               id="invoice_date"
               name="invoice_date"
+              defaultValue={invoice.invoice_date}
               className="border border-muted-foreground"
               required
             />
@@ -198,6 +206,7 @@ const FormNew = () => {
               id="order_no"
               name="order_no"
               className="border border-muted-foreground"
+              defaultValue={invoice.invoice_no}
               // placeholder="Order Number"
               required
             />
@@ -215,31 +224,47 @@ const FormNew = () => {
               // placeholder="Destination"
             />
           </div> */}
+          
           <div
             onClick={clickInput}
             className="col-span-full cursor-pointer md:col-span-3 space-y-1 l"
           >
-            <Label className="text-muted-foreground">Logo</Label>
-            <div className="flex gap-2 items-center p-2 rounded-md border-muted-foreground border">
-              <Upload />
-              <div className="flex flex-col justify-center">
-                <div className="border-b text-md inline-block  border-muted-foreground">
-                  Upload Image
+              <Label className="text-muted-foreground">Logo</Label>
+              
+            {
+              invoice.logo ? (
+                <div className="relative">
+                  <div className="absolute top-0 left-0 bg-white rounded-full p-1 "><X size={10} /></div>
+                  <Image width={50} height={50}  src={invoice.logo} alt="logo"  />
                 </div>
-                <div className="text-xs text-muted-foreground">
-                  {" "}
-                  JPG, JPEG, PNG
+               
+              ): (<>
+              <div className="flex gap-2 items-center p-2 rounded-md border-muted-foreground border">
+                <Upload />
+                <div className="flex flex-col justify-center">
+                  <div className="border-b text-md inline-block  border-muted-foreground">
+                    Upload Image
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {" "}
+                    JPG, JPEG, PNG
+                  </div>
                 </div>
               </div>
-            </div>
-            <Input
-              onChange={(e) => handleChange(e)}
-              className="hidden"
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              name="logo"
-            />
+              <Input
+                onChange={(e) => handleChange(e)}
+                className="hidden"
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                name="logo"
+                // defaultValue={invoice.logo}
+              />
+              </>)
+            }
+            
+            
+            
           </div>
         </form>
 
