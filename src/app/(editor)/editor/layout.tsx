@@ -31,7 +31,7 @@ function Header() {
           </SheetTrigger>
           <SheetContent side="left">
             <SheetHeader>
-              <SheetTitle>Edit profile</SheetTitle>
+              <SheetTitle>Select Template</SheetTitle>
                <TemplateList />
               <SheetDescription>
                 Make changes to your profile here. Click save when you're done.

@@ -101,6 +101,14 @@ export const removeLine = createAction("items/removeLine", (sno) => ({
   payload: sno,
 }));
 
+//
+
+
+export const clearLogo = createAction("counter/removeLine");
+
+
+
+
 /**==============================================
  **              updateInvoiceField
  *?  What does it do?

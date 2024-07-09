@@ -4,6 +4,7 @@ import { Invoice, Item } from "./invoiceType";
 
 import {
   addLine,
+  clearLogo,
   generatePdfAndConvert,
   removeLine,
   toggleTemplateAsync,
@@ -18,6 +19,7 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     initializeCount: (_, action) => action.payload,
+    
     generatePdfStart: (state: Invoice) => {
       return {
         ...state,
@@ -25,6 +27,8 @@ export const counterSlice = createSlice({
         error: null,
       };
     },
+
+
     generatePdfSuccess: (state, action) => {
       return {
         ...state,
@@ -139,6 +143,7 @@ export const counterSlice = createSlice({
         state.items = action.payload.items;
         state.tableRows = action.payload.tableRows;
       })
+     
       .addCase(removeLine, (state, action) => {
         const updatedItems = state.items.filter(
           (item) => item.sno !== action.payload
@@ -174,6 +179,9 @@ export const counterSlice = createSlice({
             ? action.error.message
             : "Failed to generate PDF";
       })
+      .addCase(clearLogo, (state) => {
+        state.logo = '';
+      });
   },
 });
 

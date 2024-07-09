@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 "use client";
 import React, { useState } from "react";
 import {
@@ -53,7 +54,8 @@ export default function One({ invoice }: { invoice: Invoice }) {
           <View style={{ display: "flex", flexDirection: "row" }}>
             <View style={{ width: "50%" }}>
               <View style={{ width: 60, height: 60 }}>
-                {invoice.logo && <Image src={invoice.logo} />}
+                
+                {invoice.logo && <Image src={invoice.logo}  />}
               </View>
               <Text
                 style={{
@@ -135,7 +137,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
                 To:
               </Text>
               <Text style={{ fontSize: 12, maxWidth: "70%" }}>
-                {invoice.s_address}
+                {invoice.b_address}
               </Text>
             </View>
           </View>
@@ -192,7 +194,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
               overflow: "hidden",
             }}
           >
-            <Note />
+            {/* <Note /> */}
           </View>
           <View style={{ width: "40%", height: "100%" }}>
             <Tax invoice={invoice} />

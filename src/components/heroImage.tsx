@@ -87,7 +87,8 @@ export default function HeroImage() {
               transition: `transform 1s cubic-bezier(0.22, 0.78, 0.24, 0.98)`,
               transform: `rotateX(${tilt.tiltX}deg) rotateY(${tilt.tiltY}deg) translateZ(${tilt.tiltZ}px) translate3d(${tilt.tiltX}px,${tilt.tiltY}px,${tilt.tiltZ}px)`,
             }}
-            src="/hero-template.png"
+            // src="/hero-template.png"
+            src="/hero-3.png"
             alt="online-invoice-generator"
             width={1024}
             height={700}

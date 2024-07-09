@@ -6,6 +6,7 @@ import { useAppDispatch } from "../lib/hooks";
 import {
   updateInvoiceField,
   generatePdfAndConvert,
+  clearLogo
 } from "@/lib/features/invoice/action";
 
 import { Label } from "@/components/ui/label";
@@ -226,20 +227,20 @@ const FormNew = () => {
           </div> */}
           
           <div
-            onClick={clickInput}
-            className="col-span-full cursor-pointer md:col-span-3 space-y-1 l"
+            
+            className="col-span-full  md:col-span-3 space-y-1 l"
           >
               <Label className="text-muted-foreground">Logo</Label>
               
             {
-              invoice.logo ? (
-                <div className="relative">
-                  <div className="absolute top-0 left-0 bg-white rounded-full p-1 "><X size={10} /></div>
+              invoice?.logo ? (
+                <div className="relative w-12 border ">
+                  <div onClick={() => dispatch(clearLogo())} className="cursor-pointer absolute -top-3 -right-2 bg-destructive rounded-full p-1 "><X size={10} /></div>
                   <Image width={50} height={50}  src={invoice.logo} alt="logo"  />
                 </div>
                
               ): (<>
-              <div className="flex gap-2 items-center p-2 rounded-md border-muted-foreground border">
+              <div onClick={clickInput} className="cursor-pointer flex gap-2 items-center p-2 rounded-md border-muted-foreground border">
                 <Upload />
                 <div className="flex flex-col justify-center">
                   <div className="border-b text-md inline-block  border-muted-foreground">

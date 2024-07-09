@@ -59,15 +59,16 @@ export default function Home() {
           <div className="grid  grid-cols-4 gap-5 mt-8">
             <Image
               className="border shadow-md hover:scale-110 transition-all w-full h-auto"
-              src="/template1.jpg"
+              src="/zero.jpg"
+             
               alt="template1"
               width={200}
               height={300}
             />
             <Image
               className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
-              src="/template1.jpg"
-              alt="template1"
+              src="/one.jpg"
+              alt="template1" 
               width={200}
               height={300}
             />
