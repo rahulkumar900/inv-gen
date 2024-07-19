@@ -1,5 +1,3 @@
-
-
 import Image from "next/image";
 
 // import Form from "@/components/form";
@@ -10,12 +8,11 @@ import Faq from "@/components/faq";
 import dynamic from "next/dynamic";
 import Test from "../test";
 import Form from "@/components/form";
+import HowTo from "@/components/steps/index";
 import Link from "next/link";
 import HeroImage from "@/components/heroImage";
 
 export default function Home() {
-
-
   return (
     <main className="min-h-screen ">
       <section className="mt-[65px] min-h-[70vh] flex flex-col justify-center ">
@@ -39,8 +36,7 @@ export default function Home() {
           </Link>
         </div>
       </section>
- <HeroImage />
-      
+      <HeroImage />
 
       <section className="mt-20 px-4">
         <div className="max-w-5xl mx-auto">
@@ -60,7 +56,6 @@ export default function Home() {
             <Image
               className="border shadow-md hover:scale-110 transition-all w-full h-auto"
               src="/zero.jpg"
-             
               alt="template1"
               width={200}
               height={300}
@@ -68,7 +63,7 @@ export default function Home() {
             <Image
               className="border shadow-md hover:scale-110 transition-all  w-full h-auto"
               src="/one.jpg"
-              alt="template1" 
+              alt="template1"
               width={200}
               height={300}
             />
@@ -110,6 +105,18 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <div className="mt-20 px-4">
+        <div className="flex max-w-7xl mx-auto gap-4  ">
+          <div className="w-1/2 relative drop-shadow-md   border">
+              <Image className=" object-cover" src={"/howTo.png"} width={900} height={400}   alt="invoice-generator" />
+          </div>
+          <div className="w-full md:max-w-2xl  bg-secondary">
+            <HowTo />
+          </div>
+        </div>
+      </div>
+
       <section className="my-20 ">
         <div className="max-w-5xl mx-auto py-10">
           <h2 className=" font-bold text-foreground  scroll-m-20 text-center my-10  text-4xl  tracking-tight transition-colors first:mt-0">

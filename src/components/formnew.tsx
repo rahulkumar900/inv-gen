@@ -167,7 +167,7 @@ const FormNew = () => {
             <SelectState name="s_name" />
           </div>
         </form>
-        <form className=" grid grid-cols-subgrid items-flex-start space-y-2 col-span-12 row-start-1 ">
+        <form className=" grid grid-cols-subgrid items-flex-start space-y-2 md:space-y-0 col-span-12 row-start-1 ">
           <div className="col-span-full md:col-span-3 space-y-1">
             <Label className="text-muted-foreground" htmlFor="invoice_no">
               Invoice number
