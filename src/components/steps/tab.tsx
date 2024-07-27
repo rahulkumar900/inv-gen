@@ -10,7 +10,7 @@ interface TabProps {
 const Tab: React.FC<TabProps> = ({ index, isActive, onClick }) => {
   return (
     <div
-      className={`relative w-8 h-8  items-center justify-center `}
+      className={`relative w-8 h-8  items-center justify-center`}
       onClick={() => onClick(index)}
     >
    
