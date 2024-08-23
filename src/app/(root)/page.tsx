@@ -15,7 +15,7 @@ import HeroImage from "@/components/heroImage";
 export default function Home() {
   return (
     <main className="min-h-screen ">
-      <section className="mt-[65px] min-h-[70vh] flex flex-col justify-center ">
+      <section className=" min-h-[70vh] flex flex-col justify-center ">
         <div className="max-w-2xl mx-auto   flex flex-col gap-5 px-6">
           <h1 className=" leading-none font-bold mt-0 color-black text-5xl text-secondary-foreground  text-center">
             Effortless Billing With Our Online Invoice Generator

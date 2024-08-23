@@ -21,11 +21,7 @@ export default function Editor() {
           hidden: editorMode,
         })}
       >
-        <div className="mt-20 px-4">
-        <Button variant="secondary" >
-        <ArrowLeft size={24} />
-        </Button>
-          </div>
+       
         
         <FormNew />
       </div>

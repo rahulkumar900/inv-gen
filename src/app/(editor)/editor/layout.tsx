@@ -27,7 +27,7 @@ function Header() {
       <header className="flex justify-between  items-center  px-4 py-2   col-start-1 col-end-13 ">
         <Sheet>
           <SheetTrigger asChild>
-            <PanelLeft className="cursor-pointer" />
+            <PanelLeft className="cursor-pointer" xlinkTitle="select Title"/>
           </SheetTrigger>
           <SheetContent side="left">
             <SheetHeader>
@@ -41,10 +41,14 @@ function Header() {
         </Sheet>
 
         <nav className="flex row items-center divide-x-2 ">
-            <menu>
-                
-            </menu>
+           
           <menu className="hidden md:flex row items-center">
+            <Link
+              href="/"
+              className="px-3 py-2 text-muted-foreground hover:text-foreground text-base"
+            >
+              Home
+            </Link>
             <Link
               href="#"
               className="px-3 py-2 text-muted-foreground hover:text-foreground text-base"

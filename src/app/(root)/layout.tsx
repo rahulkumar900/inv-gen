@@ -9,8 +9,8 @@ export default function Layout({
 }>) {
   return (
     <>
-      <Header />
-      <main className=" ">{children}</main>
+      <Header/>
+      <main className="mt-24 min-h-dvh ">{children}</main>
       <Footer />
     </>
   );
