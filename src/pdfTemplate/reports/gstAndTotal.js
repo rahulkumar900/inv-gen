@@ -37,35 +37,29 @@ const styles = StyleSheet.create({
 });
 
 const gstAndTotal = ({ invoice }) => {
-  console.log(invoice);
+  const { taxType, items } = invoice;
 
-  const {
-    cgstSummary,
-    sgstSummary,
-    igstSummary,
-    totalCgst,
-    totalSgst,
-    totalIgst,
-  } = calculateGst(invoice.items);
+  const { taxSummary, totalTax } = calculateGst(items);
 
-  const TotalAmount = invoice.items
+  const TotalAmount = items
     .map((item) => item.amount)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
-  const totalWithTax = invoice.isIgst
-    ? TotalAmount + totalIgst
-    : TotalAmount + totalCgst + totalSgst;
+  const totalWithTax = formatCurrency(TotalAmount + totalTax[taxType]);
+  const summary = taxSummary[taxType];
+
+  console.log(summary);
 
   return (
     <View>
-      {invoice.isIgst ? (
+      {/* {invoice.isIgst ? (
         <GstComponent name="igst" summary={igstSummary} />
       ) : (
         <>
           <GstComponent name="cgst" summary={cgstSummary} />
           <GstComponent name="sgst" summary={sgstSummary} />
         </>
-      )}
+      )} */}
 
       <View style={[styles.row, { borderBottom: 0 }]}>
         <Text style={styles.description}>TOTAL</Text>

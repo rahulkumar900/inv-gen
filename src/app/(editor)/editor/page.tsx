@@ -1,5 +1,5 @@
 "use client";
-import Test from "@/app/test";
+import PdfPageComponent from "@/app/pdfPage";
 import FormNew from "@/components/formnew";
 import { generatePdfAndConvert } from "@/lib/features/invoice/action";
 import React, { Suspense, useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import { AppDispatch } from "@/lib/store";
 import { type ClassValue, clsx } from "clsx";
 import { ArrowLeft } from "lucide-react";
-import {Button} from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
 export default function Editor() {
   const [editorMode, seteditorMode] = useState(false);
@@ -21,13 +21,11 @@ export default function Editor() {
           hidden: editorMode,
         })}
       >
-       
-        
         <FormNew />
       </div>
       <div className="hidden lg:block w-2/5 bg-previewContainer ">
         <Suspense fallback="loading ...">
-          <Test />
+          <PdfPageComponent />
         </Suspense>
       </div>
     </>

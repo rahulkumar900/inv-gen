@@ -1,16 +1,38 @@
+import { TaxOption } from "@/components/selectTax";
+
+// Define a base interface for taxes
+interface BaseTax {
+  notax: number;
+  gst: number;
+  vat: number;
+  igst: number;
+  cgstigst: number;
+}
+
+// Define an index signature for additional dynamic tax types if needed
+interface Tax extends BaseTax {
+  [key: string]: number;
+}
+interface Tax {
+  notax: number;
+  gst: number;
+  vat: number;
+  igst: number;
+  cgstigst: number;
+}
+
 export interface Item {
   sno: number;
   desc: string;
   qty: number;
   rate: number;
-  cgst: number;
-  sgst: number;
-  igst: number;
+  taxes: Tax;
   amount: number;
-  [key: string]: number | string | null; // Add an index signature
+  [key: string]: number | string | Tax; // Add an index signature
 }
 
 export interface Invoice {
+  logo: string;
   base64String: string;
   loading: boolean;
   error: string | null;
@@ -57,6 +79,7 @@ export interface Invoice {
   //
 
   isIgst: boolean;
+  taxType: TaxOption;
 
   trans_date: string;
   due_date: string;

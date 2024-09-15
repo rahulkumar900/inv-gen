@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Download, Loader2, Mail } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 const DownloadLink = ({ base64Data, loading, fileName }) => {
   const handleDownload = () => {

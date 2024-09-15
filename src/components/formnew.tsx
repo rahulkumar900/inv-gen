@@ -6,7 +6,7 @@ import { useAppDispatch } from "../lib/hooks";
 import {
   updateInvoiceField,
   generatePdfAndConvert,
-  clearLogo
+  clearLogo,
 } from "@/lib/features/invoice/action";
 
 import { Label } from "@/components/ui/label";
@@ -21,14 +21,17 @@ import { AppDispatch, RootState } from "@/lib/store";
 import Bankdetails from "./bankdetails";
 import { Upload } from "lucide-react";
 import Image from "next/image";
-import { X } from 'lucide-react';
+import { X } from "lucide-react";
+import TaxType from "./radiogroup";
+import TaxSelect from "./selectTax";
+import { resetAllTaxs } from "@/lib/features/invoice/invoiceSlice";
 
 const FormNew = () => {
   const dispatch: AppDispatch = useAppDispatch();
-  const invoice = useSelector(
-    (state: RootState) => state.counter
-  );
+  const invoice = useSelector((state: RootState) => state.counter);
 
+  console.log(invoice.taxType);
+  const fileRef = useRef<HTMLInputElement>(null);
   // Define a debounce function
   const debounce = <T extends any[]>(
     func: (...args: T) => void,
@@ -61,7 +64,6 @@ const FormNew = () => {
           );
         };
         reader.readAsDataURL(file);
-        alert("file handling");
       } else {
         await dispatch(updateInvoiceField({ name, value })).then(() =>
           dispatch(generatePdfAndConvert())
@@ -79,7 +81,13 @@ const FormNew = () => {
     debouncedHandleChange(e);
   };
 
-  const fileRef = useRef<HTMLInputElement>(null);
+  const handleChangeSelect = useCallback(
+    (value: string) => {
+      dispatch(updateInvoiceField({ name: "taxType", value: value }));
+      dispatch(resetAllTaxs());
+    },
+    [dispatch]
+  );
 
   const clickInput = () => {
     if (fileRef.current) {
@@ -92,11 +100,114 @@ const FormNew = () => {
   }, [dispatch]);
 
   return (
-    <div
-      className=" bg-card mt-24 max-w-4xl mx-auto p-1 lg:p-4 xl:p-8  shadow-xl rounded-2xl border
-     "
-    >
+    <div className=" bg-card mt-24 max-w-4xl mx-auto p-1 lg:p-4 xl:p-8  shadow-xl rounded-2xl border">
       <section className="grid grid-cols-12 gap-4  md:gap-10 p-4">
+        <form className="space-y-4 justify-start  col-span-12">
+          {/* <TaxType  /> */}
+          <TaxSelect value={invoice.taxType} onSelect={handleChangeSelect} />
+        </form>
+        <form className=" grid grid-cols-subgrid items-flex-start space-y-2 md:space-y-0 col-span-12 row-start-2 row-end-3 ">
+          <div className="col-span-full md:col-span-3 space-y-1">
+            <Label className="text-muted-foreground" htmlFor="invoice_no">
+              Invoice number
+            </Label>
+            <Input
+              onChange={(e) => handleChange(e)}
+              type="text"
+              id="invoice_no"
+              name="invoice_no"
+              defaultValue={invoice.invoice_no}
+              className="focus-visible:ring-0 focus-visible:border-2 tranition-all w-full border border-muted-foreground"
+              // placeholder="Invoice Number"
+              required
+            />
+          </div>
+          <div className="col-span-full md:col-span-3 space-y-1">
+            <Label className="text-muted-foreground" htmlFor="invoice_date">
+              Invoice date
+            </Label>
+            <Input
+              onChange={(e) => handleChange(e)}
+              type="text"
+              id="invoice_date"
+              name="invoice_date"
+              defaultValue={invoice.invoice_date}
+              className="border border-muted-foreground"
+              required
+            />
+          </div>
+          <div className="col-span-full md:col-span-3 space-y-1">
+            <Label className="text-muted-foreground" htmlFor="order_no">
+              Order number
+            </Label>
+            <Input
+              onChange={(e) => handleChange(e)}
+              type="text"
+              id="order_no"
+              name="order_no"
+              className="border border-muted-foreground"
+              defaultValue={invoice.invoice_no}
+              // placeholder="Order Number"
+              required
+            />
+          </div>
+          {/* <div className="col-span-full md:col-span-3 space-y-1">
+            <Label className="text-muted-foreground" htmlFor="destination">
+              Destination
+            </Label>
+            <Input
+              onChange={(e) => handleChange(e)}
+              type="text"
+              id="destination"
+              name="destination"
+              className="border border-muted-foreground"
+              // placeholder="Destination"
+            />
+          </div> */}
+
+          <div className="col-span-full  md:col-span-3 space-y-1 l">
+            <Label className="text-muted-foreground">Logo</Label>
+
+            {invoice?.logo ? (
+              <div className="relative w-12 border ">
+                <div
+                  onClick={() => dispatch(clearLogo())}
+                  className="cursor-pointer absolute -top-3 -right-2 bg-destructive rounded-full p-1 "
+                >
+                  <X size={10} />
+                </div>
+                <Image width={50} height={50} src={invoice.logo} alt="logo" />
+              </div>
+            ) : (
+              <>
+                <div
+                  onClick={clickInput}
+                  className="cursor-pointer flex gap-2 items-center p-2 rounded-md border-muted-foreground border"
+                >
+                  <Upload />
+                  <div className="flex flex-col justify-center">
+                    <div className="border-b text-md inline-block  border-muted-foreground">
+                      Upload Image
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {" "}
+                      JPG, JPEG, PNG
+                    </div>
+                  </div>
+                </div>
+                <Input
+                  onChange={(e) => handleChange(e)}
+                  className="hidden"
+                  ref={fileRef}
+                  type="file"
+                  accept="image/*"
+                  name="logo"
+                  // defaultValue={invoice.logo}
+                />
+              </>
+            )}
+          </div>
+        </form>
         <form className="space-y-4 col-span-12 md:col-start-1   md:col-end-7 ">
           <div className="grid w-full max-w-sm items-center space-y-2">
             <Label className="text-muted-foreground" htmlFor="address">
@@ -147,6 +258,7 @@ const FormNew = () => {
             <SelectState name="b_state" />
           </div>
         </form>
+
         <form className=" hidden space-y-4 col-span-12 md:col-start-7 md:col-end-13  ">
           <Label>Ship To</Label>
 
@@ -165,107 +277,6 @@ const FormNew = () => {
           <div className="grid  w-full items-center gap-1.5">
             <Label htmlFor="address">State</Label>
             <SelectState name="s_name" />
-          </div>
-        </form>
-        <form className=" grid grid-cols-subgrid items-flex-start space-y-2 md:space-y-0 col-span-12 row-start-1 ">
-          <div className="col-span-full md:col-span-3 space-y-1">
-            <Label className="text-muted-foreground" htmlFor="invoice_no">
-              Invoice number
-            </Label>
-            <Input
-              onChange={(e) => handleChange(e)}
-              type="text"
-              id="invoice_no"
-              name="invoice_no"
-             defaultValue={invoice.invoice_no}
-              className="focus-visible:ring-0 focus-visible:border-2 tranition-all w-full border border-muted-foreground"
-              // placeholder="Invoice Number"
-              required
-            />
-          </div>
-          <div className="col-span-full md:col-span-3 space-y-1">
-            <Label className="text-muted-foreground" htmlFor="invoice_date">
-              Invoice date
-            </Label>
-            <Input
-              onChange={(e) => handleChange(e)}
-              type="text"
-              id="invoice_date"
-              name="invoice_date"
-              defaultValue={invoice.invoice_date}
-              className="border border-muted-foreground"
-              required
-            />
-          </div>
-          <div className="col-span-full md:col-span-3 space-y-1">
-            <Label className="text-muted-foreground" htmlFor="order_no">
-              Order number
-            </Label>
-            <Input
-              onChange={(e) => handleChange(e)}
-              type="text"
-              id="order_no"
-              name="order_no"
-              className="border border-muted-foreground"
-              defaultValue={invoice.invoice_no}
-              // placeholder="Order Number"
-              required
-            />
-          </div>
-          {/* <div className="col-span-full md:col-span-3 space-y-1">
-            <Label className="text-muted-foreground" htmlFor="destination">
-              Destination
-            </Label>
-            <Input
-              onChange={(e) => handleChange(e)}
-              type="text"
-              id="destination"
-              name="destination"
-              className="border border-muted-foreground"
-              // placeholder="Destination"
-            />
-          </div> */}
-          
-          <div
-            
-            className="col-span-full  md:col-span-3 space-y-1 l"
-          >
-              <Label className="text-muted-foreground">Logo</Label>
-              
-            {
-              invoice?.logo ? (
-                <div className="relative w-12 border ">
-                  <div onClick={() => dispatch(clearLogo())} className="cursor-pointer absolute -top-3 -right-2 bg-destructive rounded-full p-1 "><X size={10} /></div>
-                  <Image width={50} height={50}  src={invoice.logo} alt="logo"  />
-                </div>
-               
-              ): (<>
-              <div onClick={clickInput} className="cursor-pointer flex gap-2 items-center p-2 rounded-md border-muted-foreground border">
-                <Upload />
-                <div className="flex flex-col justify-center">
-                  <div className="border-b text-md inline-block  border-muted-foreground">
-                    Upload Image
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {" "}
-                    JPG, JPEG, PNG
-                  </div>
-                </div>
-              </div>
-              <Input
-                onChange={(e) => handleChange(e)}
-                className="hidden"
-                ref={fileRef}
-                type="file"
-                accept="image/*"
-                name="logo"
-                // defaultValue={invoice.logo}
-              />
-              </>)
-            }
-            
-            
-            
           </div>
         </form>
 

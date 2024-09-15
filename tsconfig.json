@@ -28,6 +28,6 @@
     ".next/types/**/*.ts",
     "src/lib/features/invoice/action..js",
     "src/lib/resizehooks.js"
-, "src/components/reports/Invoice.tsx", "ssrc/lib/features/invoice/action.ts" , "src/lib/features/invoice/invoiceSlice.js" ],
+, "src/pdfTemplate/reports/Invoice.tsx", "ssrc/lib/features/invoice/action.ts" , "src/lib/features/invoice/invoiceSlice.js" ],
   "exclude": ["node_modules"]
 }

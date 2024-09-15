@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Faq from "@/components/faq";
 
 import dynamic from "next/dynamic";
-import Test from "../test";
+import Test from "../pdfPage";
 import Form from "@/components/form";
 import HowTo from "@/components/steps/index";
 import Link from "next/link";

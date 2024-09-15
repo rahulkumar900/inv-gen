@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./features/invoice/invoiceSlice";
-import { persistStore, persistReducer } from "redux-persist";
+import {  persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import listenerMiddleware from "./features/invoice/middleware/pdfmiddleware";

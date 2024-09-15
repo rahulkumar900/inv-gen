@@ -53,7 +53,10 @@ const resizeObserverOptions = {};
 
 const maxWidth = 400;
 const maxHeight = 400 * 1.416040100250627;
-export default function Test() {
+
+
+
+export default function PdfPageComponent() {
   const [file, setFile] = useState<PDFFile>("/sample.pdf");
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1);

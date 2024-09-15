@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useAppSelector } from "@/lib/hooks";
-import DownloadLink from "../components/reports/downloadLink";
+import DownloadLink from "../components/downloadLink";
 
 const DownloadButton = () => {
   // Assuming `useAppSelector` is correctly implemented to select state from Redux

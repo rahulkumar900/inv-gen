@@ -19,7 +19,7 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     initializeCount: (_, action) => action.payload,
-    
+
     generatePdfStart: (state: Invoice) => {
       return {
         ...state,
@@ -27,7 +27,6 @@ export const counterSlice = createSlice({
         error: null,
       };
     },
-
 
     generatePdfSuccess: (state, action) => {
       return {
@@ -43,6 +42,14 @@ export const counterSlice = createSlice({
         loading: false,
         error: action.payload,
       };
+    },
+
+    resetAllTaxs: (state) => {
+      state.items.forEach((item) => {
+        Object.keys(item).forEach((key) => {
+          item.taxes[key] = 0;
+        });
+      });
     },
   },
   extraReducers: (builder) => {
@@ -82,20 +89,24 @@ export const counterSlice = createSlice({
             throw new Error("Invalid item index");
           }
 
-          const selectedObj = { ...state.items[index] };
+          const selectedObj: Item = { ...state.items[index] };
+
           const qty = Number(selectedObj.qty);
           const rate = Number(selectedObj.rate);
+
           const numericValue = Number(value) || 0;
 
-          let amount = qty * rate; // Default calculation
+          if (selectedObj.taxes && name in selectedObj.taxes) {
+            // Update the specific tax
+            selectedObj.taxes = {
+              ...selectedObj.taxes,
+              [name]: numericValue,
+            };
+          } else {
+            selectedObj[name as keyof Item] = numericValue;
+          }
 
-          // if (name === "qty") {
-          //   amount = Number(selectedObj.rate) * (Number(value) || 0);
-          // } else if (name === "rate") {
-          //   amount = Number(selectedObj.qty) * (Number(value) || 0);
-          // } else {
-          //   amount = Number(selectedObj.qty) * Number(selectedObj.rate);
-          // }
+          let amount = qty * rate; // Default calculation
 
           if (name === "qty") {
             amount = rate * numericValue;
@@ -104,17 +115,9 @@ export const counterSlice = createSlice({
           }
 
           state.items[index] = { ...selectedObj, [name]: value, amount };
+
           state.loading = false;
           state.error = null;
-
-          // const changedItem: Item = {
-          //   ...selectedObj,
-          //   [name]: value,
-          //   amount: amount,
-          // };
-          // state.items[index] = changedItem;
-          // state.loading = false;
-          // state.error = null;
         }
       )
       .addCase(updateItemAsync.rejected, (state: Invoice, action) => {
@@ -143,7 +146,7 @@ export const counterSlice = createSlice({
         state.items = action.payload.items;
         state.tableRows = action.payload.tableRows;
       })
-     
+
       .addCase(removeLine, (state, action) => {
         const updatedItems = state.items.filter(
           (item) => item.sno !== action.payload
@@ -180,15 +183,12 @@ export const counterSlice = createSlice({
             : "Failed to generate PDF";
       })
       .addCase(clearLogo, (state) => {
-        state.logo = '';
+        state.logo = "";
       });
   },
 });
 
-export const {
-  initializeCount,
-  generatePdfSuccess,
-  generatePdfFailure,
-} = counterSlice.actions;
+export const { initializeCount,resetAllTaxs, generatePdfSuccess, generatePdfFailure } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;

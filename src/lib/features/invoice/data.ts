@@ -1,4 +1,4 @@
-
+import TaxType from "@/components/radiogroup";
 
 const invoiceData = {
   base64String: "",
@@ -25,8 +25,8 @@ const invoiceData = {
   // bANK DETAILS
 
   bankname: "",
-  ifsc : "",
-  accountnumber:"",
+  ifsc: "",
+  accountnumber: "",
   // bill to
 
   b_company: "",
@@ -50,19 +50,25 @@ const invoiceData = {
   trans_date: "",
   due_date: "",
 
-  template : "zero",
+  template: "zero",
 
   //
   isIgst: true,
+  taxType: "notax",
   items: [
     {
       sno: 1,
       desc: "ad sunt culpa occaecat qui",
       qty: 0,
       rate: 0,
-      cgst: 0,
-      sgst: 0,
-      igst: 0,
+      taxes: {
+        notax: 0,
+        gst: 0,
+        vat: 0,
+        igst: 0,
+        cgstigst: 0,
+      },
+
       amount: 0, // Calculation of Amount based on rate and qty
     },
   ],
