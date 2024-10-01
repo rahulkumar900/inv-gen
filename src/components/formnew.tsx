@@ -25,6 +25,7 @@ import { X } from "lucide-react";
 import TaxType from "./radiogroup";
 import TaxSelect from "./selectTax";
 import { resetAllTaxs } from "@/lib/features/invoice/invoiceSlice";
+import { debounce } from "@/utils";
 
 const FormNew = () => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -33,19 +34,19 @@ const FormNew = () => {
   console.log(invoice.taxType);
   const fileRef = useRef<HTMLInputElement>(null);
   // Define a debounce function
-  const debounce = <T extends any[]>(
-    func: (...args: T) => void,
-    delay: number
-  ): ((...args: T) => void) => {
-    let timeoutId: NodeJS.Timeout;
+  // const debounce = <T extends any[]>(
+  //   func: (...args: T) => void,
+  //   delay: number
+  // ): ((...args: T) => void) => {
+  //   let timeoutId: NodeJS.Timeout;
 
-    return (...args: T) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func(...args);
-      }, delay);
-    };
-  };
+  //   return (...args: T) => {
+  //     clearTimeout(timeoutId);
+  //     timeoutId = setTimeout(() => {
+  //       func(...args);
+  //     }, delay);
+  //   };
+  // };
 
   // Wrap your handleChange function with debounce
   const debouncedHandleChange = debounce(

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import Link from "next/link";
 import { Ghost, PanelLeft, ReceiptText } from "lucide-react";
@@ -19,29 +19,27 @@ import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import TemplateList from "@/components/templateList";
 
-
-
 function Header() {
   return (
     <div className="w-full border-b grid grid-cols-12 fixed top-0 left-0 z-20  bg-background   ">
       <header className="flex justify-between  items-center  px-4 py-2   col-start-1 col-end-13 ">
         <Sheet>
           <SheetTrigger asChild>
-            <PanelLeft className="cursor-pointer" xlinkTitle="select Title"/>
+            <PanelLeft className="cursor-pointer" xlinkTitle="select Title" />
           </SheetTrigger>
           <SheetContent side="left">
             <SheetHeader>
               <SheetTitle>Select Template</SheetTitle>
-               <TemplateList />
+              <TemplateList />
               <SheetDescription>
-                Make changes to your profile here. Click save when you're done.
+                Make changes to your profile here. Click save when you &apos re
+                done.
               </SheetDescription>
             </SheetHeader>
           </SheetContent>
         </Sheet>
 
         <nav className="flex row items-center divide-x-2 ">
-           
           <menu className="hidden md:flex row items-center">
             <Link
               href="/"
@@ -66,7 +64,7 @@ function Header() {
   );
 }
 
-export default function Layout({ children }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <section className="w-full h-screen max-h-screen flex">
       <Header />

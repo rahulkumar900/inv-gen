@@ -31,7 +31,7 @@ export default function DynamicTaxRow({
         name={Name}
         placeholder={Placeholder}
         disabled={isdisabled}
-        value={String(DefaultValue) || ""}
+        defaultValue={String(DefaultValue) || ""}
         onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
         // value={li[key]}
       />

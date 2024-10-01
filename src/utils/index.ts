@@ -11,6 +11,21 @@ function splitFirstLine(text: string) {
   return { firstLine, restOfText };
 }
 
+// debounce function
+export const debounce = <T extends any[]>(
+  func: (...args: T) => void,
+  delay: number
+): ((...args: T) => void) => {
+  let timeoutId: NodeJS.Timeout;
+
+  return (...args: T) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
+
 // utils/formatCurrency.js
 export const formatCurrency = (value: string | number) => {
   if (value === null || value === undefined) return "";

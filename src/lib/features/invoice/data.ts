@@ -1,6 +1,7 @@
 import TaxType from "@/components/radiogroup";
+import { Invoice } from "./invoiceType";
 
-const invoiceData = {
+const invoiceData: Invoice = {
   base64String: "",
   logo: "",
   loading: false,

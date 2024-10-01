@@ -6,9 +6,9 @@ import {
   removeLine,
   updateItemAsync,
 } from "@/lib/features/invoice/action";
-import { debounce } from "lodash";
+
 import { AppDispatch } from "@/lib/store";
-import { formatCurrency } from "@/utils";
+import { debounce, formatCurrency } from "@/utils";
 import DynamicTaxRow from "./dynamicTaxRow";
 import { Item } from "@/lib/features/invoice/invoiceType";
 import { X } from "lucide-react";
@@ -49,12 +49,6 @@ export default function ItemsInputRow({
     // Dispatching the removeLine action with the sno as payload
     dispatch(removeLine(sno));
   };
-
-  useEffect(() => {
-    return () => {
-      debouncedHandleItemsChange.cancel(); // Cancel any pending debounced calls
-    };
-  }, []); //
 
   return (
     <>

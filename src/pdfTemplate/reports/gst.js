@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 24,
     fontSize: 12,
-
   },
   description: {
     width: "85%",
@@ -24,7 +23,7 @@ const styles = StyleSheet.create({
   },
   total: {
     width: "15%",
-    height:"100%",
+    height: "100%",
     textAlign: "right",
     paddingRight: 8,
     borderRightColor: borderColor,
@@ -33,14 +32,20 @@ const styles = StyleSheet.create({
 });
 
 export const GstComponent = ({ name, summary }) => (
-  <View>
-    {Object.entries(summary).map(([key, value]) => (
-      <View style={styles.row} key={key}>
-        <Text style={styles.description}>
-          {`${name.toUpperCase()} ${key} %`}
-        </Text>
-        <Text style={styles.total}>{Number.parseFloat(value).toFixed(2)}</Text>
-      </View>
-    ))}
-  </View>
+  <>
+    {Object.entries(summary).length > 0 ? (
+      <>
+        {Object.entries(summary).map(([key, value]) => (
+          <View style={styles.row} key={key}>
+            <Text style={styles.description}>
+              {`${name.toUpperCase()} ${key} %`}
+            </Text>
+            <Text style={styles.total}>
+              {Number.parseFloat(value).toFixed(2)}
+            </Text>
+          </View>
+        ))}
+      </>
+    ) : null}
+  </>
 );
