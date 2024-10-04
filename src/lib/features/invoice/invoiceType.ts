@@ -1,4 +1,5 @@
 import { TaxOption } from "@/components/selectTax";
+import { PersistState } from "redux-persist";
 
 // Define a base interface for taxes
 interface BaseTax {
@@ -85,5 +86,5 @@ export interface Invoice {
   due_date: string;
   template: string;
   items: Item[];
-  [key: string]: number | string | null | boolean | Item[]; // Add an index signature
+  [key: string]: number | string | null | boolean | Item[] | PersistState; // Add an index signature
 }

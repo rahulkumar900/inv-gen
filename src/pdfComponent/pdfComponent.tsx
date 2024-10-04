@@ -1,10 +1,10 @@
-import One from "@/pdfTemplate/firstTemplate/oneTemplate";
+// import One from "@/pdfTemplate/firstTemplate/oneTemplate";
 import { Invoice as InvoiceType } from "@/lib/features/invoice/invoiceType";
 import InvoiceComponent from "@/pdfTemplate/reports/Invoice";
 
 const components = {
   zero: InvoiceComponent,
-  one: One,
+  // one: One,
   //   other: OtherComponent,
 };
 
