@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 
 export const GstComponent = ({ name, summary }) => (
   <>
-    {Object.entries(summary).length > 0 ? (
+    {Object.entries(summary) && Object.entries(summary).length > 0 ? (
       <>
         {Object.entries(summary).map(([key, value]) => (
           <View style={styles.row} key={key}>

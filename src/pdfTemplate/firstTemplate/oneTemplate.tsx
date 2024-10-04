@@ -171,8 +171,8 @@ export default function One({ invoice }: { invoice: Invoice }) {
           </View>
         </View>
 
-        <Table {...invoice} tableSize={tableSize} />
-        <EmptyTable rowsCount={numEmptyRows} itemsLength={itemLength} />
+        {/* <Table {...invoice} tableSize={tableSize} />
+        <EmptyTable rowsCount={numEmptyRows} itemsLength={itemLength} /> */}
         <View
           style={{
             flexDirection: "row",
@@ -197,11 +197,11 @@ export default function One({ invoice }: { invoice: Invoice }) {
             {/* <Note /> */}
           </View>
           <View style={{ width: "40%", height: "100%" }}>
-            <Tax invoice={invoice} />
+            {/* <Tax invoice={invoice} /> */}
           </View>
         </View>
 
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             padding: 14,
@@ -231,7 +231,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
           >
             <Text>Signature</Text>
           </View>
-        </View>
+        </View> */}
 
         {/* <Text
           style={styles.pageNumber}

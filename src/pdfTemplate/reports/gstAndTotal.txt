@@ -52,22 +52,22 @@ const gstAndTotal = ({ invoice }) => {
 
   return (
     <View>
-      {/* {invoice.isIgst ? (
+      {invoice.isIgst ? (
         <GstComponent name="igst" summary={igstSummary} />
       ) : (
         <>
           <GstComponent name="cgst" summary={cgstSummary} />
           <GstComponent name="sgst" summary={sgstSummary} />
         </>
-      )} */}
+      )} 
 
-      <View style={[styles.row, { borderBottom: 0 }]}>
+      {/* <View style={[styles.row, { borderBottom: 0 }]}>
         <Text style={styles.description}>TOTAL</Text>
         <Text style={styles.total}>
           {formatCurrency(totalWithTax ? totalWithTax.toFixed(2) : 0.0)}
         </Text>
       </View>
-      <InvoiceFooter total={totalWithTax.toFixed(2)} />
+      {/* <InvoiceFooter total={totalWithTax.toFixed(2)} /> */}
     </View>
   );
 };

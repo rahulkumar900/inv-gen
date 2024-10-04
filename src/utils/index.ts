@@ -1,3 +1,9 @@
+import {
+  generatePdfAndConvert,
+  updateItemAsync,
+} from "@/lib/features/invoice/action";
+import { AppDispatch } from "@/lib/store";
+
 function splitFirstLine(text: string) {
   // Split the text into lines
   const lines = text.split("\n");
@@ -12,19 +18,64 @@ function splitFirstLine(text: string) {
 }
 
 // debounce function
+// export const debounce = <T extends any[]>(
+//   func: (...args: T) => void,
+//   delay: number
+// ): ((...args: T) => void) => {
+//   let timeoutId: NodeJS.Timeout;
+
+//   return (...args: T) => {
+//     clearTimeout(timeoutId);
+//     timeoutId = setTimeout(() => {
+//       func(...args);
+//     }, delay);
+//   };
+// };
 export const debounce = <T extends any[]>(
   func: (...args: T) => void,
   delay: number
-): ((...args: T) => void) => {
+): { debounced: (...args: T) => void; cancel: () => void } => {
   let timeoutId: NodeJS.Timeout;
 
-  return (...args: T) => {
+  const debounced = (...args: T) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
       func(...args);
     }, delay);
   };
+
+  const cancel = () => {
+    clearTimeout(timeoutId);
+  };
+
+  return { debounced, cancel };
 };
+
+// export const debouncedHandleItemsChange = debounce(
+//   async (index: number, name: string, value: string, dispatch: AppDispatch) => {
+//     try {
+//       await dispatch(updateItemAsync({ index, name, value }));
+//       await dispatch(generatePdfAndConvert());
+//     } catch (error) {
+//       console.error("Error in debouncedHandleItemsChange:", error);
+//     }
+//   },
+//   300 // Adjust debounce delay as needed
+// );
+
+
+export const { debounced: debouncedHandleItemsChange, cancel: cancelDebounce } = debounce(
+  async (index: number, name: string, value: string, dispatch: AppDispatch) => {
+    try {
+      await dispatch(updateItemAsync({ index, name, value }));
+      await dispatch(generatePdfAndConvert());
+    } catch (error) {
+      console.error("Error in debouncedHandleItemsChange:", error);
+    }
+  },
+  300 // Adjust debounce delay as needed
+);
+
 
 // utils/formatCurrency.js
 export const formatCurrency = (value: string | number) => {

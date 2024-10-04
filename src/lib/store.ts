@@ -7,10 +7,21 @@ import listenerMiddleware from "./features/invoice/middleware/pdfmiddleware";
 
 
 
+// const persistConfig = {
+//   key: "root",
+//   storage,
+// };
+
+
 const persistConfig = {
-  key: "root",
-  storage,
+  key: 'root',
+  storage: typeof window !== 'undefined' ? storage : {
+    setItem: () => Promise.resolve(), // noop
+    getItem: () => Promise.resolve(null), // noop
+    removeItem: () => Promise.resolve(), // noop
+  },
 };
+
 
 const persistedReducer = persistReducer(persistConfig, counterReducer);
 

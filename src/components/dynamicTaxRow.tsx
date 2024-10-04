@@ -1,5 +1,8 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Input } from "./ui/input";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/lib/store";
+import { debouncedHandleItemsChange, cancelDebounce } from "@/utils";
 
 type RowProps = {
   Name: string;
@@ -16,10 +19,43 @@ export default function DynamicTaxRow({
   Name,
   Placeholder,
   DefaultValue,
-  handleChange,
+  // handleChange,
   Index,
   isdisabled,
 }: RowProps) {
+  const initialvalue = useSelector(
+    (state: RootState) => state.counter.items[Index].taxes[Name]
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [taxValue, setTaxValue] = useState(0);
+  const [taxName, _] = useState(Name);
+  console.log(taxValue, initialvalue);
+
+  useEffect(() => {
+    setTaxValue(initialvalue);
+  }, [initialvalue]);
+
+  useEffect(() => {
+    const handleChange = async () => {
+      await debouncedHandleItemsChange(
+        Index,
+        taxName,
+        String(taxValue),
+        dispatch
+      );
+    };
+    if (initialvalue !== taxValue) {
+      handleChange(); // Call the async function
+      // Reset the input value to initial value
+    }
+
+    return () => {
+      cancelDebounce();
+    };
+  }, [initialvalue, Index, dispatch, taxName, taxValue]);
+
   return (
     <div className={`sgst  text-left  `}>
       <span className="text-left inline-block md:hidden text-muted-foreground text-sm">
@@ -31,9 +67,13 @@ export default function DynamicTaxRow({
         name={Name}
         placeholder={Placeholder}
         disabled={isdisabled}
-        defaultValue={String(DefaultValue) || ""}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
+        // defaultValue={String(DefaultValue) || ""}
+        // value={String(DefaultValue) || ""}
+        value={taxValue}
+        // onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
+
         // value={li[key]}
+        onChange={(e) => setTaxValue(Number(e.target.value))}
       />
     </div>
   );

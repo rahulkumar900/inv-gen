@@ -44,12 +44,17 @@ export const counterSlice = createSlice({
       };
     },
 
-    resetAllTaxs: (state) => {
-      state.items.forEach((item) => {
-        Object.keys(item).forEach((key) => {
-          item.taxes[key] = 0;
-        });
-      });
+    resetAllTaxes: (state) => {
+      state.items = state.items.map((item) => ({
+        ...item,
+        taxes: {
+          notax: 0,
+          gst: 0,
+          vat: 0,
+          igst: 0,
+          cgstigst: 0,
+        },
+      }));
     },
   },
   extraReducers: (builder) => {
@@ -188,7 +193,11 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { initializeCount,resetAllTaxs, generatePdfSuccess, generatePdfFailure } =
-  counterSlice.actions;
+export const {
+  initializeCount,
+  resetAllTaxes,
+  generatePdfSuccess,
+  generatePdfFailure,
+} = counterSlice.actions;
 
 export default counterSlice.reducer;

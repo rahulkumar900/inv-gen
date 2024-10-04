@@ -24,32 +24,19 @@ import Image from "next/image";
 import { X } from "lucide-react";
 import TaxType from "./radiogroup";
 import TaxSelect from "./selectTax";
-import { resetAllTaxs } from "@/lib/features/invoice/invoiceSlice";
+import { resetAllTaxes } from "@/lib/features/invoice/invoiceSlice";
 import { debounce } from "@/utils";
 
 const FormNew = () => {
   const dispatch: AppDispatch = useAppDispatch();
   const invoice = useSelector((state: RootState) => state.counter);
 
-  console.log(invoice.taxType);
-  const fileRef = useRef<HTMLInputElement>(null);
-  // Define a debounce function
-  // const debounce = <T extends any[]>(
-  //   func: (...args: T) => void,
-  //   delay: number
-  // ): ((...args: T) => void) => {
-  //   let timeoutId: NodeJS.Timeout;
 
-  //   return (...args: T) => {
-  //     clearTimeout(timeoutId);
-  //     timeoutId = setTimeout(() => {
-  //       func(...args);
-  //     }, delay);
-  //   };
-  // };
+  const fileRef = useRef<HTMLInputElement>(null);
+  
 
   // Wrap your handleChange function with debounce
-  const debouncedHandleChange = debounce(
+  const {debounced:debouncedHandleChange} = debounce(
     async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       console.log(e.target);
       const { name, value, type, files } = e.target as HTMLInputElement &
@@ -83,9 +70,10 @@ const FormNew = () => {
   };
 
   const handleChangeSelect = useCallback(
-    (value: string) => {
-      dispatch(updateInvoiceField({ name: "taxType", value: value }));
-      dispatch(resetAllTaxs());
+    async (value: string) => {
+      await dispatch(
+        updateInvoiceField({ name: "taxType", value: value })
+      ).then(() => dispatch(resetAllTaxes()));
     },
     [dispatch]
   );
@@ -96,9 +84,9 @@ const FormNew = () => {
     }
   };
 
-  useEffect(() => {
-    dispatch(generatePdfAndConvert());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(generatePdfAndConvert());
+  // }, [dispatch]);
 
   return (
     <div className=" bg-card mt-24 max-w-4xl mx-auto p-1 lg:p-4 xl:p-8  shadow-xl rounded-2xl border">

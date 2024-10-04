@@ -1,5 +1,3 @@
-// "use client";
-
 import PdfPageComponent from "@/app/pdfPage";
 import FormNew from "@/components/formnew";
 import React, { Suspense, useEffect, useState } from "react";

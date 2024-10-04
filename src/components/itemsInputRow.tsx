@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,7 +8,7 @@ import {
 } from "@/lib/features/invoice/action";
 
 import { AppDispatch } from "@/lib/store";
-import { debounce, formatCurrency } from "@/utils";
+import { debounce, debouncedHandleItemsChange, formatCurrency } from "@/utils";
 import DynamicTaxRow from "./dynamicTaxRow";
 import { Item } from "@/lib/features/invoice/invoiceType";
 import { X } from "lucide-react";
@@ -25,16 +25,8 @@ export default function ItemsInputRow({
   taxType: TaxOption;
   taxesField: Record<string, string>;
 }) {
+ 
   const dispatch = useDispatch<AppDispatch>();
-
-  const debouncedHandleItemsChange = debounce(
-    async (index: number, name: string, value: string) => {
-      await dispatch(updateItemAsync({ index, name, value })).then(() =>
-        dispatch(generatePdfAndConvert())
-      );
-    },
-    300 // Adjust the debounce delay as needed
-  );
 
   // Use the debounced function in your component
   const handleItemsChange = (
@@ -42,7 +34,7 @@ export default function ItemsInputRow({
     index: number
   ) => {
     const { name, value }: { name: string; value: string } = e.target;
-    debouncedHandleItemsChange(index, name, value);
+    debouncedHandleItemsChange(index, name, value, dispatch);
   };
 
   const handleRemoveLine = (sno: Number) => {

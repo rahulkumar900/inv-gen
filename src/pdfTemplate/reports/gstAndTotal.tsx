@@ -60,6 +60,8 @@ const GstAndTotal = ({ invoice }: { invoice: Invoice }) => {
   const totalWithTax = totalAmount + (totalTax[taxType] || 0);
   const summary = taxSummary[taxType];
 
+  console.log(summary);
+
   // Render the component
   return (
     <View>
