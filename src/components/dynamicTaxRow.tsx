@@ -30,7 +30,7 @@ export default function DynamicTaxRow({
   const dispatch = useDispatch<AppDispatch>();
 
   const [taxValue, setTaxValue] = useState(0);
-  const [taxName, _] = useState(Name);
+
   console.log(taxValue, initialvalue);
 
   useEffect(() => {
@@ -39,12 +39,7 @@ export default function DynamicTaxRow({
 
   useEffect(() => {
     const handleChange = async () => {
-      await debouncedHandleItemsChange(
-        Index,
-        taxName,
-        String(taxValue),
-        dispatch
-      );
+      await debouncedHandleItemsChange(Index, Name, String(taxValue), dispatch);
     };
     if (initialvalue !== taxValue) {
       handleChange(); // Call the async function
@@ -54,7 +49,7 @@ export default function DynamicTaxRow({
     return () => {
       cancelDebounce();
     };
-  }, [initialvalue, Index, dispatch, taxName, taxValue]);
+  }, [initialvalue, taxValue, Name, dispatch, Index]);
 
   return (
     <div className={`sgst  text-left  `}>
