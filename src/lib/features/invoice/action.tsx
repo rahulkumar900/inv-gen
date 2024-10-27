@@ -5,22 +5,7 @@ import { RootState } from "@/lib/store";
 import { createAction } from "@reduxjs/toolkit";
 import PdfComponent from "@/pdfComponent/pdfComponent";
 
-// export const convertBlobToBase64 = (blob) => {
-//   return new Promise((resolve, reject) => {
-//     const reader = new FileReader();
-//     reader.readAsDataURL(blob);
-//     reader.onloadend = () => {
-//       if (typeof reader.result === "string") {
-//         resolve(reader.result);
-//       } else {
-//         reject(new Error("Failed to convert Blob to base64 string"));
-//       }
-//     };
-//     reader.onerror = (error) => {
-//       reject(error);
-//     };
-//   });
-// };
+
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -48,6 +33,9 @@ export const convertBlobToBase64 = (blob: Blob): Promise<string> => {
   });
 };
 
+// Action to reset base64String
+
+
 /**==============================================
  **             generatePdfAndConvert
  *?  What does it do?
@@ -63,6 +51,7 @@ export const generatePdfAndConvert = createAsyncThunk(
     const currentState = (getState() as RootState).counter;
     try {
       console.log(PdfComponent);
+      
       const pdfBlob = await pdf(
         // <InvoiceComponent {...currentState} />
         <PdfComponent {...currentState} />

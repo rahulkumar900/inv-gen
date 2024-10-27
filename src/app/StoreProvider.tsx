@@ -3,9 +3,7 @@ import { useRef } from "react";
 import { Provider } from "react-redux";
 import { makeStore, AppStore } from "../lib/store";
 import dynamic from "next/dynamic";
-// import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-import { initializeCount } from "../lib/features/invoice/invoiceSlice";
 
 const PersistGate = dynamic(
   () => import("redux-persist/integration/react").then(mod => mod.PersistGate),

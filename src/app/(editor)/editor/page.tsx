@@ -14,7 +14,9 @@ export default function Editor() {
           // hidden: editorMode,
         })}
       >
-        <FormNew />
+        <Suspense fallback="loading...">
+          <FormNew />
+        </Suspense>
       </div>
       <div className="hidden lg:block w-2/5 bg-previewContainer ">
         <Suspense fallback="loading ...">

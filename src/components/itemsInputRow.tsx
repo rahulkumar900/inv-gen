@@ -13,19 +13,23 @@ import DynamicTaxRow from "./dynamicTaxRow";
 import { Item } from "@/lib/features/invoice/invoiceType";
 import { X } from "lucide-react";
 import { TaxOption } from "./selectTax";
+import clsx from "clsx";
+import { Label } from "./ui/label";
 
 export default function ItemsInputRow({
   li,
   i,
   taxType,
   taxesField,
+  className,
+  ...props
 }: {
   li: Item;
   i: number;
   taxType: TaxOption;
   taxesField: Record<string, string>;
+  className?: string;
 }) {
- 
   const dispatch = useDispatch<AppDispatch>();
 
   // Use the debounced function in your component
@@ -42,15 +46,15 @@ export default function ItemsInputRow({
     dispatch(removeLine(sno));
   };
 
+  const baseStyle = "grid  grid-cols-subgrid col-span-full";
+
   return (
-    <>
+    <div className={clsx(baseStyle, className)}>
       {/* Description */}
-      <div key={i + "a"} className="  ">
-        <span className=" md:hidden text-muted-foreground text-sm">
-          Description
-        </span>
+      <div key={i + "a"} className="col-span-3 md:col-span-1 ">
+        <Label className=" md:hidden  text-sm">Description</Label>
         <Input
-          className={`focus-visible:ring-0 col-span-6 md:col-span-1 rounded-lg border border-muted-foreground   text-muted-foreground`}
+          className={`focus-visible:ring-0 col-span-6 md:col-span-1 rounded-lg    `}
           type="text"
           name="desc"
           placeholder="Description"
@@ -62,12 +66,10 @@ export default function ItemsInputRow({
       {/* ---------------- */}
 
       {/* Quantity */}
-      <div key={i + "b"} className="qty text-left md:text-left  ">
-        <span className=" md:hidden text-muted-foreground text-sm">
-          Quantity
-        </span>
+      <div key={i + "b"} className=" col-span-1 qty text-left md:text-left  ">
+        <Label className=" md:hidden  text-sm">Quantity</Label>
         <Input
-          className={`focus-visible:ring-0 col-span-6 md:col-span-1 border-muted-foreground rounded-lg border text-muted-foreground`}
+          className={`focus-visible:ring-0 col-span-6 md:col-span-1  rounded-lg `}
           type="number"
           name="qty"
           placeholder="Qty"
@@ -78,12 +80,10 @@ export default function ItemsInputRow({
       {/* --------------- */}
 
       {/* Rate */}
-      <div key={i + "c"} className="rate   text-left">
-        <span className=" md:hidden text-left text-muted-foreground text-sm">
-          Rate
-        </span>
+      <div key={i + "c"} className=" col-span-1 rate   text-left">
+        <Label className=" md:hidden text-left  text-sm">Rate</Label>
         <Input
-          className={`appearance-none border-muted-foreground focus-visible:ring-0  rounded-lg border   text-muted-foreground`}
+          className={`appearance-none  focus-visible:ring-0  rounded-lg   `}
           type="number"
           name="rate"
           placeholder="Rate"
@@ -97,20 +97,19 @@ export default function ItemsInputRow({
       <DynamicTaxRow
         key={i + "d"}
         Name={taxType}
-        Label={String(taxesField[taxType])}
+        LabelText={String(taxesField[taxType])}
         Placeholder="0"
         DefaultValue={String(li.taxes[taxType as TaxOption])}
         Index={i}
         isdisabled={taxType === "notax"}
-        handleChange={(e) => handleItemsChange(e, i)}
+
+        // handleChange={(e) => handleItemsChange(e, i)}
       />
 
-      <div key={i + "e"} className="text-left">
-        <span className=" text-left  md:hidden text-muted-foreground text-sm">
-          Amount
-        </span>
-        <Input
-          className={`bg-background appearance-none border-muted-foreground focus-visible:ring-0   rounded-lg border text-muted-foreground`}
+      <div key={i + "e"} className=" col-span-1 text-left">
+        <Label className=" text-left  md:hidden  text-sm">Amount</Label>
+        {/* <Input
+          className={` border-node rounded-lg `}
           type="text"
           disabled={true}
           name="amount"
@@ -118,17 +117,19 @@ export default function ItemsInputRow({
           value={formatCurrency(li.amount || 0)}
 
           // value={li[key]}
-        />
+        /> */}
+
+        <div>{formatCurrency(li.amount || 0)}</div>
       </div>
 
       <div
+        className="col-span-1 w-10 justify-self-center mt-4 md:mt-0 h-10 grid place-items-center rounded-full  shadow-lg hover:bg-destructive hover:text-destructive-foreground border"
         key={i + "f"}
         onClick={() => handleRemoveLine(li.sno)}
         role="button"
-        className="w-10 justify-self-center mt-4 md:mt-0 h-10 grid place-items-center rounded-full text-muted-foreground shadow-lg hover:bg-destructive hover:text-destructive-foreground border"
       >
         <X size={24} />
       </div>
-    </>
+    </div>
   );
 }

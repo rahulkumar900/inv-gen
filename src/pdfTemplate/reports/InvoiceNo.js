@@ -34,7 +34,13 @@ const InvoiceNo = ({ invoice }) => (
         <BillFrom invoice={invoice} />
       </View>
       <View
-        style={[styles.colB, { borderBottom: 1, borderRight: 1, borderTop: 1 }]}
+        style={[
+          styles.colB,
+          {
+            borderRight: 1,
+            borderTop: 1,
+          },
+        ]}
       >
         <View style={styles.col2}>
           <Text style={[styles.colA, { borderBottom: 1, borderRight: 1 }]}>
@@ -58,21 +64,14 @@ const InvoiceNo = ({ invoice }) => (
           </Text>
           {/* </View> */}
         </View>
-        <View style={styles.col2}>
-          <Text style={[styles.colA, { borderRight: 1, borderBottom: 1 }]}>
-            Order No:
-          </Text>
-          {/* <Text style={styles.text}>:</Text> */}
-          {/* <View style={styles.colB}> */}
-          <Text style={[styles.colBB, styles.bold, { borderBottom: 1 }]}>
+        <View style={[styles.col2, { borderBottom: 1 }]}>
+          <Text style={[styles.colA, { borderRight: 1 }]}>Order No:</Text>
+
+          <Text style={[styles.colBB, styles.bold, {}]}>
             {invoice.order_no}
           </Text>
           {/* </View> */}
         </View>
-        {/* <View style={styles.col2}>
-          <Text style={[styles.colA, { borderRight: 1 }]}></Text>
-          <Text style={[styles.colBB]}>{invoice.order_number}</Text>
-        </View> */}
       </View>
     </View>
   </Fragment>

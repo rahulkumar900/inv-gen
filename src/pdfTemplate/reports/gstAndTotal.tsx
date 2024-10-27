@@ -58,6 +58,7 @@ const GstAndTotal = ({ invoice }: { invoice: Invoice }) => {
   // Assuming taxType is defined elsewhere, or can be extracted from invoice
   const taxType = invoice.taxType; // Assuming this is TaxOption
   const totalWithTax = totalAmount + (totalTax[taxType] || 0);
+  
   const summary = taxSummary[taxType];
 
   console.log(summary);

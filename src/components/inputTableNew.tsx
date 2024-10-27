@@ -22,6 +22,7 @@ import { formatCurrency } from "@/utils";
 import DynamicTaxRow from "./dynamicTaxRow";
 import { TaxOption } from "./selectTax";
 import ItemsInputRow from "./itemsInputRow";
+import { Label } from "./ui/label";
 
 const InputTableNew = () => {
   const [igst, setIgst] = useState(true);
@@ -112,23 +113,27 @@ const InputTableNew = () => {
   return (
     <>
       <div className=" md:col-start-1  md:-mx-8  md:px-8  md:col-end-13 col-span-12">
-        <div className=" w-full relative py-4 border-t ">
-          {/* Description, |  Qty | Rate | NO Tax | Amount | X  */}
-
+        <div className=" w-full relative py-4 ">
+          <Label>Invoice Items</Label>
           <div
             key={"main"}
-            className={`grid text-md gap-4  grid-cols-3
-                 md:grid-cols-[2fr_1fr_1fr_1fr_1fr_50px]
-               `}
+            className={`grid text-md   grid-cols-4 divide-y-2
+                gap-x-4
+                gap-y-4 md:gap-y-0
+              grid-rows-2 md:grid-rows-1 md:grid-cols-[2fr_1fr_1fr_1fr_1fr_50px]
+              `}
           >
+            {/* Description, |  Qty | Rate | NO Tax | Amount | X  */}
             {/* header of Table */}
-            {fieldsArray &&
-              fieldsArray.length &&
-              fieldsArray.map((li, i) => (
-                <div className={` md:inline-block hidden text-left `} key={li}>
-                  {li}
-                </div>
-              ))}
+            <div className="md:grid py-4  hidden items-center grid-cols-subgrid col-span-full hover:bg-muted">
+              {fieldsArray &&
+                fieldsArray.length &&
+                fieldsArray.map((li, i) => (
+                  <div className={`  text-left `} key={li}>
+                    {li}
+                  </div>
+                ))}
+            </div>
             {/* Ends header of table */}
 
             {/* Rows of Input Table */}
@@ -141,6 +146,7 @@ const InputTableNew = () => {
                     key={i}
                     taxType={taxType}
                     taxesField={taxesField}
+                    className="items-center transition-colors py-3 hover:bg-muted"
                   />
                 );
               })
@@ -154,12 +160,23 @@ const InputTableNew = () => {
 
             {/* Gst tax Rows */}
 
+            <div className="md:col-span-2 col-span-full ">
+              <Button
+                disabled={loading}
+                className="my-4"
+                onClick={handleAddLine}
+              >
+                {`${loading ? "wait ..." : "Add New Line"} `}
+              </Button>
+            </div>
+
             <Gst
               key="gst-tax"
               taxSummary={taxSummary}
               totalTax={totalTax}
               totalAmount={totalWithTax}
               selectedTaxType={taxType}
+              className=" items-center md:col-span-2 "
             />
 
             {/* End of Taxes section */}
@@ -167,10 +184,6 @@ const InputTableNew = () => {
 
           {/* Total End */}
         </div>
-
-        <Button disabled={loading} className="my-4" onClick={handleAddLine}>
-          {`${loading ? "wait ..." : "Add New Line"} `}
-        </Button>
       </div>
     </>
   );

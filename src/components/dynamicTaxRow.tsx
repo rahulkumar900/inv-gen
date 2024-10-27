@@ -3,19 +3,19 @@ import { Input } from "./ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import { debouncedHandleItemsChange, cancelDebounce } from "@/utils";
-
+import { Label } from "./ui/label";
 type RowProps = {
   Name: string;
-  Label: string;
+  LabelText: string;
   Placeholder: string;
-  handleChange: (f: ChangeEvent<HTMLInputElement>) => void;
+  // handleChange: (f: ChangeEvent<HTMLInputElement>) => void;
   DefaultValue: string;
   Index: number;
   isdisabled?: boolean; // added for disabling inputs in case of edit mode  // added for disabled inputs in case of edit mode   // added for disabled inputs in case of edit mode   // added for disabled inputs in case of edit mode   // added for disabled inputs in case of edit mode   // added for disabled inputs in case of edit mode   // added for disabled inputs in case of edit mode   // added for disabled inputs in case of edit mode   // added for disabled inputs in case
 };
 
 export default function DynamicTaxRow({
-  Label,
+  LabelText,
   Name,
   Placeholder,
   DefaultValue,
@@ -52,12 +52,12 @@ export default function DynamicTaxRow({
   }, [initialvalue, taxValue, Name, dispatch, Index]);
 
   return (
-    <div className={`sgst  text-left  `}>
-      <span className="text-left inline-block md:hidden text-muted-foreground text-sm">
-        {Label}
-      </span>
+    <div className={`sgst col-span-1  text-left  `}>
+      <Label className="text-left inline-block md:hidden text-muted-foreground text-sm">
+        {LabelText}
+      </Label>
       <Input
-        className={` appearance-none border-muted-foreground focus-visible:ring-0 col-span-6 md:col-span-1 rounded-lg border text-muted-foreground`}
+        className={` appearance-none  focus-visible:ring-0 col-span-6 md:col-span-1 rounded-lg `}
         type="text"
         name={Name}
         placeholder={Placeholder}

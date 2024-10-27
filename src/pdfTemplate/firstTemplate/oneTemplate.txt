@@ -54,8 +54,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
           <View style={{ display: "flex", flexDirection: "row" }}>
             <View style={{ width: "50%" }}>
               <View style={{ width: 60, height: 60 }}>
-                
-                {invoice.logo && <Image src={invoice.logo}  />}
+                {invoice.logo && <Image src={invoice.logo} />}
               </View>
               <Text
                 style={{
@@ -93,7 +92,7 @@ export default function One({ invoice }: { invoice: Invoice }) {
                   fontFamily: "Helvetica-Bold",
                 }}
               >
-               Date :  {invoice.invoice_date || "December 06, 2024"}
+                Date : {invoice.invoice_date || "December 06, 2024"}
               </Text>
             </View>
           </View>

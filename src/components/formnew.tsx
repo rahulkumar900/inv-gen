@@ -31,12 +31,10 @@ const FormNew = () => {
   const dispatch: AppDispatch = useAppDispatch();
   const invoice = useSelector((state: RootState) => state.counter);
 
-
   const fileRef = useRef<HTMLInputElement>(null);
-  
 
   // Wrap your handleChange function with debounce
-  const {debounced:debouncedHandleChange} = debounce(
+  const { debounced: debouncedHandleChange } = debounce(
     async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       console.log(e.target);
       const { name, value, type, files } = e.target as HTMLInputElement &
@@ -83,10 +81,6 @@ const FormNew = () => {
       fileRef.current.click();
     }
   };
-
-  // useEffect(() => {
-  //   dispatch(generatePdfAndConvert());
-  // }, [dispatch]);
 
   return (
     <div className=" bg-card mt-24 max-w-4xl mx-auto p-1 lg:p-4 xl:p-8  shadow-xl rounded-2xl border">
@@ -212,12 +206,12 @@ const FormNew = () => {
               required
             />
           </div>
-          <div className="grid w-full max-w-sm items-center space-y-2">
+          {/* <div className="grid w-full max-w-sm items-center space-y-2">
             <Label className="text-muted-foreground" htmlFor="address">
               State
             </Label>
             <SelectState name="state" />
-          </div>
+          </div> */}
         </form>
         <form className="space-y-4 col-span-12 md:col-start-7  md:col-end-13">
           <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -240,15 +234,15 @@ const FormNew = () => {
               required
             />
           </div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
+          {/* <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label className="text-muted-foreground" htmlFor="address">
               State
             </Label>
             <SelectState name="b_state" />
-          </div>
+          </div> */}
         </form>
 
-        <form className=" hidden space-y-4 col-span-12 md:col-start-7 md:col-end-13  ">
+        <form className=" space-y-4 col-span-12 md:col-start-1 md:col-end-7  ">
           <Label>Ship To</Label>
 
           <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -263,10 +257,30 @@ const FormNew = () => {
               required
             />
           </div>
-          <div className="grid  w-full items-center gap-1.5">
+          {/* <div className="grid  w-full items-center gap-1.5">
             <Label htmlFor="address">State</Label>
             <SelectState name="s_name" />
+          </div> */}
+        </form>
+        <form className=" grid items-end  col-span-12 md:col-start-7  md:col-end-13  ">
+          {/* <Label>.</Label> */}
+
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label className="" htmlFor="s_address">Terms & Conditions</Label>
+            <Textarea
+              className="border border-muted-foreground"
+              // onChange={(e) => handleChange(e)}
+              id="s_address"
+              name="s_address"
+              placeholder="John"
+              defaultValue={invoice.s_address}
+              required
+            />
           </div>
+          {/* <div className="grid  w-full items-center gap-1.5">
+            <Label htmlFor="address">State</Label>
+            <SelectState name="s_name" />
+          </div> */}
         </form>
 
         <InputTable />

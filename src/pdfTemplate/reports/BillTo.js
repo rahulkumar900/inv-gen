@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // gap: 24,
     border: 1,
-    borderTop: "none",
+    borderTop: 0,
     borderColor: "black",
   },
 });

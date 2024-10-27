@@ -133,6 +133,7 @@ export const counterSlice = createSlice({
             : "Failed to generate PDF";
       })
       .addCase(generatePdfAndConvert.pending, (state) => {
+        state.base64String = "";
         state.loading = true;
         state.error = null;
       })
