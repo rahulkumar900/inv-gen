@@ -63,37 +63,50 @@ export const debounce = <T extends any[]>(
 //   300 // Adjust debounce delay as needed
 // );
 
-
-export const { debounced: debouncedHandleItemsChange, cancel: cancelDebounce } = debounce(
-  async (index: number, name: string, value: string, dispatch: AppDispatch) => {
-    try {
-      await dispatch(updateItemAsync({ index, name, value }));
-      await dispatch(generatePdfAndConvert());
-    } catch (error) {
-      console.error("Error in debouncedHandleItemsChange:", error);
-    }
-  },
-  300 // Adjust debounce delay as needed
-);
-
+export const { debounced: debouncedHandleItemsChange, cancel: cancelDebounce } =
+  debounce(
+    async (
+      index: number,
+      name: string,
+      value: string,
+      dispatch: AppDispatch
+    ) => {
+      try {
+        await dispatch(updateItemAsync({ index, name, value }));
+        await dispatch(generatePdfAndConvert());
+      } catch (error) {
+        console.error("Error in debouncedHandleItemsChange:", error);
+      }
+    },
+    300 // Adjust debounce delay as needed
+  );
 
 // utils/formatCurrency.js
-export const formatCurrency = (value: string | number) => {
+export const formatCurrency = (
+  value: string | number,
+  round: boolean = false
+): string => {
   if (value === null || value === undefined) return "";
 
-  // Ensure the value is a string
-  const valueStr = value.toString().replace(/,/g, "");
-  const number = parseFloat(valueStr);
+  // Remove commas if the value is a string, then parse it to a number
+  const number =
+    typeof value === "string" ? parseFloat(value.replace(/,/g, "")) : value;
+
   if (isNaN(number)) return "";
 
-  return new Intl.NumberFormat("en-US", {
+  // Conditionally round the number
+  const roundedValue = round ? Math.round(number) : number;
+
+  // Format the number as currency, adjusting decimal places based on `round`
+  const formatted = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  })
-    .format(number)
-    .slice(1); // Remove the currency symbol
+  }).format(roundedValue);
+
+  // Remove the currency symbol (first character) and return the result
+  return formatted.replace(/^\$/, "");
 };
 
 export { splitFirstLine };

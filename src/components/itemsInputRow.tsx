@@ -51,7 +51,7 @@ export default function ItemsInputRow({
   return (
     <div className={clsx(baseStyle, className)}>
       {/* Description */}
-      <div key={i + "a"} className="col-span-3 md:col-span-1 ">
+      <div className="col-span-3 md:col-span-1 ">
         <Label className=" md:hidden  text-sm">Description</Label>
         <Input
           className={`focus-visible:ring-0 col-span-6 md:col-span-1 rounded-lg    `}
@@ -66,7 +66,7 @@ export default function ItemsInputRow({
       {/* ---------------- */}
 
       {/* Quantity */}
-      <div key={i + "b"} className=" col-span-1 qty text-left md:text-left  ">
+      <div className=" col-span-1 qty text-left md:text-left  ">
         <Label className=" md:hidden  text-sm">Quantity</Label>
         <Input
           className={`focus-visible:ring-0 col-span-6 md:col-span-1  rounded-lg `}
@@ -80,7 +80,7 @@ export default function ItemsInputRow({
       {/* --------------- */}
 
       {/* Rate */}
-      <div key={i + "c"} className=" col-span-1 rate   text-left">
+      <div className=" col-span-1 rate   text-left">
         <Label className=" md:hidden text-left  text-sm">Rate</Label>
         <Input
           className={`appearance-none  focus-visible:ring-0  rounded-lg   `}
@@ -95,7 +95,6 @@ export default function ItemsInputRow({
       {/* ---------------- */}
 
       <DynamicTaxRow
-        key={i + "d"}
         Name={taxType}
         LabelText={String(taxesField[taxType])}
         Placeholder="0"
@@ -106,7 +105,7 @@ export default function ItemsInputRow({
         // handleChange={(e) => handleItemsChange(e, i)}
       />
 
-      <div key={i + "e"} className=" col-span-1 text-left">
+      <div className=" col-span-1 text-left">
         <Label className=" text-left  md:hidden  text-sm">Amount</Label>
         {/* <Input
           className={` border-node rounded-lg `}
@@ -124,7 +123,6 @@ export default function ItemsInputRow({
 
       <div
         className="col-span-1 w-10 justify-self-center mt-4 md:mt-0 h-10 grid place-items-center rounded-full  shadow-lg hover:bg-destructive hover:text-destructive-foreground border"
-        key={i + "f"}
         onClick={() => handleRemoveLine(li.sno)}
         role="button"
       >

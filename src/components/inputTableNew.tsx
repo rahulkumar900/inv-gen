@@ -3,7 +3,13 @@
 import { Invoice, Item } from "@/lib/features/invoice/invoiceType";
 // import Inv from "@/components/reports/Invoice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addLine,
@@ -29,7 +35,7 @@ const InputTableNew = () => {
 
   const counter: Invoice = useAppSelector((state) => state.counter);
 
-  const { items, tableRows, initialRows, isIgst, loading } = useSelector(
+  const { items, tableRows, initialRows, isIgst, loading, round } = useSelector(
     (state: RootState) => state.counter
   );
 
@@ -62,25 +68,67 @@ const InputTableNew = () => {
     "",
   ];
 
-  const { taxSummary, totalTax } = calculateGst(items);
+  // const { taxSummary, totalTax } = calculateGst(items);
+  const { taxSummary, totalTax } = useMemo(() => calculateGst(items), [items]);
 
   const TotalAmount = items
     .map((item) => item.amount)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
-  const totalWithTax = formatCurrency(TotalAmount + totalTax[taxType]);
+  const totalWithTax = formatCurrency(TotalAmount + totalTax[taxType], round);
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const debouncedRemoveLine = debounce((sno) => {
-    dispatch(removeLine(sno));
-  }, 300); // Adjust the debounce delay as needed
+  // const debouncedRemoveLine = debounce((sno) => {
+  //   dispatch(removeLine(sno));
+  // }, 300); // Adjust the debounce delay as needed
+
+  const debouncedRemoveLine = useCallback(
+    debounce((sno: number) => {
+      dispatch(removeLine(sno));
+    }, 300),
+    [dispatch]
+  );
+  
+
+
+  // const handleAddLine = () => {
+  //   const newItems = items.slice();
+
+  //   newItems.push({
+  //     sno: newItems.length + 1,
+  //     desc: "",
+  //     qty: 0,
+  //     rate: 0,
+  //     taxes: {
+  //       notax: 0,
+  //       gst: 0,
+  //       vat: 0,
+  //       cgstigst: 0,
+  //       igst: 0,
+  //     },
+
+  //     amount: 0,
+  //   });
+
+  //   let newTableRows;
+  //   const itemLength = newItems.length;
+
+  //   if (itemLength <= initialRows) {
+  //     newTableRows = initialRows;
+  //   } else {
+  //     const threshold =
+  //       initialRows + 20 * Math.ceil((itemLength - initialRows) / 20);
+  //     newTableRows = itemLength > tableRows ? threshold : tableRows;
+  //   }
+
+  //   // Dispatching the action with the new items and tableRows as payload
+  //   dispatch(addLine({ items: newItems, tableRows: newTableRows }));
+  // };
 
   const handleAddLine = () => {
-    const newItems = items.slice();
-
-    newItems.push({
-      sno: newItems.length + 1,
+    const newItem: Item = {
+      sno: items.length + 1,
       desc: "",
       qty: 0,
       rate: 0,
@@ -91,23 +139,17 @@ const InputTableNew = () => {
         cgstigst: 0,
         igst: 0,
       },
-
       amount: 0,
-    });
+    };
 
-    let newTableRows;
-    const itemLength = newItems.length;
+    const updatedTableRows =
+      items.length + 1 <= initialRows
+        ? initialRows
+        : Math.ceil((items.length + 1 - initialRows) / 20) * 20 + initialRows;
 
-    if (itemLength <= initialRows) {
-      newTableRows = initialRows;
-    } else {
-      const threshold =
-        initialRows + 20 * Math.ceil((itemLength - initialRows) / 20);
-      newTableRows = itemLength > tableRows ? threshold : tableRows;
-    }
-
-    // Dispatching the action with the new items and tableRows as payload
-    dispatch(addLine({ items: newItems, tableRows: newTableRows }));
+    dispatch(
+      addLine({ items: [...items, newItem], tableRows: updatedTableRows })
+    );
   };
 
   return (
@@ -119,7 +161,7 @@ const InputTableNew = () => {
             key={"main"}
             className={`grid text-md   grid-cols-4 divide-y-2
                 gap-x-4
-                gap-y-4 md:gap-y-0
+                gap-y-4 md:gap-y-0 auto-rows-min
               grid-rows-2 md:grid-rows-1 md:grid-cols-[2fr_1fr_1fr_1fr_1fr_50px]
               `}
           >
@@ -174,7 +216,7 @@ const InputTableNew = () => {
               key="gst-tax"
               taxSummary={taxSummary}
               totalTax={totalTax}
-              totalAmount={totalWithTax}
+              totalAmount={formatCurrency(totalWithTax)}
               selectedTaxType={taxType}
               className=" items-center md:col-span-2 "
             />

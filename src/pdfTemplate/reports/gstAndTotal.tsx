@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 const GstAndTotal = ({ invoice }: { invoice: Invoice }) => {
   console.log(invoice);
 
-  const { items } = invoice;
+  const { items, round } = invoice;
 
   // Calculate GST and total tax
   const { taxSummary, totalTax } = calculateGst(items);
@@ -58,7 +58,7 @@ const GstAndTotal = ({ invoice }: { invoice: Invoice }) => {
   // Assuming taxType is defined elsewhere, or can be extracted from invoice
   const taxType = invoice.taxType; // Assuming this is TaxOption
   const totalWithTax = totalAmount + (totalTax[taxType] || 0);
-  
+
   const summary = taxSummary[taxType];
 
   console.log(summary);
@@ -70,7 +70,7 @@ const GstAndTotal = ({ invoice }: { invoice: Invoice }) => {
 
       <View style={[styles.row, { borderBottom: 0 }]}>
         <Text style={styles.description}>TOTAL</Text>
-        <Text style={styles.total}>{totalWithTax}</Text>
+        <Text style={styles.total}>{formatCurrency(totalWithTax, round)}</Text>
       </View>
 
       <InvoiceFooter total={totalWithTax} />

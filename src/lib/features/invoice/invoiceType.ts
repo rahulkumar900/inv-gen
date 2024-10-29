@@ -80,6 +80,7 @@ export interface Invoice {
   //
 
   isIgst: boolean;
+  round: boolean;
   taxType: TaxOption;
 
   trans_date: string;

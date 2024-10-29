@@ -56,7 +56,11 @@ export const counterSlice = createSlice({
         },
       }));
     },
+    toggleRound: (state) => {
+      state.round = !state.round;
+    },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(updateInvoiceField.fulfilled, (state: Invoice, action) => {
@@ -197,6 +201,7 @@ export const counterSlice = createSlice({
 export const {
   initializeCount,
   resetAllTaxes,
+  toggleRound,
   generatePdfSuccess,
   generatePdfFailure,
 } = counterSlice.actions;
