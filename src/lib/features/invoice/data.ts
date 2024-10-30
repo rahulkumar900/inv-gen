@@ -55,6 +55,7 @@ const invoiceData: Invoice = {
 
   //
   isIgst: true,
+  round: false,
   taxType: "notax",
   items: [
     {
