@@ -2,7 +2,7 @@ import PdfPageComponent from "@/app/pdfPage";
 import FormNew from "@/components/formnew";
 import React, { Suspense, useEffect, useState } from "react";
 import { type ClassValue, clsx } from "clsx";
-import PDFPreview from "@/app/PdfPreview";
+
 import { useAppSelector } from "@/lib/hooks";
 
 export default function Editor() {
