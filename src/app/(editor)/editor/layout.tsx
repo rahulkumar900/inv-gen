@@ -18,6 +18,7 @@ import DownloadButton from "@/components/downloadButton";
 import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import TemplateList from "@/components/templateList";
+import NewDownloadButton from "@/components/NewDownloadButton";
 
 function Header() {
   return (
@@ -56,7 +57,8 @@ function Header() {
           </menu>
           <div className="space-x-2 flex pl-4">
             <ModeToggle />
-            <DownloadButton />
+            {/* <DownloadButton /> */}
+            <NewDownloadButton />
           </div>
         </nav>
       </header>
@@ -64,11 +66,21 @@ function Header() {
   );
 }
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function EdiorLayout({
+  children,
+  editorForm,
+  preview,
+}: {
+  children: ReactNode;
+  editorForm: ReactNode;
+  preview: ReactNode;
+}) {
   return (
     <section className="w-full h-screen max-h-screen flex">
+    
       <Header />
-      {children}
+      {editorForm}
+      {preview}
     </section>
   );
 }

@@ -89,8 +89,6 @@ const InputTableNew = () => {
     }, 300),
     [dispatch]
   );
-  
-
 
   // const handleAddLine = () => {
   //   const newItems = items.slice();
@@ -204,11 +202,12 @@ const InputTableNew = () => {
 
             <div className="md:col-span-2 col-span-full ">
               <Button
+                variant={"default"}
                 disabled={loading}
-                className="my-4"
+                className="my-4 min-w-[150px] px-4 py-2 flex justify-center items-center"
                 onClick={handleAddLine}
               >
-                {`${loading ? "wait ..." : "Add New Line"} `}
+                <span>{`${loading ? "Wait .." : "Add New Line"} `}</span>
               </Button>
             </div>
 

@@ -26,6 +26,7 @@ import TaxType from "./radiogroup";
 import TaxSelect from "./selectTax";
 import { resetAllTaxes } from "@/lib/features/invoice/invoiceSlice";
 import { debounce } from "@/utils";
+import { DatePicker } from "./date-picker";
 
 const FormNew = () => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -33,38 +34,47 @@ const FormNew = () => {
 
   const fileRef = useRef<HTMLInputElement>(null);
 
-  // Wrap your handleChange function with debounce
-  const { debounced: debouncedHandleChange } = debounce(
-    async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      console.log(e.target);
-      const { name, value, type, files } = e.target as HTMLInputElement &
-        HTMLTextAreaElement;
+  const { debounced: debouncedHandleChange, cancel } = debounce(
+    async (
+      event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | null,
+      customProps: { name: string; value: any } | null
+    ) => {
+      if (event) {
+        const { name, value, type, files } = event.target as HTMLInputElement &
+          HTMLTextAreaElement;
 
-      if (type == "file" && files && files.length > 0) {
-        const file = files[0];
-        const reader = new FileReader();
-        reader.onload = async () => {
-          const fileContent = reader.result as string;
-          await dispatch(updateInvoiceField({ name, value: fileContent })).then(
-            () => dispatch(generatePdfAndConvert())
+        if (type === "file" && files && files.length > 0) {
+          const file = files[0];
+          const reader = new FileReader();
+          reader.onload = async () => {
+            const fileContent = reader.result as string;
+            await dispatch(
+              updateInvoiceField({ name, value: fileContent })
+            ).then(() => dispatch(generatePdfAndConvert()));
+          };
+          reader.readAsDataURL(file);
+        } else {
+          await dispatch(updateInvoiceField({ name, value })).then(() =>
+            dispatch(generatePdfAndConvert())
           );
-        };
-        reader.readAsDataURL(file);
-      } else {
+        }
+      } else if (customProps) {
+        const { name, value } = customProps;
+        console.log(name, value);
         await dispatch(updateInvoiceField({ name, value })).then(() =>
           dispatch(generatePdfAndConvert())
         );
       }
     },
-    500
-  ); // Change delay according to your preference
+    500 // Adjust debounce delay as needed
+  );
 
-  // Your original handleChange function
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | null,
+    customProps: { name: string; value: any } | null = null
   ) => {
-    e.preventDefault();
-    debouncedHandleChange(e);
+    e?.preventDefault(); // Check for `e` to avoid null reference
+    debouncedHandleChange(e, customProps); // Use the extracted debounced function
   };
 
   const handleChangeSelect = useCallback(
@@ -109,7 +119,13 @@ const FormNew = () => {
             <Label className="text-muted-foreground" htmlFor="invoice_date">
               Invoice date
             </Label>
-            <Input
+
+            <DatePicker
+              name="invoice_date"
+              
+              onSelectDate={(event) => handleChange(null, event)}
+            />
+            {/* <Input
               onChange={(e) => handleChange(e)}
               type="text"
               id="invoice_date"
@@ -117,7 +133,7 @@ const FormNew = () => {
               defaultValue={invoice.invoice_date}
               className="border border-muted-foreground"
               required
-            />
+            /> */}
           </div>
           <div className="col-span-full md:col-span-3 space-y-1">
             <Label className="text-muted-foreground" htmlFor="order_no">
@@ -266,7 +282,9 @@ const FormNew = () => {
           {/* <Label>.</Label> */}
 
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label className="" htmlFor="s_address">Terms & Conditions</Label>
+            <Label className="" htmlFor="s_address">
+              Terms & Conditions
+            </Label>
             <Textarea
               className="border border-muted-foreground"
               // onChange={(e) => handleChange(e)}

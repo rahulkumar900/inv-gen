@@ -1,18 +1,17 @@
 "use client";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { pdfjs, Document, Page } from "react-pdf";
-import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import "react-pdf/dist/esm/Page/TextLayer.css";
-import type { PDFDocumentProxy } from "pdfjs-dist";
+import React, { useCallback, useMemo, useState } from "react";
+import { BlobProvider } from "@react-pdf/renderer";
+import Invoice from "@/pdfTemplate/reports/Invoice";
+import { Invoice as InvoiceType } from "@/lib/features/invoice/invoiceType";
 import { useAppSelector } from "@/lib/hooks";
 import useResizeObserver from "@/lib/resizehooks";
 import { debounce } from "lodash";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, ChevronLeft } from "lucide-react";
-import { useSelector } from "react-redux";
-import { PDFDownloadLink, usePDF } from "@react-pdf/renderer";
-import Invoice from "@/pdfTemplate/reports/Invoice";
-import { RootState } from "@/lib/store";
+import { Document, Page, pdfjs } from "react-pdf";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const resizeObserverOptions = {};
+type PDFFile = string | File | null;
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
   import.meta.url
@@ -22,8 +21,6 @@ const options = {
   cMapUrl: "/cmaps/",
   standardFontDataUrl: "/standard_fonts/",
 };
-
-type PDFFile = string | File | null;
 
 const loadSkelton = () => {
   return (
@@ -53,12 +50,10 @@ const loadSkelton = () => {
   );
 };
 
-const resizeObserverOptions = {};
-
 const maxWidth = 400;
 const maxHeight = 400 * 1.416040100250627;
-
-export default function PdfPageComponent() {
+const PDFPreview = () => {
+  const data = useAppSelector((state) => state.counter);
   const [file, setFile] = useState<PDFFile>("/sample.pdf");
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -67,7 +62,7 @@ export default function PdfPageComponent() {
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>();
 
-  const memorizedOption = useMemo(() => ({ ...options }), []);
+  //   const memorizedOption = useMemo(() => ({ ...options }), []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedOnResize = useCallback(
@@ -121,70 +116,72 @@ export default function PdfPageComponent() {
     (containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth) *
     1.416040100250627;
 
-  const data = useSelector((state: RootState) => state.counter);
-  const [instance, updateInstance] = usePDF({
-    document: <Invoice invoice={data} />,
-  });
-
-  useEffect(() => {
-    updateInstance(<Invoice invoice={data} />);
-  }, [data, updateInstance]);
-
-  console.log(instance.blob, instance.error, instance.loading, instance.url);
-
   return (
-    <div
-      className="p-4  -z-2    flex justify-center items-center h-screen"
-      ref={setContainerRef}
-    >
-      <div className={`relative group w-full grid place-items-center  `}>
-        <Document
-          // file={base64String || file}
-          file={instance.url}
-          onLoadSuccess={onDocumentLoadSuccess}
-          loading={loadSkelton}
-          options={memorizedOption}
-          className="kutta"
-        >
-          <Page
-            pageNumber={pageNumber}
-            // width={width ? Math.min(width, maxWidth) : maxWidth}
-            width={
-              containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
-            }
-          />
-        </Document>
+    <BlobProvider document={<Invoice invoice={data} />}>
+      {({ blob, url, loading, error }) => {
+        if (loading) return <div>Loading...</div>;
+        if (error) return <div>Something went wrong: {error as Error}</div>;
 
-        <div className="text-center z-50 absolute bottom-10 left-0  transition-all duration-300 ease-in-out  justify-center hidden  group-hover:flex w-full">
-          <div className="block relative ">
-            <div className="inline-flex overflow-hidden gap-2 items-center bg-muted border-2 shadow-md shadow-slate-200 ">
-              <Button
-                type="button"
-                variant="outline"
-                disabled={pageNumber <= 1}
-                onClick={previousPage}
-                className="rounded-none border-none"
-                size="icon"
+        return (
+          <div
+            className="p-4  -z-2    flex justify-center items-center h-screen"
+            ref={setContainerRef}
+          >
+            <div className={`relative group w-full grid place-items-center  `}>
+              <Document
+                options={options}
+                file={url}
+                onLoadSuccess={onDocumentLoadSuccess}
+                loading={loadSkelton}
+                className="kutta"
               >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <div className="inline-flex min-w-max ">
-                {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
+                <Page
+                  pageNumber={pageNumber}
+                  // width={width ? Math.min(width, maxWidth) : maxWidth}
+                  width={
+                    containerWidth
+                      ? Math.min(containerWidth, maxWidth)
+                      : maxWidth
+                  }
+                />
+              </Document>
+
+              <div className="text-center z-50 absolute bottom-10 left-0  transition-all duration-300 ease-in-out  justify-center hidden  group-hover:flex w-full">
+                <div className="block relative ">
+                  <div className="inline-flex overflow-hidden gap-2 items-center bg-muted border-2 shadow-md shadow-slate-200 ">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      disabled={pageNumber <= 1}
+                      onClick={previousPage}
+                      className="rounded-none border-none"
+                      size="icon"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </Button>
+                    <div className="inline-flex min-w-max ">
+                      {pageNumber || (numPages ? 1 : "--")} of{" "}
+                      {numPages || "--"}
+                    </div>
+                    <Button
+                      type="button"
+                      className="rounded-none border-none"
+                      variant="outline"
+                      disabled={pageNumber >= numPages}
+                      onClick={nextPage}
+                      size="icon"
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
               </div>
-              <Button
-                type="button"
-                className="rounded-none border-none"
-                variant="outline"
-                disabled={pageNumber >= numPages}
-                onClick={nextPage}
-                size="icon"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        );
+      }}
+    </BlobProvider>
   );
-}
+};
+
+export default PDFPreview;

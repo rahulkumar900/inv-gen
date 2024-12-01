@@ -5,12 +5,12 @@ const borderColor = "black";
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
-    borderBottomColor: borderColor,
-    borderBottomWidth: 1,
+    // borderBottomColor: borderColor,
+    // borderBottomWidth: 1,
     alignItems: "center",
     height: 24,
-    fontStyle: "bold",
-    color: "white",
+    // fontStyle: "bold",
+    // color: "white",
   },
   slno: {
     width: "10%",
@@ -54,11 +54,11 @@ const InvoiceTableBlankSpace = ({ rowsCount, itemsLength }) => {
       key={`BR${i}`}
       break={(i + Number(itemsLength)) % 18 == 0}
     >
-      <Text style={styles.slno}>-</Text>
-      <Text style={styles.description}>-</Text>
-      <Text style={styles.qty}>-</Text>
-      <Text style={styles.rate}>-</Text>
-      <Text style={styles.amount}>-</Text>
+      <Text style={styles.slno}></Text>
+      <Text style={styles.description}></Text>
+      <Text style={styles.qty}></Text>
+      <Text style={styles.rate}></Text>
+      <Text style={styles.amount}></Text>
     </View>
   ));
   return <Fragment>{rows}</Fragment>;

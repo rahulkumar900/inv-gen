@@ -5,15 +5,16 @@ const borderColor = "black";
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
-    borderBottomColor: borderColor,
-    borderBottomWidth: 1,
+    display: "flex",
+
     alignItems: "center",
     height: 24,
     fontSize: 12,
+   
   },
   description: {
     width: "85%",
-    height: "100%",
+    // height: "100%",
     textAlign: "right",
     borderRightColor: borderColor,
     borderRightWidth: 1,
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   },
   total: {
     width: "15%",
-    height: "100%",
+    // height: "100%",
     textAlign: "right",
     paddingRight: 8,
     borderRightColor: borderColor,
@@ -34,18 +35,39 @@ const styles = StyleSheet.create({
 export const GstComponent = ({ name, summary }) => (
   <>
     {Object.entries(summary) && Object.entries(summary).length > 0 ? (
-      <>
-        {Object.entries(summary).map(([key, value]) => (
-          <View style={styles.row} key={key}>
-            <Text style={styles.description}>
-              {`${name.toUpperCase()} ${key} %`}
-            </Text>
-            <Text style={styles.total}>
-              {Number.parseFloat(value).toFixed(2)}
-            </Text>
-          </View>
-        ))}
-      </>
+      <View style={{ borderTopWidth: 1 }}>
+        {Object.entries(summary).map(([key, value]) =>
+          name !== "cgstigst" ? (
+            <View style={[styles.row]} key={key}>
+              <Text style={styles.description}>
+                {`${name.toUpperCase()} ${key} %`}
+              </Text>
+              <Text style={styles.total}>
+                {Number.parseFloat(value).toFixed(2)}
+              </Text>
+            </View>
+          ) : (
+            <React.Fragment key={key}>
+              <View style={[styles.row]}>
+                <Text style={styles.description}>
+                  {`${"cgst".toUpperCase()} ${key / 2} %`}
+                </Text>
+                <Text style={styles.total}>
+                  {Number.parseFloat(value / 2).toFixed(2)}
+                </Text>
+              </View>
+              <View style={[styles.row]}>
+                <Text style={styles.description}>
+                  {`${"sgst".toUpperCase()} ${key / 2} %`}
+                </Text>
+                <Text style={styles.total}>
+                  {Number.parseFloat(value / 2).toFixed(2)}
+                </Text>
+              </View>
+            </React.Fragment>
+          )
+        )}
+      </View>
     ) : null}
   </>
 );

@@ -1,5 +1,8 @@
-import { TaxOption } from "@/components/selectTax";
+// import { TaxOption } from "@/components/selectTax";
 import { PersistState } from "redux-persist";
+
+
+type TaxOption = "notax" | "gst" | "igst" | "cgstigst"
 
 // Define a base interface for taxes
 interface BaseTax {

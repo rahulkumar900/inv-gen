@@ -7,6 +7,9 @@ const nextConfig = {
     config.resolve.extensions.push(".js", ".json", ".ts", ".tsx");
     return config;
   },
+  experimental: {
+    serverComponentsExternalPackages: ["@react-pdf/renderer"],
+  },
 };
 
 export default nextConfig;

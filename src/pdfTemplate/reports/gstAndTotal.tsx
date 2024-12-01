@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   description: {
     width: "85%",
-    height: "100%",
+    
     textAlign: "right",
     borderRightColor: borderColor,
     borderRightWidth: 1,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   total: {
     width: "15%",
-    height: "100%",
+    
     textAlign: "right",
     fontFamily: "Helvetica-Bold",
     paddingRight: 8,
@@ -68,7 +68,7 @@ const GstAndTotal = ({ invoice }: { invoice: Invoice }) => {
     <View>
       <GstComponent summary={summary} name={taxType} />
 
-      <View style={[styles.row, { borderBottom: 0 }]}>
+      <View style={[styles.row, { borderBottom: 0, borderTop: 1 }]}>
         <Text style={styles.description}>TOTAL</Text>
         <Text style={styles.total}>{formatCurrency(totalWithTax, round)}</Text>
       </View>

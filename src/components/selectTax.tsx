@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Label } from "./ui/label";
 
 export type TaxOption = "notax" | "gst" | "igst" | "cgstigst";
 
@@ -16,13 +17,10 @@ interface TaxSelectProps {
 
 export default function TaxSelect({ onSelect, value }: TaxSelectProps) {
   return (
-    <div className="w-full max-w-xs">
-      <label
-        htmlFor="tax-select"
-        className="block text-sm font-medium text-gray-700 mb-1"
-      >
+    <div className="w-full max-w-xs space-y-1">
+      <Label htmlFor="tax-select" className="block  text-muted-foreground ">
         Select Tax Option
-      </label>
+      </Label>
       <Select value={value} onValueChange={onSelect as (value: string) => void}>
         <SelectTrigger id="tax-select" className="w-full">
           <SelectValue placeholder="Select tax option" />

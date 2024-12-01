@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 const config = {
   darkMode: ["class"],
@@ -90,9 +91,24 @@ const config = {
         "slide-in": "slideIn 0.9s forwards",
         "slide-out": "slideOut 0.5s forwards",
       },
+      scrollbar: {
+        hide: "scrollbar-width: none; -ms-overflow-style: none;",
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".scrollbar-none": {
+          "scrollbar-width": "none",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
+      });
+    }),
+  ],
 } satisfies Config;
 
 export default config;
