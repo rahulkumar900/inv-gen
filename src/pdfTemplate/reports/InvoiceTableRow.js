@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     borderRightColor: borderColor,
     justifyContent: "center",
     borderRightWidth: 1,
-    textAlign: "right",
+    textAlign: "center",
     paddingRight: 8,
   },
   rate: {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
-    textAlign: "right",
+    textAlign: "center",
     paddingRight: 8,
   },
   amount: {
@@ -77,7 +77,7 @@ const InvoiceTableRow = ({ items }) => {
         <Text>{item.qty}</Text>
       </View>
       <View style={styles.rate}>
-        <Text>{item.rate}</Text>
+        <Text>{formatCurrency(item.rate)}</Text>
       </View>
       <View style={styles.amount}>
         <Text>{formatCurrency((item.qty * item.rate).toFixed(2))}</Text>

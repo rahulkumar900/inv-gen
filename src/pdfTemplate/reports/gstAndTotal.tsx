@@ -17,14 +17,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     alignItems: "center",
     display: "flex",
-
     height: 24,
     fontSize: 12,
   },
   description: {
     width: "85%",
-    
     textAlign: "right",
+    height: 24,
+    justifyContent: "center",
+    lineHeight: 1,
     borderRightColor: borderColor,
     borderRightWidth: 1,
     borderLeftColor: borderColor,
@@ -33,8 +34,10 @@ const styles = StyleSheet.create({
   },
   total: {
     width: "15%",
-    
     textAlign: "right",
+    height: 24,
+    justifyContent: "center",
+    lineHeight: 1,
     fontFamily: "Helvetica-Bold",
     paddingRight: 8,
     borderRightColor: borderColor,
@@ -69,8 +72,12 @@ const GstAndTotal = ({ invoice }: { invoice: Invoice }) => {
       <GstComponent summary={summary} name={taxType} />
 
       <View style={[styles.row, { borderBottom: 0, borderTop: 1 }]}>
-        <Text style={styles.description}>TOTAL</Text>
-        <Text style={styles.total}>{formatCurrency(totalWithTax, round)}</Text>
+        <View style={styles.description}>
+          <Text>TOTAL</Text>
+        </View>
+        <View style={styles.total}>
+          <Text>{formatCurrency(totalWithTax, round)}</Text>
+        </View>
       </View>
 
       <InvoiceFooter total={totalWithTax} />

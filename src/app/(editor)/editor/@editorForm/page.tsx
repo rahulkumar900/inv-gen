@@ -7,7 +7,7 @@ export default function Page() {
     <>
       <div
         className={clsx(
-          "md:w-3/5 w-full px-8 grid items-center bg-background md:overflow-y-scroll scrollbar-none",
+          "md:w-3/5 w-full md:px-8 grid items-center bg-background md:overflow-y-scroll scrollbar-none",
           {
             // block: !editorMode,
             // hidden: editorMode,
