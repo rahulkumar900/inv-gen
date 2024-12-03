@@ -1,16 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import invoiceData from "./data";
 import { Invoice, Item } from "./invoiceType";
-
-import {
-  addLine,
+import {   addLine,
   clearLogo,
   generatePdfAndConvert,
   removeLine,
   toggleTemplateAsync,
   updateInvoiceField,
-  updateItemAsync,
-} from "./action";
+  updateItemAsync,} from "./action";
+
+
 
 const initialState = invoiceData;
 

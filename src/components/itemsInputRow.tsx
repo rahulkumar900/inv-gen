@@ -1,11 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  generatePdfAndConvert,
-  removeLine,
-  updateItemAsync,
-} from "@/lib/features/invoice/action";
+
 
 import { AppDispatch } from "@/lib/store";
 import { debounce, debouncedHandleItemsChange, formatCurrency } from "@/utils";
@@ -15,6 +11,7 @@ import { X } from "lucide-react";
 import { TaxOption } from "./selectTax";
 import clsx from "clsx";
 import { Label } from "./ui/label";
+import { removeLine } from "@/lib/features/invoice/action";
 
 export default function ItemsInputRow({
   li,
@@ -73,7 +70,7 @@ export default function ItemsInputRow({
           type="number"
           name="qty"
           placeholder="Qty"
-          defaultValue={formatCurrency(li.qty) || ""}
+          defaultValue={li.qty || ""}
           onChange={(e) => handleItemsChange(e, i)}
         />
       </div>

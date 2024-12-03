@@ -77,7 +77,6 @@ export default function EdiorLayout({
 }) {
   return (
     <section className="w-full h-screen max-h-screen flex">
-    
       <Header />
       {editorForm}
       {preview}

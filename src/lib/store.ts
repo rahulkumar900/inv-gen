@@ -1,31 +1,28 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./features/invoice/invoiceSlice";
-import {  persistReducer } from "redux-persist";
+import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import listenerMiddleware from "./features/invoice/middleware/pdfmiddleware";
-
-
+// import listenerMiddleware from "./features/invoice/middleware/pdfmiddleware";
 
 // const persistConfig = {
 //   key: "root",
 //   storage,
 // };
 
-
 const persistConfig = {
-  key: 'root',
-  storage: typeof window !== 'undefined' ? storage : {
-    setItem: () => Promise.resolve(), // noop
-    getItem: () => Promise.resolve(null), // noop
-    removeItem: () => Promise.resolve(), // noop
-  },
+  key: "root",
+  storage:
+    typeof window !== "undefined"
+      ? storage
+      : {
+          setItem: () => Promise.resolve(), // noop
+          getItem: () => Promise.resolve(null), // noop
+          removeItem: () => Promise.resolve(), // noop
+        },
 };
 
-
 const persistedReducer = persistReducer(persistConfig, counterReducer);
-
-
 
 export const makeStore = () => {
   return configureStore({
@@ -38,7 +35,8 @@ export const makeStore = () => {
           // Optionally, ignore paths in the state
           ignoredPaths: ["register", "rehydrate"],
         },
-      }).prepend(listenerMiddleware.middleware),
+      }),
+    // .prepend(listenerMiddleware.middleware), 
   });
 };
 

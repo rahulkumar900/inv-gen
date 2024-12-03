@@ -1,21 +1,14 @@
 import { pdf } from "@react-pdf/renderer";
-// import InvoiceComponent from "@/components/reports/Invoice";
-import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
+import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { RootState } from "@/lib/store";
-import { createAction } from "@reduxjs/toolkit";
 import PdfComponent from "@/pdfComponent/pdfComponent";
 
-
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 /**==============================================
- **              convertBlobTpBase64
- *?  What does it do?
- *@param blob type  Blob
- *@return type Promise<string>
+ **              convertBlobToBase64
+ *?  Converts a Blob object to a base64-encoded string
+ *@param blob Blob
+ *@return Promise<string>
  *=============================================**/
-
 export const convertBlobToBase64 = (blob: Blob): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -33,107 +26,52 @@ export const convertBlobToBase64 = (blob: Blob): Promise<string> => {
   });
 };
 
-// Action to reset base64String
-
-
 /**==============================================
  **             generatePdfAndConvert
- *?  What does it do?
- *@param name type
- *@param name type
- *@return type string
+ *?  Generates a PDF and converts it to a base64-encoded string
+ *@return Promise<string>
  *=============================================**/
-
-// Async thunk to generate and convert PDF to base64
-export const generatePdfAndConvert = createAsyncThunk(
-  "counter/generatePdfAndConvert",
-  async (_, { getState }) => {
-    const currentState = (getState() as RootState).counter;
-    try {
-      console.log(PdfComponent);
-      
-      const pdfBlob = await pdf(
-        // <InvoiceComponent {...currentState} />
-        <PdfComponent {...currentState} />
-      ).toBlob();
-      const base64String = await convertBlobToBase64(pdfBlob);
-      return base64String;
-    } catch (error) {
-      console.error("Error generating PDF:", error);
-      throw error;
-    }
+export const generatePdfAndConvert = createAsyncThunk<
+  string, // Return type (base64 string)
+  void, // No arguments
+  { state: RootState }
+>("counter/generatePdfAndConvert", async (_, { getState }) => {
+  const { counter } = getState() as RootState; // Destructure counter from state
+  try {
+    const pdfBlob = await pdf(<PdfComponent {...counter} />).toBlob();
+    return await convertBlobToBase64(pdfBlob); // Convert and return base64
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    throw error;
   }
-);
-
-/**------------------------------------------------------------------------
- **                           Add New Line
- *?  What does it do?
- *@param name type
- *@param name type
- *@return type
- *------------------------------------------------------------------------**/
-
-export const addLine = createAction("counter/addLine", (payload) => {
-  return {
-    payload,
-  };
 });
 
-/**------------------------------------------------------------------------
- **                           Remove Line
- *?  What does it do?
- *@param name type
- *@param name type
- *@return type
- *------------------------------------------------------------------------**/
-export const removeLine = createAction("items/removeLine", (sno) => ({
-  payload: sno,
-}));
-
-//
-
-
-export const clearLogo = createAction("counter/removeLine");
-
-
-
-
 /**==============================================
- **              updateInvoiceField
- *?  What does it do?
+ **             updateInvoiceField
+ *?  Updates a specific invoice field
  *@param name string
  *@param value string
- *@return {Name,value} : {string,string}
+ *@return { name: string, value: string }
  *=============================================**/
-
 interface UpdateInvoiceFieldPayload {
   name: string;
   value: string;
 }
 
-// Define the return type for updateInvoiceField
 interface UpdateInvoiceFieldResponse {
   name: string;
   value: string;
 }
 
-// Async thunk to update invoice field
 export const updateInvoiceField = createAsyncThunk<
-  UpdateInvoiceFieldResponse, // Return type of the payload creator
-  UpdateInvoiceFieldPayload, // First argument to the payload creator
-  {
-    state: RootState; // ThunkAPI fields type
-    rejectValue: string; // Type of the rejected value
-  }
+  UpdateInvoiceFieldResponse,
+  UpdateInvoiceFieldPayload,
+  { state: RootState; rejectValue: string }
 >(
   "counter/updateInvoiceField",
-  async (
-    { name, value }: { name: string; value: string },
-    { getState, rejectWithValue }
-  ) => {
+  async ({ name, value }, { rejectWithValue }) => {
     try {
-      await delay(100); // Simulate a delay
-      return { name, value };
+      return { name, value }; // Directly return updated field
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
@@ -141,48 +79,47 @@ export const updateInvoiceField = createAsyncThunk<
 );
 
 /**==============================================
- **              FUNCTION NAME
- *?  What does it do?
- *@param name type
- *@param name type
- *@return type
+ **             updateItemAsync
+ *?  Updates a specific field of an item in a list
+ *@param index number
+ *@param name string
+ *@param value string
+ *@return { index: number, name: string, value: string }
  *=============================================**/
-
 interface UpdateItemPayload {
   index: number;
   name: string;
   value: string;
 }
+
 interface UpdateItemFieldResponse {
   index: number;
   name: string;
   value: string;
 }
+
 export const updateItemAsync = createAsyncThunk<
   UpdateItemPayload,
   UpdateItemFieldResponse,
-  {
-    state: RootState; // ThunkAPI fields type
-    rejectValue: string; // Type of the rejected value
+  { state: RootState; rejectValue: string }
+>("counter/updateItem", async ({ index, name, value }, { rejectWithValue }) => {
+  try {
+    return { index, name, value }; // Directly return updated item
+  } catch (error) {
+    return rejectWithValue((error as Error).message || "Update item failed");
   }
->(
-  "counter/updateItem",
-  async (
-    { index, name, value }: UpdateItemPayload,
-    { getState, rejectWithValue }
-  ) => {
-    try {
-      await delay(100);
-      return { index, name, value };
-    } catch (error: any) {
-      return rejectWithValue((error as Error).message || "Update item failed");
-    }
-  }
-);
+});
 
+/**==============================================
+ **             toggleTemplateAsync
+ *?  Toggles the template value
+ *@param template string
+ *@return { template: string }
+ *=============================================**/
 interface UpdateTemplatePayload {
   template: string;
 }
+
 interface UpdateTemplateFieldResponse {
   template: string;
 }
@@ -190,18 +127,30 @@ interface UpdateTemplateFieldResponse {
 export const toggleTemplateAsync = createAsyncThunk<
   UpdateTemplatePayload,
   UpdateTemplateFieldResponse,
-  {
-    state: RootState; // ThunkAPI fields type
-    rejectValue: string; // Type of the rejected value
+  { state: RootState; rejectValue: string }
+>("counter/toggleTemplateAsync", async ({ template }, { rejectWithValue }) => {
+  try {
+    return { template }; // Directly return updated template
+  } catch (error) {
+    return rejectWithValue(
+      (error as Error).message || "Template toggle failed"
+    );
   }
->(
-  "counter/toggleTemplateAsync",
-  async ({ template }, { getState, rejectWithValue }) => {
-    try {
-      await delay(100);
-      return { template };
-    } catch (error: any) {
-      return rejectWithValue((error as Error).message || "Update item failed");
-    }
-  }
-);
+});
+
+/**==============================================
+ **             Action Creators
+ *=============================================**/
+
+// Action to add a new line
+export const addLine = createAction("counter/addLine", (payload) => ({
+  payload,
+}));
+
+// Action to remove a line
+export const removeLine = createAction("items/removeLine", (sno) => ({
+  payload: sno,
+}));
+
+// Action to clear the logo
+export const clearLogo = createAction("counter/clearLogo");
