@@ -49,7 +49,7 @@ export const GstComponent = ({ name, summary }) => (
           name !== "cgstigst" ? (
             <View style={[styles.row]} key={key}>
               <View style={styles.description}>
-                <Text>{`${name.toUpperCase()} ${key} %`}</Text>
+                <Text style={{textAlign: "right"}}>{`${name.toUpperCase()} ${key} %`}</Text>
               </View>
               <View style={styles.total}>
                 <Text>{formatCurrency( Number.parseFloat(value).toFixed(2))}</Text>

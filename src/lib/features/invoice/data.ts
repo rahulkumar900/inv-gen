@@ -47,6 +47,7 @@ const invoiceData: Invoice = {
   s_state: "",
 
   //
+  terms: "",
 
   trans_date: "",
   due_date: "",

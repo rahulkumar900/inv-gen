@@ -1,8 +1,8 @@
 // import { TaxOption } from "@/components/selectTax";
 import { PersistState } from "redux-persist";
+import { PersistPartial } from "redux-persist/es/persistReducer";
 
-
-type TaxOption = "notax" | "gst" | "igst" | "cgstigst"
+type TaxOption = "notax" | "gst" | "igst" | "cgstigst";
 
 // Define a base interface for taxes
 interface BaseTax {
@@ -81,6 +81,7 @@ export interface Invoice {
   s_gst_pan: string;
 
   //
+  terms: string;
 
   isIgst: boolean;
   round: boolean;
@@ -90,5 +91,6 @@ export interface Invoice {
   due_date: string;
   template: string;
   items: Item[];
-  [key: string]: number | string | null | boolean | Item[] | PersistState; // Add an index signature
+  [key: string]: any;
+  //  Add an index signature
 }

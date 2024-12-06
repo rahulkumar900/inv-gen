@@ -23,7 +23,14 @@ export function DatePicker({ name, onSelectDate }: DatePickerProps) {
 
   const handleChangeDate = (selectedDate: Date | undefined) => {
     setDate(selectedDate);
-    onSelectDate({ name, value: selectedDate?.toLocaleDateString()! });
+    onSelectDate({
+      name,
+      value: selectedDate?.toLocaleDateString("en-GB", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })!,
+    });
   };
 
   return (

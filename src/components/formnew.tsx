@@ -101,9 +101,7 @@ const FormNew = () => {
         </form>
         <form className=" grid grid-cols-subgrid items-flex-start space-y-2 md:space-y-0 col-span-12 row-start-2 row-end-3 ">
           <div className="col-span-full md:col-span-3 space-y-1">
-            <Label className="text-muted-foreground" htmlFor="invoice_no">
-              Invoice number
-            </Label>
+            <Label htmlFor="invoice_no">Invoice number</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
@@ -116,13 +114,10 @@ const FormNew = () => {
             />
           </div>
           <div className="col-span-full md:col-span-3 space-y-1">
-            <Label className="text-muted-foreground" htmlFor="invoice_date">
-              Invoice date
-            </Label>
+            <Label htmlFor="invoice_date">Invoice date</Label>
 
             <DatePicker
               name="invoice_date"
-              
               onSelectDate={(event) => handleChange(null, event)}
             />
             {/* <Input
@@ -136,9 +131,7 @@ const FormNew = () => {
             /> */}
           </div>
           <div className="col-span-full md:col-span-3 space-y-1">
-            <Label className="text-muted-foreground" htmlFor="order_no">
-              Order number
-            </Label>
+            <Label htmlFor="order_no">Order number</Label>
             <Input
               onChange={(e) => handleChange(e)}
               type="text"
@@ -165,7 +158,7 @@ const FormNew = () => {
           </div> */}
 
           <div className="col-span-full  md:col-span-3 space-y-1 l">
-            <Label className="text-muted-foreground">Logo</Label>
+            <Label>Logo</Label>
 
             {invoice?.logo ? (
               <div className="relative w-12 border ">
@@ -185,7 +178,7 @@ const FormNew = () => {
                 >
                   <Upload />
                   <div className="flex flex-col justify-center">
-                    <div className="border-b text-md inline-block  border-muted-foreground">
+                    <div className="border-b text-sm inline-block  border-muted-foreground">
                       Upload Image
                     </div>
                     <div className="text-xs text-muted-foreground">
@@ -209,9 +202,7 @@ const FormNew = () => {
         </form>
         <form className="space-y-4 col-span-12 md:col-start-1   md:col-end-7 ">
           <div className="grid w-full max-w-sm items-center space-y-2">
-            <Label className="text-muted-foreground" htmlFor="address">
-              Your company details
-            </Label>
+            <Label htmlFor="address">Your company details</Label>
             <Textarea
               onChange={(e) => handleChange(e)}
               className="active:ring-0 border border-muted-foreground"
@@ -232,7 +223,6 @@ const FormNew = () => {
         <form className="space-y-4 col-span-12 md:col-start-7  md:col-end-13">
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label
-              className="text-muted-foreground"
               htmlFor="b_address"
 
               // className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -259,10 +249,10 @@ const FormNew = () => {
         </form>
 
         <form className=" space-y-4 col-span-12 md:col-start-1 md:col-end-7  ">
-          <Label>Ship To</Label>
+          {/* <Label>Ship To</Label> */}
 
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="s_address">Company Address</Label>
+            <Label htmlFor="s_address">Ship To</Label>
             <Textarea
               className="border border-muted-foreground"
               onChange={(e) => handleChange(e)}
@@ -282,16 +272,14 @@ const FormNew = () => {
           {/* <Label>.</Label> */}
 
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label className="" htmlFor="s_address">
-              Terms & Conditions
-            </Label>
+            <Label htmlFor="terms">Terms & Conditions</Label>
             <Textarea
               className="border border-muted-foreground"
-              // onChange={(e) => handleChange(e)}
-              id="s_address"
-              name="s_address"
+              onChange={(e) => handleChange(e)}
+              id="terms"
+              name="terms"
               placeholder="John"
-              defaultValue={invoice.s_address}
+              defaultValue={invoice.terms}
               required
             />
           </div>

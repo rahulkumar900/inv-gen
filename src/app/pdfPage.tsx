@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { use, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
@@ -13,6 +13,11 @@ import { useSelector } from "react-redux";
 import { PDFDownloadLink, usePDF } from "@react-pdf/renderer";
 import Invoice from "@/pdfTemplate/reports/Invoice";
 import { RootState } from "@/lib/store";
+import SecondDesign from "@/pdfTemplate/SecondTemplate";
+import componentsMap from "@/pdfComponent/componentMap";
+import { Invoice as InvoiceType } from "@/lib/features/invoice/invoiceType";
+import { PersistPartial } from "redux-persist/es/persistReducer";
+
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
   import.meta.url
@@ -86,18 +91,6 @@ export default function PdfPageComponent() {
 
   useResizeObserver(containerRef, resizeObserverOptions, debouncedOnResize);
 
-  const { base64String, loading, error } = useAppSelector(
-    (state) => state.counter
-  );
-
-  function onFileChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    const { files } = event.target;
-
-    if (files && files[0]) {
-      setFile(files[0] || null);
-    }
-  }
-
   function changePage(offset: number) {
     setPageNumber((prevPageNumber) => prevPageNumber + offset);
   }
@@ -121,16 +114,33 @@ export default function PdfPageComponent() {
     (containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth) *
     1.416040100250627;
 
-  const data = useSelector((state: RootState) => state.counter);
+  const data = useSelector((state: RootState) => state.counter as InvoiceType);
+  const { template } = data;
+
+  const [SelectedComponent, setSelectedComponent] =
+    useState<React.ComponentType<any> | null>(null);
+
+  useEffect(() => {
+    setSelectedComponent(() =>
+      template ? componentsMap[template] : componentsMap["A"]
+    );
+  }, [template]);
+
   const [instance, updateInstance] = usePDF({
-    document: <Invoice invoice={data} />,
+    document: SelectedComponent ? (
+      <SelectedComponent invoice={data} />
+    ) : undefined,
   });
 
   useEffect(() => {
-    updateInstance(<Invoice invoice={data} />);
-  }, [data, updateInstance]);
+    if (SelectedComponent) {
+      updateInstance(<SelectedComponent invoice={data} />);
+    }
+  }, [data, SelectedComponent, updateInstance]);
 
-  console.log(instance.blob, instance.error, instance.loading, instance.url);
+  if (!template) {
+    return <p>Please select a document type.</p>;
+  }
 
   return (
     <div

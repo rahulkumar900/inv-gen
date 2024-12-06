@@ -35,7 +35,7 @@ const InputTableNew = () => {
 
   const counter: Invoice = useAppSelector((state) => state.counter);
 
-  const { items, tableRows, initialRows, isIgst, loading, round } = useSelector(
+  const { items, initialRows, round } = useSelector(
     (state: RootState) => state.counter
   );
 
@@ -203,11 +203,11 @@ const InputTableNew = () => {
             <div className="md:col-span-2 col-span-full ">
               <Button
                 variant={"default"}
-                disabled={loading}
+                
                 className="my-4 min-w-[150px] px-4 py-2 flex justify-center items-center"
                 onClick={handleAddLine}
               >
-                <span>{`${loading ? "Wait .." : "Add New Line"} `}</span>
+                <span>{"Add New Line"}</span>
               </Button>
             </div>
 
