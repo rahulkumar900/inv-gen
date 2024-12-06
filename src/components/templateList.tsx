@@ -38,7 +38,7 @@ export default function TemplateList() {
           <Image
             onClick={() => handleClick("A")}
             className="w-full border shadow-md  bg-gray-100 cursor-pointer h-auto object-cover object-center"
-            src="/A.WEBP"
+            src="/A.webp"
             height={300}
             width="500"
             priority
@@ -47,7 +47,7 @@ export default function TemplateList() {
           <Image
             onClick={() => handleClick("B")}
             className="w-full border shadow-md  bg-gray-100 cursor-pointer h-auto object-cover object-center"
-            src="/B.WEBP"
+            src="/B.webp"
             priority
             height={300}
             width="500"
